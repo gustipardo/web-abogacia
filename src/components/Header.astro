@@ -1,0 +1,195 @@
+---
+const nav = [
+  { label: "Inicio", href: "#inicio" },
+  { label: "Servicios", href: "#servicios" },
+  { label: "Sobre mí", href: "#sobre-mi" },
+  { label: "Artículos", href: "#articulos" },
+  { label: "Contacto", href: "#contacto" },
+];
+---
+
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#inicio" class="logo">
+      <span class="logo-initials">GG</span>
+      <div class="logo-text">
+        <strong>Dra. Graciela Ghetti</strong>
+        <span>Abogada · Mat. <!--MATRICULA--></span>
+      </div>
+    </a>
+
+    <nav class="nav" aria-label="Navegación principal">
+      {nav.map((item) => (
+        <a href={item.href} class="nav-link">{item.label}</a>
+      ))}
+    </nav>
+
+    <a href="https://wa.me/5491100000000?text=Hola%20Dra.%20Ghetti%2C%20quiero%20consultar%20sobre%20mi%20jubilaci%C3%B3n%20docente."
+       class="btn btn-whatsapp header-cta"
+       target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.12 1.527 5.855L.057 23.5l5.83-1.527A11.938 11.938 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.373l-.36-.214-3.724.977.994-3.63-.235-.373A9.818 9.818 0 1112 21.818z"/>
+      </svg>
+      Consulta gratis
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    {nav.map((item) => (
+      <a href={item.href} class="mobile-nav-link">{item.label}</a>
+    ))}
+    <a href="https://wa.me/5491100000000?text=Hola%20Dra.%20Ghetti%2C%20quiero%20consultar%20sobre%20mi%20jubilaci%C3%B3n%20docente."
+       class="btn btn-whatsapp" style="margin-top:1rem;justify-content:center;"
+       target="_blank" rel="noopener">
+      Consulta por WhatsApp
+    </a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(27,42,74,0.07);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 72px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .logo-initials {
+    width: 42px;
+    height: 42px;
+    background: var(--navy);
+    color: var(--gold);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .logo-text strong {
+    font-size: 0.9rem;
+    color: var(--navy);
+  }
+
+  .logo-text span {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .nav {
+    display: flex;
+    gap: 0.25rem;
+    margin-left: auto;
+  }
+
+  .nav-link {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text);
+    border-radius: 6px;
+    transition: color 0.15s, background 0.15s;
+    font-weight: 500;
+  }
+
+  .nav-link:hover {
+    color: var(--navy);
+    background: var(--bg);
+  }
+
+  .header-cta {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: auto;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--navy);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    padding: 1rem 1.5rem 1.5rem;
+    border-top: 1px solid var(--border);
+    background: var(--white);
+  }
+
+  .mobile-nav-link {
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .nav, .header-cta { display: none; }
+    .hamburger { display: flex; }
+    .mobile-nav.open { display: flex; }
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('hamburger')!;
+  const nav = document.getElementById('mobile-nav')!;
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+    nav.setAttribute('aria-hidden', String(!open));
+  });
+  // close on link click
+  nav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      nav.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>

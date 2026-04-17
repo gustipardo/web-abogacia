@@ -1,0 +1,176 @@
+---
+const services = [
+  {
+    icon: "🎓",
+    title: "Jubilación Docente",
+    desc: "Asesoramiento integral para docentes que buscan iniciar o gestionar su jubilación. Conozco los regímenes especiales (Ley 24.016 y provinciales), los años de servicio requeridos y los beneficios que muchos desconocen.",
+    points: [
+      "Análisis de aportes y años de servicio",
+      "Gestión ante ANSES y cajas provinciales",
+      "Cómputo de servicios y reconocimiento de períodos",
+      "Reclamo de haberes sin percibir",
+    ],
+    cta: "Consultar",
+  },
+  {
+    icon: "📋",
+    title: "Derecho Previsional",
+    desc: "Representación legal en reclamos previsionales ante organismos nacionales y provinciales. Si su jubilación fue mal liquidada, si le denegaron el beneficio, o si necesita reajustar el haber, la ayudo.",
+    points: [
+      "Reajuste de haberes jubilatorios",
+      "Impugnación de resoluciones de ANSES",
+      "Acciones de actualización por movilidad",
+      "Pensiones por fallecimiento",
+    ],
+    cta: "Consultar",
+  },
+  {
+    icon: "⚖️",
+    title: "Derecho Civil",
+    desc: "Soluciones jurídicas en el ámbito civil para particulares. Contratos, sucesiones, familia y más. Siempre con claridad y trato humano.",
+    points: [
+      "Sucesiones y herencias",
+      "Contratos y locaciones",
+      "Daños y perjuicios",
+      "Asesoramiento general",
+    ],
+    cta: "Consultar",
+  },
+];
+---
+
+<section class="section services" id="servicios">
+  <div class="container">
+    <div class="services-header">
+      <p class="section-label">Áreas de práctica</p>
+      <h2 class="section-title">¿En qué puedo ayudarle?</h2>
+      <p class="section-subtitle">
+        Enfoque en el derecho que más le afecta a los docentes argentinos: sus derechos previsionales, su jubilación y su tranquilidad futura.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      {services.map((s, i) => (
+        <div class={`service-card ${i === 0 ? 'service-card--featured' : ''}`}>
+          <div class="service-icon">{s.icon}</div>
+          <h3 class="service-title">{s.title}</h3>
+          <p class="service-desc">{s.desc}</p>
+          <ul class="service-points">
+            {s.points.map(p => (
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                {p}
+              </li>
+            ))}
+          </ul>
+          <a href="#contacto" class={`btn ${i === 0 ? 'btn-primary' : 'btn-navy'}`} style="margin-top: auto; align-self: flex-start;">
+            {s.cta} →
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--white);
+  }
+
+  .services-header {
+    margin-bottom: 3rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    gap: 1rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    height: 100%;
+  }
+
+  .service-card:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+
+  .service-card--featured {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
+
+  .service-card--featured .service-title {
+    color: var(--gold);
+  }
+
+  .service-card--featured .service-desc {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .service-card--featured .service-points li {
+    color: rgba(255,255,255,0.85);
+  }
+
+  .service-card--featured .service-points svg {
+    color: var(--gold);
+  }
+
+  .service-icon {
+    font-size: 2.25rem;
+    line-height: 1;
+  }
+
+  .service-title {
+    font-size: 1.3rem;
+    color: var(--navy);
+    font-family: var(--font-serif);
+  }
+
+  .service-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .service-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+  }
+
+  .service-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  .service-points svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: var(--gold);
+  }
+
+  @media (max-width: 900px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

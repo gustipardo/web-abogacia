@@ -1,0 +1,249 @@
+---
+const articles = [
+  {
+    tag: "Jubilación Docente",
+    title: "¿Cuántos años de servicio necesita un docente para jubilarse en Argentina?",
+    excerpt: "La Ley 24.016 establece un régimen especial para docentes nacionales. Le explicamos los requisitos de edad y antigüedad, cómo se computan los servicios diferenciales y qué pasa si trabajó en distintos niveles.",
+    date: "Marzo 2026",
+    mins: "5 min",
+  },
+  {
+    tag: "Derecho Previsional",
+    title: "Mi jubilación fue mal liquidada: ¿puedo reclamar la diferencia?",
+    excerpt: "Sí, y tiene un plazo para hacerlo. El reajuste de haberes es un derecho reconocido por la Corte Suprema. Le contamos cuándo corresponde, cómo se calcula la diferencia y cómo iniciar el reclamo.",
+    date: "Febrero 2026",
+    mins: "6 min",
+  },
+  {
+    tag: "Jubilación Docente",
+    title: "Jubilación docente provincial vs. nacional: ¿cuál le corresponde y cuál conviene?",
+    excerpt: "Muchos docentes ejercieron en instituciones nacionales y provinciales a la vez. Entender qué caja rige su situación puede marcar una diferencia importante en el monto final de su beneficio.",
+    date: "Enero 2026",
+    mins: "7 min",
+  },
+  {
+    tag: "Trámites",
+    title: "Pasos para iniciar el trámite de jubilación docente: guía paso a paso",
+    excerpt: "Desde la solicitud del CUIL actualizado hasta la presentación ante ANSES o la caja provincial. Una guía práctica para que no pierda tiempo ni documentación en el proceso.",
+    date: "Diciembre 2025",
+    mins: "8 min",
+  },
+  {
+    tag: "Derecho Previsional",
+    title: "Pensión por fallecimiento de docente: ¿quiénes tienen derecho y cómo pedirla?",
+    excerpt: "Si perdió a un familiar que era docente activo o jubilado, sus derechohabientes pueden acceder a una pensión. Le explicamos los requisitos, la documentación necesaria y los plazos para solicitarla.",
+    date: "Noviembre 2025",
+    mins: "5 min",
+  },
+  {
+    tag: "Jubilación Docente",
+    title: "Reconocimiento de servicios: cómo recuperar años no aportados",
+    excerpt: "Los períodos trabajados en negro, los contratos eventuales o los cargos sin relación de dependencia formal no siempre se computan automáticamente. Le contamos cómo recuperarlos antes de jubilarse.",
+    date: "Octubre 2025",
+    mins: "6 min",
+  },
+];
+---
+
+<section class="section articles" id="articulos">
+  <div class="container">
+    <div class="articles-header">
+      <div>
+        <p class="section-label">Artículos e información</p>
+        <h2 class="section-title">Lo que todo docente debería saber</h2>
+        <p class="section-subtitle">
+          Información clara y actualizada sobre jubilación docente, derecho previsional y novedades legales en Argentina.
+        </p>
+      </div>
+      <a href="#contacto" class="btn btn-navy articles-cta-desktop">
+        ¿Tiene una consulta? →
+      </a>
+    </div>
+
+    <div class="articles-grid">
+      {articles.map((a, i) => (
+        <article class={`article-card ${i === 0 ? 'article-card--wide' : ''}`}>
+          <div class="article-meta">
+            <span class="article-tag">{a.tag}</span>
+            <span class="article-date">{a.date} · {a.mins} de lectura</span>
+          </div>
+          <h3 class="article-title">{a.title}</h3>
+          <p class="article-excerpt">{a.excerpt}</p>
+          <a href="#contacto" class="article-link">
+            Leer más
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <div class="articles-footer">
+      <p>¿Tiene dudas sobre su situación particular?</p>
+      <a href="#contacto" class="btn btn-primary">Consultar con la Dra. Ghetti</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .articles {
+    background: var(--white);
+  }
+
+  .articles-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .articles-cta-desktop {
+    flex-shrink: 0;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .article-card--wide {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 0 1.5rem;
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  .article-card--wide .article-meta { grid-column: 2; }
+  .article-card--wide .article-title { grid-column: 2; color: var(--white); }
+  .article-card--wide .article-excerpt { grid-column: 2; color: rgba(255,255,255,0.75); }
+  .article-card--wide .article-link { grid-column: 2; color: var(--gold); }
+
+  .article-card--wide::before {
+    content: "📌";
+    font-size: 3rem;
+    grid-row: 1 / 5;
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem 0 0;
+    font-style: normal;
+  }
+
+  .article-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .article-card:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .article-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(184,152,106,0.15);
+    color: var(--gold);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  .article-card--wide .article-tag {
+    background: rgba(184,152,106,0.25);
+  }
+
+  .article-date {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .article-card--wide .article-date {
+    color: rgba(255,255,255,0.5);
+  }
+
+  .article-title {
+    font-size: 1.05rem;
+    font-family: var(--font-serif);
+    color: var(--navy);
+    line-height: 1.35;
+  }
+
+  .article-excerpt {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    flex-grow: 1;
+  }
+
+  .article-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold);
+    transition: gap 0.15s;
+  }
+
+  .article-link:hover {
+    gap: 0.6rem;
+  }
+
+  .articles-footer {
+    margin-top: 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .articles-footer p {
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+    .article-card--wide {
+      grid-column: 1;
+      grid-template-columns: 1fr;
+    }
+    .article-card--wide::before {
+      display: none;
+    }
+    .article-card--wide .article-meta,
+    .article-card--wide .article-title,
+    .article-card--wide .article-excerpt,
+    .article-card--wide .article-link {
+      grid-column: 1;
+    }
+    .articles-cta-desktop {
+      display: none;
+    }
+  }
+</style>
