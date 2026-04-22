@@ -1,0 +1,220 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  question: string;
+  shortAnswer: string;
+  tag: string;
+  publishDate: Date;
+  readingMinutes: number;
+  author: string;
+  faqs?: { question: string; answer: string }[];
+  lang: 'es' | 'en';
+  status: 'draft' | 'pending-validation' | 'published';
+}
+
+const {
+  title, description, question, shortAnswer, tag,
+  publishDate, readingMinutes, author, faqs, lang, status,
+} = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat('es-AR', {
+  day: 'numeric', month: 'long', year: 'numeric',
+}).format(publishDate);
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: question,
+  description,
+  datePublished: publishDate.toISOString(),
+  author: { '@type': 'Person', name: author },
+  inLanguage: lang === 'es' ? 'es-AR' : 'en-US',
+};
+
+const faqSchema = faqs && faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+} : null;
+---
+
+<Layout title={`${title} — Dra. Graciela Ghetti`} description={description} ogType="article">
+  <Fragment slot="head">
+    <meta name="article:published_time" content={publishDate.toISOString()} />
+    <meta name="article:author" content={author} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(articleSchema)} />
+    {faqSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />}
+  </Fragment>
+
+  <Header />
+
+  <main class="article-main">
+    <article class="article">
+      <div class="container article-container">
+        {status !== 'published' && (
+          <div class="article-draft-banner">
+            <strong>Borrador — pendiente de validación.</strong> Este artículo aún no fue aprobado por la Dra. Ghetti y no debe considerarse asesoramiento legal.
+          </div>
+        )}
+
+        <header class="article-header">
+          <span class="article-tag">{tag}</span>
+          <h1 class="article-h1">{question}</h1>
+          <p class="article-lead">{shortAnswer}</p>
+          <div class="article-meta">
+            <span>{author}</span>
+            <span aria-hidden="true">·</span>
+            <time datetime={publishDate.toISOString()}>{formattedDate}</time>
+            <span aria-hidden="true">·</span>
+            <span>{readingMinutes} min de lectura</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <slot />
+        </div>
+
+        <footer class="article-footer">
+          <p>¿Tiene una consulta sobre su situación particular?</p>
+          <a href="/#contacto" class="btn btn-primary">Consultar con la Dra. Ghetti</a>
+        </footer>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .article-main {
+    padding: 3rem 0;
+    background: var(--white);
+  }
+
+  .article-container {
+    max-width: 720px;
+  }
+
+  .article-draft-banner {
+    background: rgba(184, 152, 106, 0.12);
+    border-left: 3px solid var(--gold);
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+    color: var(--text);
+    border-radius: 4px;
+    margin-bottom: 2rem;
+  }
+
+  .article-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .article-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(184, 152, 106, 0.15);
+    color: var(--gold);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .article-h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.65rem, 3.2vw, 2.25rem);
+    line-height: 1.25;
+    color: var(--navy);
+    margin-bottom: 1rem;
+  }
+
+  .article-lead {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+
+  .article-body :global(h2) {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--navy);
+    margin: 2.5rem 0 1rem;
+    line-height: 1.3;
+  }
+
+  .article-body :global(h3) {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--navy);
+    margin: 1.75rem 0 0.75rem;
+  }
+
+  .article-body :global(p) {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 1.1rem;
+  }
+
+  .article-body :global(strong) {
+    color: var(--navy);
+  }
+
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    margin: 0 0 1.1rem 1.5rem;
+    line-height: 1.75;
+  }
+
+  .article-body :global(li) {
+    margin-bottom: 0.4rem;
+  }
+
+  .article-body :global(blockquote) {
+    border-left: 3px solid var(--gold);
+    padding: 0.25rem 0 0.25rem 1rem;
+    margin: 1.5rem 0;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .article-body :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  .article-footer {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .article-footer p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+</style>

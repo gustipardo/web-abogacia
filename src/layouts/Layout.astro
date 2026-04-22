@@ -2,11 +2,13 @@
 interface Props {
   title?: string;
   description?: string;
+  ogType?: 'website' | 'article';
 }
 
 const {
   title = "Dra. Graciela Ghetti | Jubilación Docente y Derecho Previsional",
   description = "Estudio jurídico especializado en jubilación docente, derecho previsional y civil en Argentina. Más de 20 años de experiencia en el ámbito educativo.",
+  ogType = 'website',
 } = Astro.props;
 ---
 
@@ -21,12 +23,14 @@ const {
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="es_AR" />
 
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/styles/global.css" />
+
+    <slot name="head" />
   </head>
   <body>
     <slot />
