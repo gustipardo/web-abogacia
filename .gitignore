@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# casos y materiales con datos de clientes (informes técnicos, dumps, etc.)
+Context/casos/
+Context/*.docx
+Context/*.pdf

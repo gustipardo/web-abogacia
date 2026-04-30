@@ -12,7 +12,7 @@
       </p>
 
       <div class="contact-channels">
-        <a href="https://wa.me/5491100000000?text=Hola%20Dra.%20Ghetti%2C%20quiero%20consultar%20sobre%20mi%20jubilaci%C3%B3n%20docente."
+        <a href="https://wa.me/5491169380777?text=Hola%20Dra.%20Ghetti%2C%20quer%C3%ADa%20hacerle%20una%20consulta."
            class="channel" target="_blank" rel="noopener">
           <div class="channel-icon channel-icon--green">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -22,7 +22,7 @@
           </div>
           <div>
             <strong>WhatsApp</strong>
-            <span>+54 9 11 0000-0000</span>
+            <span>+54 9 11 6938-0777</span>
             <small>Respondo en el día</small>
           </div>
           <svg class="channel-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -30,7 +30,7 @@
           </svg>
         </a>
 
-        <a href="mailto:dra.ghetti@ejemplo.com" class="channel">
+        <a href="mailto:adriana@estudioghetti.com" class="channel">
           <div class="channel-icon channel-icon--navy">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -39,7 +39,7 @@
           </div>
           <div>
             <strong>Email</strong>
-            <span>dra.ghetti@ejemplo.com</span>
+            <span>adriana@estudioghetti.com</span>
             <small>Para consultas formales</small>
           </div>
           <svg class="channel-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -56,7 +56,7 @@
           </div>
           <div>
             <strong>Zona de atención</strong>
-            <span>Buenos Aires, Argentina</span>
+            <span>Pilar, Buenos Aires</span>
             <small>Consultas también por videollamada</small>
           </div>
         </div>
@@ -64,9 +64,9 @@
     </div>
 
     <div class="contact-form-wrap">
-      <form class="contact-form" name="contacto" method="POST" data-netlify="true" novalidate>
+      <form id="contact-form" class="contact-form" novalidate>
         <h3 class="form-title">Envíe su consulta</h3>
-        <p class="form-subtitle">Le respondo en menos de 24 horas hábiles.</p>
+        <p class="form-subtitle">Le respondo en menos de 24 horas hábiles. <span class="required-note">Los campos con * son obligatorios.</span></p>
 
         <div class="form-row">
           <label class="field">
@@ -74,8 +74,12 @@
             <input type="text" name="nombre" placeholder="Ej: María González" required />
           </label>
           <label class="field">
-            <span>Teléfono</span>
-            <input type="tel" name="telefono" placeholder="+54 9 11 ..." />
+            <span>Teléfono <em class="field-optional">(opcional)</em></span>
+            <div class="phone-group">
+              <span class="phone-prefix" aria-label="Código de país Argentina">+54</span>
+              <input class="phone-input phone-area" type="tel" name="telefono_area" placeholder="11" maxlength="4" inputmode="tel" autocomplete="tel-area-code" aria-label="Código de área" />
+              <input class="phone-input phone-num" type="tel" name="telefono_num" placeholder="6938-0777" maxlength="12" inputmode="tel" autocomplete="tel-local" aria-label="Número de teléfono" />
+            </div>
           </label>
         </div>
 
@@ -85,7 +89,7 @@
         </label>
 
         <label class="field">
-          <span>Área de consulta</span>
+          <span>Área de consulta <em class="field-optional">(opcional)</em></span>
           <select name="area">
             <option value="">Seleccione una opción...</option>
             <option value="jubilacion-docente">Jubilación Docente</option>
@@ -93,6 +97,7 @@
             <option value="reajuste">Reajuste de haberes</option>
             <option value="pension">Pensión por fallecimiento</option>
             <option value="civil">Derecho Civil</option>
+            <option value="multas">Multas de tránsito</option>
             <option value="otro">Otro</option>
           </select>
         </label>
@@ -102,7 +107,9 @@
           <textarea name="mensaje" rows="5" placeholder="Cuénteme su situación brevemente..." required></textarea>
         </label>
 
-        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+        <div id="form-error" class="form-error" hidden role="alert"></div>
+
+        <button id="form-submit" type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
           Enviar consulta →
         </button>
 
@@ -110,6 +117,17 @@
           Sus datos son confidenciales y se utilizan únicamente para responder su consulta.
         </p>
       </form>
+
+      <div id="form-success" class="form-success" hidden>
+        <div class="success-check" aria-hidden="true">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h3>Mensaje enviado</h3>
+        <p>Recibimos tu consulta. Te respondemos a tu email en menos de 24 horas hábiles.</p>
+        <button id="form-reset" type="button" class="btn btn-navy success-reset-btn">Enviar otra consulta</button>
+      </div>
     </div>
 
   </div>
@@ -247,6 +265,26 @@
     color: var(--navy);
   }
 
+  .field-optional {
+    font-style: normal;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 0.92em;
+    margin-left: 0.15rem;
+  }
+
+  .field-hint {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    opacity: 0.8;
+    margin-top: 0.15rem;
+  }
+
+  .required-note {
+    font-style: italic;
+    opacity: 0.85;
+  }
+
   .field input,
   .field select,
   .field textarea {
@@ -274,11 +312,138 @@
     color: #b0aab8;
   }
 
+  /* Phone subfields */
+  .phone-group {
+    display: flex;
+    align-items: stretch;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    background: var(--bg);
+    overflow: hidden;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .phone-group:focus-within {
+    border-color: var(--navy);
+    background: var(--white);
+  }
+
+  .phone-prefix {
+    padding: 0.7rem 0.75rem;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    background: rgba(0,0,0,0.02);
+  }
+
+  .phone-input {
+    border: none;
+    background: transparent;
+    padding: 0.7rem 0.75rem;
+    font-size: 0.92rem;
+    color: var(--text);
+    font-family: var(--font-sans);
+    outline: none;
+    min-width: 0;
+  }
+
+  .phone-area {
+    width: 70px;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .phone-num {
+    flex: 1;
+  }
+
+  .phone-input::placeholder {
+    color: #b0aab8;
+  }
+
+  /* Inline error */
+  .form-error {
+    background: #FEEFEF;
+    border: 1px solid #F5C2C2;
+    color: #B33939;
+    border-radius: 7px;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
   .form-note {
     font-size: 0.75rem;
     color: var(--text-muted);
     text-align: center;
     opacity: 0.8;
+  }
+
+  /* Respetar el atributo hidden incluso con display: flex */
+  .contact-form[hidden],
+  .form-success[hidden] {
+    display: none;
+  }
+
+  /* Success state */
+  .form-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.85rem;
+    padding: 1rem 0.5rem 0.5rem;
+    animation: successFadeIn 0.45s ease-out;
+  }
+
+  .success-check {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: #E8F5E9;
+    color: #2E7D32;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.4rem;
+    animation: successScaleIn 0.5s 0.1s ease-out backwards;
+  }
+
+  .form-success h3 {
+    font-size: 1.45rem;
+    color: var(--navy);
+    font-family: var(--font-serif);
+  }
+
+  .form-success > p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 340px;
+  }
+
+  .success-reset-btn {
+    margin-top: 0.75rem;
+  }
+
+  .form-submit-loading {
+    opacity: 0.7;
+    cursor: wait;
+  }
+
+  @keyframes successFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes successScaleIn {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); }
   }
 
   @media (max-width: 900px) {
@@ -291,3 +456,104 @@
     }
   }
 </style>
+
+<script>
+  // La key se lee desde la variable de entorno PUBLIC_WEB3FORMS_KEY
+  // (definida en .env localmente, y en el panel del host en producción).
+  // Si no está seteada, el formulario muestra un error explicativo en lugar de enviar.
+  const WEB3FORMS_ACCESS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const success = document.getElementById('form-success') as HTMLDivElement | null;
+  const errorBox = document.getElementById('form-error') as HTMLDivElement | null;
+  const submitBtn = document.getElementById('form-submit') as HTMLButtonElement | null;
+  const resetBtn = document.getElementById('form-reset') as HTMLButtonElement | null;
+
+  const areaLabels: Record<string, string> = {
+    'jubilacion-docente': 'Jubilación Docente',
+    'previsional': 'Derecho Previsional',
+    'reajuste': 'Reajuste de haberes',
+    'pension': 'Pensión por fallecimiento',
+    'civil': 'Derecho Civil',
+    'multas': 'Multas de tránsito',
+    'otro': 'Otro',
+  };
+
+  function showError(msg: string) {
+    if (!errorBox) return;
+    errorBox.textContent = msg;
+    errorBox.hidden = false;
+  }
+
+  if (form && success && errorBox && submitBtn && resetBtn) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.hidden = true;
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      if (!WEB3FORMS_ACCESS_KEY) {
+        showError('El formulario todavía no está conectado al servicio de email. Mientras tanto, podés escribirnos a adriana@estudioghetti.com o por WhatsApp.');
+        return;
+      }
+
+      const data = new FormData(form);
+      const nombre = String(data.get('nombre') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const telArea = String(data.get('telefono_area') ?? '').trim();
+      const telNum = String(data.get('telefono_num') ?? '').trim();
+      const tel = (telArea || telNum) ? `+54 ${telArea} ${telNum}`.replace(/\s+/g, ' ').trim() : '';
+      const areaConsulta = String(data.get('area') ?? '').trim();
+      const mensaje = String(data.get('mensaje') ?? '').trim();
+
+      const payload = new FormData();
+      payload.append('access_key', WEB3FORMS_ACCESS_KEY);
+      payload.append('subject', `Consulta web — ${nombre}`);
+      payload.append('from_name', 'Web Estudio Ghetti');
+      payload.append('Nombre', nombre);
+      payload.append('Email', email);
+      if (tel) payload.append('Teléfono', tel);
+      if (areaConsulta && areaLabels[areaConsulta]) {
+        payload.append('Área de consulta', areaLabels[areaConsulta]);
+      }
+      payload.append('Mensaje', mensaje);
+
+      submitBtn.disabled = true;
+      submitBtn.classList.add('form-submit-loading');
+      const originalLabel = submitBtn.textContent;
+      submitBtn.textContent = 'Enviando…';
+
+      try {
+        const resp = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: payload,
+        });
+        const result = await resp.json();
+        if (!resp.ok || !result.success) {
+          throw new Error(result.message || 'Error desconocido');
+        }
+        form.hidden = true;
+        success.hidden = false;
+      } catch (err) {
+        showError('No pudimos enviar el mensaje. Probá de nuevo en un momento o escribinos directamente a adriana@estudioghetti.com.');
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('form-submit-loading');
+        submitBtn.textContent = originalLabel;
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('form-submit-loading');
+      submitBtn.textContent = 'Enviar consulta →';
+      errorBox.hidden = true;
+      success.hidden = true;
+      form.hidden = false;
+    });
+  }
+</script>

@@ -5,10 +5,13 @@
   <div class="container about-grid">
 
     <div class="about-visual">
-      <div class="photo-placeholder">
-        <span>Foto de la Dra.</span>
-        <small>Agregar imagen profesional</small>
-      </div>
+      <img
+        src="/Adriana%20Ghetti%20Photo.png"
+        alt="Dra. Graciela Adriana Ghetti"
+        class="about-photo"
+        width="896"
+        height="600"
+      />
       <div class="about-badge">
         <strong>+20</strong>
         <span>años en docencia</span>
@@ -66,8 +69,8 @@
 
   .about-grid {
     display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 5rem;
+    grid-template-columns: 420px 1fr;
+    gap: 4rem;
     align-items: center;
   }
 
@@ -75,25 +78,13 @@
     position: relative;
   }
 
-  .photo-placeholder {
+  .about-photo {
     width: 100%;
-    aspect-ratio: 3 / 4;
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center 22%;
     border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    color: rgba(255,255,255,0.5);
-    font-size: 0.9rem;
-    font-style: italic;
-    border: 2px dashed rgba(255,255,255,0.2);
-  }
-
-  .photo-placeholder small {
-    font-size: 0.75rem;
-    color: var(--gold);
+    box-shadow: var(--shadow);
   }
 
   .about-badge {

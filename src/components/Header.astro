@@ -11,7 +11,7 @@ const nav = [
 <header class="header" id="header">
   <div class="container header-inner">
     <a href="#inicio" class="logo">
-      <span class="logo-initials">GG</span>
+      <img src="/logo.png" alt="Estudio Ghetti" class="logo-img" width="42" height="42" />
       <div class="logo-text">
         <strong>Dra. Graciela Ghetti</strong>
         <span>Abogada · Mat. <!--MATRICULA--></span>
@@ -24,7 +24,7 @@ const nav = [
       ))}
     </nav>
 
-    <a href="https://wa.me/5491100000000?text=Hola%20Dra.%20Ghetti%2C%20quiero%20consultar%20sobre%20mi%20jubilaci%C3%B3n%20docente."
+    <a href="https://wa.me/5491169380777?text=Hola%20Dra.%20Ghetti%2C%20quer%C3%ADa%20hacerle%20una%20consulta."
        class="btn btn-whatsapp header-cta"
        target="_blank" rel="noopener">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -44,7 +44,7 @@ const nav = [
     {nav.map((item) => (
       <a href={item.href} class="mobile-nav-link">{item.label}</a>
     ))}
-    <a href="https://wa.me/5491100000000?text=Hola%20Dra.%20Ghetti%2C%20quiero%20consultar%20sobre%20mi%20jubilaci%C3%B3n%20docente."
+    <a href="https://wa.me/5491169380777?text=Hola%20Dra.%20Ghetti%2C%20quer%C3%ADa%20hacerle%20una%20consulta."
        class="btn btn-whatsapp" style="margin-top:1rem;justify-content:center;"
        target="_blank" rel="noopener">
       Consulta por WhatsApp
@@ -76,19 +76,10 @@ const nav = [
     flex-shrink: 0;
   }
 
-  .logo-initials {
+  .logo-img {
     width: 42px;
     height: 42px;
-    background: var(--navy);
-    color: var(--gold);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-serif);
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    object-fit: contain;
     flex-shrink: 0;
   }
 
