@@ -1,0 +1,407 @@
+---
+const waLink = "https://wa.me/5491169380777?text=Hola%20Dra.%20Ghetti%2C%20quer%C3%ADa%20consultarle%20por%20mi%20jubilaci%C3%B3n%20docente.";
+const mailLink = "mailto:adriana@estudioghetti.com?subject=Consulta%20jubilaci%C3%B3n%20docente";
+const points = [
+  { n: 1, h: "Mejor cargo y período", p: "No siempre el último cargo es el que más te conviene para jubilarte. Identificamos cuál es el tuyo." },
+  { n: 2, h: "Licencias que pueden costarte caro", p: "Una sola licencia sin goce mal ubicada puede reducir tu jubilación para siempre. La detectamos antes de que sea tarde." },
+  { n: 3, h: "Cuánto vas a cobrar", p: "Calculamos el porcentaje exacto de tu haber antes de iniciar el trámite. Sin sorpresas al cese." },
+  { n: 4, h: "El premio de los 6 sueldos", p: "Al jubilarte hay un beneficio económico extra. Te decimos si te corresponde y cómo asegurarlo." },
+];
+---
+
+<section class="flyer-section jub" id="jubilacion">
+  <div class="flyer-container">
+
+    <!-- HERO -->
+    <header class="hero">
+      <span class="badge">Docentes</span>
+      <p class="kicker">¿Cerca de tu?</p>
+      <h2 class="mega">JUBILACIÓN</h2>
+      <p class="mega-sub">docente</p>
+      <p class="headline">No inicies el trámite sin antes <em>consultarnos</em>.</p>
+      <p class="lede">
+        Cada caso docente es único. Pedí tu Informe Técnico Preventivo: analizamos tu hoja de vida, estimamos el haber y detectamos errores antes de presentar la solicitud.
+      </p>
+    </header>
+
+    <!-- 4 POINTS -->
+    <div class="points">
+      {points.map(pt => (
+        <div class="point">
+          <div class="num">{pt.n}</div>
+          <div>
+            <h3>{pt.h}</h3>
+            <p>{pt.p}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- LEAD MAGNET -->
+    <div class="lead">
+      <div class="lead-ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="3" width="16" height="18" rx="2"/>
+          <path d="M8 7h8M8 11h8M8 15h5"/>
+        </svg>
+      </div>
+      <div class="lead-copy">
+        <small>Informe Técnico Preventivo</small>
+        <strong>Calculamos tu haber jubilatorio antes de presentar nada.</strong>
+      </div>
+    </div>
+
+    <!-- CTA + CHANNELS -->
+    <div class="cta">
+      <p class="cta-title">Primera consulta <em>sin cargo</em></p>
+      <p class="cta-sub">Analizamos tu situación y te explicamos qué opciones tenés, sin compromiso.</p>
+
+      <div class="channels">
+        <a class="ch wa" href={waLink} target="_blank" rel="noopener">
+          <span class="ch-ic">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.12 1.527 5.855L.057 23.5l5.83-1.527A11.938 11.938 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.373l-.36-.214-3.724.977.994-3.63-.235-.373A9.818 9.818 0 1112 21.818z"/>
+            </svg>
+          </span>
+          <span>
+            <small>WhatsApp</small>
+            <strong>11 6938-0777</strong>
+          </span>
+        </a>
+
+        <a class="ch mail" href={mailLink}>
+          <span class="ch-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M2 7l10 7 10-7"/>
+            </svg>
+          </span>
+          <span>
+            <small>Email</small>
+            <strong>adriana@estudioghetti.com</strong>
+          </span>
+        </a>
+
+        <a class="ch web" href="#inicio">
+          <span class="ch-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M3 12h18"/>
+              <path d="M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/>
+            </svg>
+          </span>
+          <span>
+            <small>Web</small>
+            <strong>estudioghetti.com</strong>
+          </span>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .flyer-section {
+    background: var(--bg);
+    padding: 5rem 0;
+  }
+
+  .flyer-container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* === HERO === */
+  .hero {
+    text-align: left;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--navy);
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+  }
+
+  .kicker {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.25rem;
+  }
+
+  .mega {
+    font-family: var(--font-serif);
+    font-size: clamp(44px, 7vw, 80px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 0.95;
+    letter-spacing: -1.5px;
+    margin: 0;
+  }
+
+  .mega-sub {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0.4rem 0 1.5rem;
+    border-top: 2px solid var(--gold);
+    padding-top: 0.55rem;
+    display: inline-block;
+  }
+
+  .headline {
+    font-family: var(--font-serif);
+    color: var(--navy);
+    font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .lede {
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    max-width: 780px;
+  }
+
+  /* === 4 POINTS === */
+  .points {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .point {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 8px;
+    padding: 1.1rem 1.2rem;
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+
+  .point .num {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .point h3 {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--navy);
+    margin-bottom: 0.35rem;
+    line-height: 1.2;
+    min-height: 2.4em;
+  }
+
+  .point p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+
+  /* === LEAD === */
+  .lead {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lead::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(184,152,106,0.18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .lead-ic {
+    flex-shrink: 0;
+    width: 54px;
+    height: 54px;
+    border-radius: 8px;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy);
+  }
+
+  .lead-ic svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .lead-copy {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+  }
+
+  .lead-copy small {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+
+  .lead-copy strong {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.25;
+    display: block;
+  }
+
+  /* === CTA === */
+  .cta-title {
+    font-family: var(--font-serif);
+    color: var(--navy);
+    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+    text-align: center;
+    margin-bottom: 0.35rem;
+  }
+
+  .cta-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .cta-sub {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.4rem;
+  }
+
+  .channels {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .ch {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+
+  .ch:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: var(--gold);
+  }
+
+  .ch-ic {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+  }
+
+  .ch-ic svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ch.wa .ch-ic { background: #25D366; }
+  .ch.mail .ch-ic { background: var(--navy); }
+  .ch.web .ch-ic { background: var(--gold); }
+
+  .ch small {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+  }
+
+  .ch strong {
+    display: block;
+    font-size: 1.05rem;
+    color: var(--navy);
+    font-weight: 700;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 760px) {
+    .points {
+      grid-template-columns: 1fr;
+    }
+    .channels {
+      grid-template-columns: 1fr;
+    }
+    .badge {
+      position: static;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    .lead {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.85rem;
+    }
+    .point h3 {
+      min-height: 0;
+    }
+  }
+</style>
