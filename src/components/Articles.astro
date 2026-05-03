@@ -200,7 +200,8 @@ const articles = all
     .articles-grid {
       grid-template-columns: 1fr;
     }
-    .article-card--wide {
+    /* Match the desktop selector specificity to override `.article-card.article-card--wide` */
+    .article-card.article-card--wide {
       grid-column: 1;
       grid-template-columns: 1fr;
     }
@@ -215,6 +216,15 @@ const articles = all
     }
     .articles-cta-desktop {
       display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .article-card {
+      padding: 1.35rem 1.25rem;
+    }
+    .articles-footer .btn {
+      width: 100%;
     }
   }
 </style>

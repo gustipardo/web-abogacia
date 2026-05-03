@@ -69,9 +69,10 @@ img {
 }
 
 .section-title {
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   color: var(--navy);
   margin-bottom: 1rem;
+  line-height: 1.25;
 }
 
 .section-subtitle {
@@ -80,12 +81,25 @@ img {
   max-width: 600px;
 }
 
+@media (max-width: 700px) {
+  .container {
+    padding: 0 1.15rem;
+  }
+  .section {
+    padding: 3rem 0;
+  }
+  .section-subtitle {
+    font-size: 0.97rem;
+  }
+}
+
 /* === BUTTONS === */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.85rem 2rem;
+  min-height: 44px;
   border-radius: var(--radius);
   font-size: 0.95rem;
   font-weight: 600;
@@ -94,6 +108,7 @@ img {
   transition: all 0.2s ease;
   border: 2px solid transparent;
   text-decoration: none;
+  justify-content: center;
 }
 
 .btn-primary {

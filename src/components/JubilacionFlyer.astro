@@ -384,6 +384,9 @@ const points = [
 
   /* === RESPONSIVE === */
   @media (max-width: 760px) {
+    .flyer-section {
+      padding: 3rem 0;
+    }
     .points {
       grid-template-columns: 1fr;
     }
@@ -399,9 +402,33 @@ const points = [
       flex-direction: column;
       text-align: center;
       gap: 0.85rem;
+      padding: 1.2rem 1.1rem;
+    }
+    .lead-copy strong {
+      font-size: 1.2rem;
+    }
+    .kicker {
+      letter-spacing: 0.18em;
+      font-size: 0.85rem;
+    }
+    .mega-sub {
+      letter-spacing: 0.25em;
+      font-size: 0.95rem;
+    }
+    .lede {
+      font-size: 1rem;
+    }
+    .headline {
+      font-size: 1.45rem;
+    }
+    .point {
+      padding: 1rem 1.1rem;
     }
     .point h3 {
-      min-height: 0;
+      font-size: 1.1rem;
+    }
+    .point p {
+      font-size: 0.95rem;
     }
   }
 </style>
