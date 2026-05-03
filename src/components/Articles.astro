@@ -1,48 +1,18 @@
 ---
-const articles = [
-  {
-    tag: "Jubilación Docente",
-    title: "¿Cuántos años de servicio necesita un docente para jubilarse en Argentina?",
-    excerpt: "La Ley 24.016 establece un régimen especial para docentes nacionales. Le explicamos los requisitos de edad y antigüedad, cómo se computan los servicios diferenciales y qué pasa si trabajó en distintos niveles.",
-    date: "Marzo 2026",
-    mins: "5 min",
-  },
-  {
-    tag: "Derecho Previsional",
-    title: "Mi jubilación fue mal liquidada: ¿puedo reclamar la diferencia?",
-    excerpt: "Sí, y tiene un plazo para hacerlo. El reajuste de haberes es un derecho reconocido por la Corte Suprema. Le contamos cuándo corresponde, cómo se calcula la diferencia y cómo iniciar el reclamo.",
-    date: "Febrero 2026",
-    mins: "6 min",
-  },
-  {
-    tag: "Jubilación Docente",
-    title: "Jubilación docente provincial vs. nacional: ¿cuál le corresponde y cuál conviene?",
-    excerpt: "Muchos docentes ejercieron en instituciones nacionales y provinciales a la vez. Entender qué caja rige su situación puede marcar una diferencia importante en el monto final de su beneficio.",
-    date: "Enero 2026",
-    mins: "7 min",
-  },
-  {
-    tag: "Trámites",
-    title: "Pasos para iniciar el trámite de jubilación docente: guía paso a paso",
-    excerpt: "Desde la solicitud del CUIL actualizado hasta la presentación ante ANSES o la caja provincial. Una guía práctica para que no pierda tiempo ni documentación en el proceso.",
-    date: "Diciembre 2025",
-    mins: "8 min",
-  },
-  {
-    tag: "Derecho Previsional",
-    title: "Pensión por fallecimiento de docente: ¿quiénes tienen derecho y cómo pedirla?",
-    excerpt: "Si perdió a un familiar que era docente activo o jubilado, sus derechohabientes pueden acceder a una pensión. Le explicamos los requisitos, la documentación necesaria y los plazos para solicitarla.",
-    date: "Noviembre 2025",
-    mins: "5 min",
-  },
-  {
-    tag: "Jubilación Docente",
-    title: "Reconocimiento de servicios: cómo recuperar años no aportados",
-    excerpt: "Los períodos trabajados en negro, los contratos eventuales o los cargos sin relación de dependencia formal no siempre se computan automáticamente. Le contamos cómo recuperarlos antes de jubilarse.",
-    date: "Octubre 2025",
-    mins: "6 min",
-  },
-];
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('articulos', ({ data }) => data.lang === 'es');
+const articles = all
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 6)
+  .map((a) => ({
+    slug: a.id.replace(/\.md$/, ''),
+    tag: a.data.tag,
+    title: a.data.question,
+    excerpt: a.data.shortAnswer,
+    date: new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric' }).format(a.data.publishDate),
+    mins: `${a.data.readingMinutes} min`,
+  }));
 ---
 
 <section class="section articles" id="articulos">
@@ -50,9 +20,9 @@ const articles = [
     <div class="articles-header">
       <div>
         <p class="section-label">Artículos e información</p>
-        <h2 class="section-title">Lo que todo docente debería saber</h2>
+        <h2 class="section-title">Lo que conviene saber antes de actuar</h2>
         <p class="section-subtitle">
-          Información clara y actualizada sobre jubilación docente, derecho previsional y novedades legales en Argentina.
+          Información clara y actualizada sobre jubilación docente y multas de tránsito en Argentina. Material para entender su caso antes de iniciar cualquier trámite.
         </p>
       </div>
       <a href="#contacto" class="btn btn-navy articles-cta-desktop">
@@ -69,7 +39,7 @@ const articles = [
           </div>
           <h3 class="article-title">{a.title}</h3>
           <p class="article-excerpt">{a.excerpt}</p>
-          <a href="#contacto" class="article-link">
+          <a href={`/articulos/${a.slug}/`} class="article-link">
             Leer más
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M5 12h14M12 5l7 7-7 7"/>

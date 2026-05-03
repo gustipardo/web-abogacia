@@ -4,30 +4,55 @@
 <section class="section about" id="sobre-mi">
   <div class="container about-grid">
 
-    <div class="about-visual">
-      <img
-        src="/Adriana%20Ghetti%20Photo.png"
-        alt="Dra. Graciela Adriana Ghetti"
-        class="about-photo"
-        width="896"
-        height="600"
-      />
-      <div class="about-badge">
-        <strong>+20</strong>
-        <span>años en docencia</span>
+    <aside class="about-card">
+      <div class="about-card-header">
+        <img
+          src="/Adriana%20Ghetti%20Photo.png"
+          alt="Dra. Adriana Ghetti"
+          class="about-monogram-img"
+          width="56"
+          height="56"
+        />
+        <div>
+          <strong>Dra. Adriana Ghetti</strong>
+          <span>Abogada · Universidad de Buenos Aires</span>
+        </div>
       </div>
-    </div>
+
+      <ul class="credentials">
+        <li>
+          <span class="cred-label">Colegio</span>
+          <span class="cred-value">CASI · Colegio de Abogados de San Isidro</span>
+        </li>
+        <li>
+          <span class="cred-label">Áreas</span>
+          <span class="cred-value">Jubilación docente · Multas de tránsito · Derecho previsional</span>
+        </li>
+        <li>
+          <span class="cred-label">Trayectoria</span>
+          <span class="cred-value">+20 años en docencia antes de ejercer el derecho</span>
+        </li>
+        <li>
+          <span class="cred-label">Atención</span>
+          <span class="cred-value">Provincia de Buenos Aires · Consulta sin cargo</span>
+        </li>
+      </ul>
+
+      <div class="about-card-cta">
+        <a href="#contacto" class="btn btn-navy">Agendar consulta →</a>
+      </div>
+    </aside>
 
     <div class="about-content">
       <p class="section-label">Sobre mí</p>
       <h2 class="section-title">Una abogada que vivió la docencia desde adentro</h2>
 
       <p class="about-text">
-        Soy la <strong>Dra. Graciela Adriana Ghetti</strong>, abogada matriculada y especialista en derecho previsional y jubilación docente. Antes de ejercer el derecho, dediqué más de veinte años a la educación, lo que me da una perspectiva única: entiendo exactamente qué significa llegar al final de una carrera docente, los sacrificios que implica y los derechos que se merecen.
+        Soy la <strong>Dra. Adriana Ghetti</strong>, abogada matriculada y especialista en derecho previsional y jubilación docente. Antes de ejercer el derecho, dediqué más de veinte años a la educación, lo que me da una perspectiva única: entiendo exactamente qué significa llegar al final de una carrera docente, los sacrificios que implica y los derechos que se merecen.
       </p>
 
       <p class="about-text">
-        Sé lo burocrático y confuso que puede ser el sistema previsional argentino. Por eso mi enfoque es claro: explicarle todo en lenguaje sencillo, acompañarla/o paso a paso, y defenderle sus derechos con rigor y dedicación.
+        Sé lo burocrático y confuso que puede ser el sistema previsional argentino, y también lo injusto que puede resultar el sistema de faltas de tránsito. Por eso mi enfoque es claro: explicarle todo en lenguaje sencillo, acompañarla/o paso a paso, y defenderle sus derechos con rigor y dedicación.
       </p>
 
       <div class="about-values">
@@ -49,14 +74,10 @@
           <div class="value-icon">🎯</div>
           <div>
             <strong>Especialización real</strong>
-            <p>No soy generalista. Jubilación docente es lo que hago todos los días.</p>
+            <p>Jubilación docente y multas de tránsito: las dos áreas que practico todos los días.</p>
           </div>
         </div>
       </div>
-
-      <a href="#contacto" class="btn btn-primary" style="margin-top: 0.5rem;">
-        Agendar una consulta →
-      </a>
     </div>
 
   </div>
@@ -69,48 +90,91 @@
 
   .about-grid {
     display: grid;
-    grid-template-columns: 420px 1fr;
+    grid-template-columns: 360px 1fr;
     gap: 4rem;
-    align-items: center;
+    align-items: start;
   }
 
-  .about-visual {
-    position: relative;
-  }
-
-  .about-photo {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    object-position: center 22%;
+  .about-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--gold);
     border-radius: 12px;
+    padding: 1.75rem;
     box-shadow: var(--shadow);
+    position: sticky;
+    top: 90px;
   }
 
-  .about-badge {
-    position: absolute;
-    bottom: -1.25rem;
-    right: -1.25rem;
-    background: var(--gold);
-    color: var(--white);
-    border-radius: 10px;
-    padding: 1rem 1.25rem;
+  .about-card-header {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-monogram-img {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 20%;
+    border: 2px solid var(--gold);
+  }
+
+  .about-card-header strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 0.2rem;
+  }
+
+  .about-card-header span {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .credentials {
+    list-style: none;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    box-shadow: var(--shadow);
-    line-height: 1.2;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
 
-  .about-badge strong {
-    font-size: 1.75rem;
-    font-family: var(--font-serif);
+  .credentials li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
   }
 
-  .about-badge span {
-    font-size: 0.75rem;
-    text-align: center;
-    opacity: 0.9;
+  .cred-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .cred-value {
+    font-size: 0.92rem;
+    color: var(--navy);
+    line-height: 1.45;
+  }
+
+  .about-card-cta {
+    border-top: 1px solid var(--border);
+    padding-top: 1.25rem;
+  }
+
+  .about-card-cta .btn {
+    width: 100%;
+    justify-content: center;
   }
 
   .about-text {
@@ -128,7 +192,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin: 1.75rem 0;
+    margin: 1.75rem 0 0;
   }
 
   .value {
@@ -159,11 +223,10 @@
   @media (max-width: 900px) {
     .about-grid {
       grid-template-columns: 1fr;
-      gap: 3rem;
+      gap: 2.5rem;
     }
-    .about-visual {
-      max-width: 320px;
-      margin: 0 auto;
+    .about-card {
+      position: static;
     }
   }
 </style>

@@ -2,10 +2,12 @@
 const waLink = "https://wa.me/5491169380777?text=Hola%20Dra.%20Ghetti%2C%20quer%C3%ADa%20consultarle%20por%20mi%20jubilaci%C3%B3n%20docente.";
 const mailLink = "mailto:adriana@estudioghetti.com?subject=Consulta%20jubilaci%C3%B3n%20docente";
 const points = [
-  { n: 1, h: "Mejor cargo y período", p: "No siempre el último cargo es el que más te conviene para jubilarte. Identificamos cuál es el tuyo." },
-  { n: 2, h: "Licencias que pueden costarte caro", p: "Una sola licencia sin goce mal ubicada puede reducir tu jubilación para siempre. La detectamos antes de que sea tarde." },
-  { n: 3, h: "Cuánto vas a cobrar", p: "Calculamos el porcentaje exacto de tu haber antes de iniciar el trámite. Sin sorpresas al cese." },
-  { n: 4, h: "El premio de los 6 sueldos", p: "Al jubilarte hay un beneficio económico extra. Te decimos si te corresponde y cómo asegurarlo." },
+  { ic: "🎯", h: "Mejor cargo y simultaneidad", p: "Identificamos tu mejor cargo y determinamos los períodos de simultaneidad consecutiva entre cargos. No siempre el último es el que más te conviene." },
+  { ic: "📋", h: "Licencias código 1257", p: "Analizamos el impacto de las licencias por causas particulares (cód. 1257) en el cómputo. Una sola mal ubicada puede reducirte el haber para siempre." },
+  { ic: "💼", h: "Cálculo exacto del haber", p: "Estimamos el porcentaje del haber jubilatorio correspondiente a cada cargo, antes de iniciar el trámite. Sin sorpresas al cese." },
+  { ic: "🔍", h: "Irregularidades y rectificación", p: "Identificamos irregularidades, proponemos acciones correctivas y evaluamos escenarios de rectificación para optimizar tu haber." },
+  { ic: "🎓", h: "Tipos de jubilación y gestión", p: "Te explicamos los tipos de jubilación, iniciamos el trámite y le damos seguimiento al otorgamiento del beneficio." },
+  { ic: "🏆", h: "Premio de los 6 sueldos", p: "Verificamos si te corresponde la Retribución Especial (Ley 13.355) — un beneficio económico extra al cese — y cómo asegurarlo." },
 ];
 ---
 
@@ -15,12 +17,12 @@ const points = [
     <!-- HERO -->
     <header class="hero">
       <span class="badge">Docentes</span>
-      <p class="kicker">¿Cerca de tu?</p>
+      <p class="kicker">¿Cerca del cese?</p>
       <h2 class="mega">JUBILACIÓN</h2>
       <p class="mega-sub">docente</p>
       <p class="headline">No inicies el trámite sin antes <em>consultarnos</em>.</p>
       <p class="lede">
-        Cada caso docente es único. Pedí tu Informe Técnico Preventivo: analizamos tu hoja de vida, estimamos el haber y detectamos errores antes de presentar la solicitud.
+        Cada caso docente es único. Pedí tu Informe Técnico Preventivo: analizamos tu hoja de vida, los períodos de simultaneidad entre cargos, el impacto de las licencias y estimamos el porcentaje del haber antes de presentar la solicitud.
       </p>
     </header>
 
@@ -28,7 +30,7 @@ const points = [
     <div class="points">
       {points.map(pt => (
         <div class="point">
-          <div class="num">{pt.n}</div>
+          <div class="emoji" aria-hidden="true">{pt.ic}</div>
           <div>
             <h3>{pt.h}</h3>
             <p>{pt.p}</p>
@@ -207,16 +209,15 @@ const points = [
     align-items: flex-start;
   }
 
-  .point .num {
+  .point .emoji {
     flex-shrink: 0;
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: var(--navy);
-    color: var(--gold);
-    font-family: var(--font-serif);
-    font-weight: 700;
-    font-size: 1.1rem;
+    background: var(--bg);
+    border: 2px solid var(--gold);
+    font-size: 1.4rem;
+    line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -224,11 +225,10 @@ const points = [
 
   .point h3 {
     font-family: var(--font-serif);
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: var(--navy);
     margin-bottom: 0.35rem;
     line-height: 1.2;
-    min-height: 2.4em;
   }
 
   .point p {

@@ -8,7 +8,7 @@ publishDate: 2026-04-22
 readingMinutes: 5
 status: pending-validation
 lang: es
-author: "Dra. Graciela Ghetti"
+author: "Dra. Adriana Ghetti"
 faqs:
   - question: "¿A qué edad mínima puede jubilarse un docente en Argentina?"
     answer: "Bajo el régimen nacional de la Ley 24.016 la edad mínima es 57 años para mujeres y 60 años para varones, siempre que se cumplan en paralelo los años de servicio requeridos."

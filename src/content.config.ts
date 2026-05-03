@@ -14,7 +14,7 @@ const articulos = defineCollection({
     status: z.enum(['draft', 'pending-validation', 'published']).default('draft'),
     lang: z.enum(['es', 'en']).default('es'),
     translationSlug: z.string().optional(),
-    author: z.string().default('Dra. Graciela Ghetti'),
+    author: z.string().default('Dra. Adriana Ghetti'),
     faqs: z.array(z.object({
       question: z.string(),
       answer: z.string(),

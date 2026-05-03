@@ -2,10 +2,12 @@
 const waLink = "https://wa.me/5491169380777?text=Hola%20Dra.%20Ghetti%2C%20quer%C3%ADa%20consultarle%20por%20una%20multa%20de%20tr%C3%A1nsito.";
 const mailLink = "mailto:adriana@estudioghetti.com?subject=Consulta%20por%20multa%20de%20tr%C3%A1nsito";
 const points = [
-  { n: 1, h: "Margen de error", p: "Las multas pueden cuestionarse cuando el instrumento de medición tiene margen de error o no está homologado." },
-  { n: 2, h: "Errores en el acta", p: "Pueden anularse por faltas u omisión de datos en la elaboración del acta de infracción." },
-  { n: 3, h: "Notificación no fehaciente", p: "La notificación puede ser cuestionada si no fue realizada de manera fehaciente al titular." },
-  { n: 4, h: "Prescripción", p: "Puede pedirse la prescripción a los 2 años en faltas leves y 5 años en faltas graves, sin reincidencia." },
+  { ic: "💰", h: "Reducción de Multas", p: "Negociamos descuentos y reducción del monto. Logramos rebajas significativas sobre el valor original." },
+  { ic: "⏳", h: "Prescripción", p: "Si tu multa tiene antigüedad, podemos solicitar la prescripción legal y liberarte de la deuda." },
+  { ic: "❌", h: "Anulación", p: "Detectamos errores en el acta (datos incorrectos, lugar, fecha) y solicitamos la anulación total." },
+  { ic: "⚖️", h: "Nulidad", p: "Impugnamos multas por vicios de forma o de fondo: notificación defectuosa, falta de pruebas, procedimiento irregular." },
+  { ic: "📝", h: "Descargos y Recursos", p: "Redactamos descargos técnicos y recursos de apelación ante Juzgados de Faltas y Tribunales." },
+  { ic: "✅", h: "Libre Deuda", p: "Gestionamos la baja de multas del sistema para que puedas renovar registro, transferir o vender tu vehículo." },
 ];
 ---
 
@@ -28,7 +30,7 @@ const points = [
     <div class="points">
       {points.map(pt => (
         <div class="point">
-          <div class="num">{pt.n}</div>
+          <div class="emoji" aria-hidden="true">{pt.ic}</div>
           <div>
             <h3>{pt.h}</h3>
             <p>{pt.p}</p>
@@ -208,16 +210,15 @@ const points = [
     align-items: flex-start;
   }
 
-  .point .num {
+  .point .emoji {
     flex-shrink: 0;
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: var(--navy);
-    color: var(--gold);
-    font-family: var(--font-serif);
-    font-weight: 700;
-    font-size: 1.1rem;
+    background: var(--white);
+    border: 2px solid var(--gold);
+    font-size: 1.4rem;
+    line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -225,11 +226,10 @@ const points = [
 
   .point h3 {
     font-family: var(--font-serif);
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: var(--navy);
     margin-bottom: 0.35rem;
     line-height: 1.2;
-    min-height: 2.4em;
   }
 
   .point p {
