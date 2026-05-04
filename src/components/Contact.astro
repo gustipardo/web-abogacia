@@ -562,6 +562,13 @@
         }
         form.hidden = true;
         success.hidden = false;
+        // Track conversion in Umami if available.
+        const umami = (window as unknown as { umami?: { track: (e: string, p?: Record<string, string>) => void } }).umami;
+        if (umami) {
+          umami.track('form_submit_success', {
+            area: areaConsulta || 'sin-area',
+          });
+        }
       } catch (err) {
         showError('No pudimos enviar el mensaje. Probá de nuevo en un momento o escribinos directamente a adriana@estudioghetti.com.');
         submitBtn.disabled = false;

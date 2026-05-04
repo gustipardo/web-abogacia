@@ -1,0 +1,59 @@
+---
+// Umami self-hosted analytics. Si las env vars no están seteadas,
+// el componente no renderiza nada y el sitio funciona normalmente.
+//
+// Setup en `Context/umami-setup.md`.
+const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
+const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+const enabled = umamiUrl && umamiId;
+---
+
+{enabled && (
+  <script
+    is:inline
+    defer
+    src={`${umamiUrl}/script.js`}
+    data-website-id={umamiId}
+    data-domains="estudioghetti.com"
+  ></script>
+)}
+
+{enabled && (
+  <script is:inline>
+    {/* Click delegation: trackea wa.me y mailto: con la sección de origen.
+        Si umami no está cargado todavía, el tracking se descarta sin romper nada. */}
+    document.addEventListener('click', function (e) {
+      var link = e.target && e.target.closest ? e.target.closest('a') : null;
+      if (!link || !link.href) return;
+      if (typeof window.umami === 'undefined') return;
+
+      var href = link.href;
+      var event = null;
+      if (href.indexOf('wa.me/') !== -1 || href.indexOf('whatsapp.com') !== -1) {
+        event = 'whatsapp_click';
+      } else if (href.indexOf('mailto:') === 0) {
+        event = 'email_click';
+      }
+      if (!event) return;
+
+      // Inferir la sección de origen subiendo por el DOM.
+      var source = 'unknown';
+      var el = link;
+      while (el && el !== document.body) {
+        if (el.id === 'jubilacion') { source = 'jubilacion-flyer'; break; }
+        if (el.id === 'multas') { source = 'multas-flyer'; break; }
+        if (el.id === 'inicio') { source = 'hero'; break; }
+        if (el.id === 'sobre-mi') { source = 'about'; break; }
+        if (el.id === 'contacto') { source = 'contact'; break; }
+        if (el.id === 'servicios') { source = 'services'; break; }
+        if (el.id === 'articulos') { source = 'articles'; break; }
+        if (el.tagName === 'HEADER') { source = 'header'; break; }
+        if (el.tagName === 'FOOTER') { source = 'footer'; break; }
+        if (el.tagName === 'ARTICLE' && el.classList.contains('article')) { source = 'article-page'; break; }
+        el = el.parentElement;
+      }
+
+      window.umami.track(event, { source: source });
+    });
+  </script>
+)}
