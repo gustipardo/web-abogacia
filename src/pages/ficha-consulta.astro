@@ -279,7 +279,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="grid-3">
             <label class="field">
               <span>Máx. horas simultáneas</span>
-              <input type="text" name="max_horas_simultaneas" inputmode="numeric" />
+              <input type="number" name="max_horas_simultaneas" inputmode="numeric" min="0" max="80" step="1" placeholder="0" />
             </label>
             <label class="field">
               <span>¿Cargos simultáneos?</span>
@@ -291,7 +291,7 @@ import Layout from '../layouts/Layout.astro';
             </label>
             <label class="field">
               <span>Años con simultaneidad</span>
-              <input type="text" name="anos_simultaneidad" inputmode="numeric" />
+              <input type="number" name="anos_simultaneidad" inputmode="numeric" min="0" max="50" step="1" placeholder="0" />
             </label>
           </div>
 
@@ -354,7 +354,7 @@ import Layout from '../layouts/Layout.astro';
             </label>
             <label class="field">
               <span>Años estimados con aportes</span>
-              <input type="text" name="anos_aportes" inputmode="numeric" />
+              <input type="number" name="anos_aportes" inputmode="numeric" min="0" max="80" step="1" placeholder="0" />
             </label>
           </div>
 
@@ -1089,6 +1089,40 @@ import Layout from '../layouts/Layout.astro';
     stroke-width: 2;
   }
 
+  /* Cell de "Hasta" con su checkbox "Actual" */
+  .empleo-hasta {
+    /* hereda .field (display:flex, flex-direction:column, gap:0.4rem) */
+  }
+
+  .check-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    user-select: none;
+    margin-top: 0.15rem;
+  }
+  .check-inline input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    accent-color: var(--navy);
+    margin: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .check-inline span {
+    line-height: 1.2;
+  }
+
+  /* Cuando "Actual" está marcado, atenuamos el input deshabilitado */
+  .empleo-row input:disabled {
+    background: #EDE8E1;
+    color: #9E9AA0;
+    cursor: not-allowed;
+  }
+
   /* Tablet: 5 cols → 2 cols */
   @media (max-width: 900px) {
     .empleo-grid {
@@ -1160,23 +1194,35 @@ import Layout from '../layouts/Layout.astro';
       return `${digits.slice(0, 2)}-${digits.slice(2, 10)}-${digits.slice(10)}`;
     }
 
+    function formatMonthYearValue(raw: string): string {
+      const digits = raw.replace(/\D/g, '').slice(0, 6);
+      if (digits.length <= 2) return digits;
+      return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+    }
+
     const formatters: Record<string, (s: string) => string> = {
       date: formatDateValue,
       dni: formatDniValue,
       cuil: formatCuilValue,
+      'month-year': formatMonthYearValue,
     };
 
-    form.querySelectorAll<HTMLInputElement>('input[data-autoformat]').forEach((inp) => {
+    function attachAutoformat(inp: HTMLInputElement) {
       const kind = inp.dataset.autoformat || '';
       const fmt = formatters[kind];
       if (!fmt) return;
+      if (inp.dataset.autoformatAttached === '1') return; // idempotente
+      inp.dataset.autoformatAttached = '1';
       inp.addEventListener('input', () => {
         const formatted = fmt(inp.value);
         if (formatted !== inp.value) {
           inp.value = formatted;
         }
       });
-    });
+    }
+
+    // Adjuntar a inputs ya renderizados por el server
+    form.querySelectorAll<HTMLInputElement>('input[data-autoformat]').forEach(attachAutoformat);
 
     // ---- Validación de fecha real (no sólo formato) -------------------------
     function isRealDate(str: string): boolean {
@@ -1267,8 +1313,15 @@ import Layout from '../layouts/Layout.astro';
         <div class="empleo-grid">
           <label class="field"><span>Empleador / Escuela</span><input type="text" name="empleo_${num}_empleador" /></label>
           <label class="field"><span>Cargo / Función</span><input type="text" name="empleo_${num}_cargo" /></label>
-          <label class="field"><span>Desde</span><input type="text" name="empleo_${num}_desde" placeholder="MM/AAAA" /></label>
-          <label class="field"><span>Hasta</span><input type="text" name="empleo_${num}_hasta" placeholder="MM/AAAA o actual" /></label>
+          <label class="field"><span>Desde</span><input type="text" name="empleo_${num}_desde" placeholder="mm/aaaa" inputmode="numeric" maxlength="7" data-autoformat="month-year" /></label>
+          <div class="field empleo-hasta">
+            <span>Hasta</span>
+            <input type="text" name="empleo_${num}_hasta" placeholder="mm/aaaa" inputmode="numeric" maxlength="7" data-autoformat="month-year" />
+            <label class="check check-inline">
+              <input type="checkbox" name="empleo_${num}_actual" value="si" />
+              <span>Actual (sigue trabajando)</span>
+            </label>
+          </div>
           <label class="field"><span>Caja</span><input type="text" name="empleo_${num}_caja" placeholder="ANSES, IPS, …" /></label>
         </div>
         <label class="field"><span>Observaciones</span><input type="text" name="empleo_${num}_observaciones" /></label>
@@ -1276,9 +1329,37 @@ import Layout from '../layouts/Layout.astro';
       if (prefill) {
         row.querySelectorAll('input').forEach((inp) => {
           const v = prefill[inp.name];
-          if (v) inp.value = v;
+          if (typeof v !== 'string' || v === '') return;
+          if (inp.type === 'checkbox') {
+            inp.checked = v === inp.value || v === 'on' || v === 'si' || v === 'true';
+          } else {
+            inp.value = v;
+          }
         });
       }
+
+      // Auto-format en los inputs nuevos
+      row.querySelectorAll<HTMLInputElement>('input[data-autoformat]').forEach(attachAutoformat);
+
+      // Checkbox "Actual" deshabilita el input Hasta y limpia su valor
+      const actualCb = row.querySelector(`input[name="empleo_${num}_actual"]`) as HTMLInputElement | null;
+      const hastaInp = row.querySelector(`input[name="empleo_${num}_hasta"]`) as HTMLInputElement | null;
+      function syncActual() {
+        if (!actualCb || !hastaInp) return;
+        if (actualCb.checked) {
+          hastaInp.value = '';
+          hastaInp.disabled = true;
+        } else {
+          hastaInp.disabled = false;
+        }
+      }
+      actualCb?.addEventListener('change', () => {
+        syncActual();
+        saveDraft();
+      });
+      // Aplicar estado inicial (importante cuando cargamos del localStorage)
+      syncActual();
+
       const removeBtn = row.querySelector('.empleo-remove') as HTMLButtonElement;
       removeBtn.addEventListener('click', () => {
         row.remove();
@@ -1374,7 +1455,7 @@ import Layout from '../layouts/Layout.astro';
         if (count > 0) {
           for (let i = 1; i <= count; i++) {
             const prefill: Record<string, string> = {};
-            ['empleador', 'cargo', 'desde', 'hasta', 'caja', 'observaciones'].forEach((suf) => {
+            ['empleador', 'cargo', 'desde', 'hasta', 'caja', 'observaciones', 'actual'].forEach((suf) => {
               const k = `empleo_${i}_${suf}`;
               if (typeof obj[k] === 'string') prefill[k] = obj[k];
             });

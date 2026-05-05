@@ -71,16 +71,18 @@ function buildEmpleosHtml(p: Payload): string {
     const cargo = get(p, `empleo_${i}_cargo`);
     const desde = get(p, `empleo_${i}_desde`);
     const hasta = get(p, `empleo_${i}_hasta`);
+    const actual = get(p, `empleo_${i}_actual`);
     const caja = get(p, `empleo_${i}_caja`);
     const obs = get(p, `empleo_${i}_observaciones`);
-    if (!empleador && !cargo && !desde && !hasta && !caja && !obs) continue;
+    if (!empleador && !cargo && !desde && !hasta && !actual && !caja && !obs) continue;
+    const hastaDisplay = actual ? '<strong>Actual</strong>' : (escapeHtml(hasta) || '—');
     rows.push(`
       <tr>
         <td>${escapeHtml(String(i))}</td>
         <td>${escapeHtml(empleador) || '—'}</td>
         <td>${escapeHtml(cargo) || '—'}</td>
         <td>${escapeHtml(desde) || '—'}</td>
-        <td>${escapeHtml(hasta) || '—'}</td>
+        <td>${hastaDisplay}</td>
         <td>${escapeHtml(caja) || '—'}</td>
         <td>${escapeHtml(obs) || '—'}</td>
       </tr>

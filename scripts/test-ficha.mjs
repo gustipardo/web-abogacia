@@ -193,21 +193,36 @@ async function runTest() {
     ok('Secciones condicionales (5 docente + 6 ANSES) se desplegaron');
 
     // ---- Sección 4: empleos --------------------------------------------
+    // Empleo 1 — actual (sigue trabajando), entonces tildar checkbox
     await fillText(page, 'input[name="empleo_1_empleador"]', 'Escuela N° 12 Pilar');
     await fillText(page, 'input[name="empleo_1_cargo"]', 'Maestra de grado');
-    await fillText(page, 'input[name="empleo_1_desde"]', '03/1995');
-    await fillText(page, 'input[name="empleo_1_hasta"]', 'actual');
+    await fillText(page, 'input[name="empleo_1_desde"]', '031995');
+    await page.click('input[name="empleo_1_actual"]');
     await fillText(page, 'input[name="empleo_1_caja"]', 'IPS');
     await fillText(page, 'input[name="empleo_1_observaciones"]', 'Titular desde 2002.');
 
+    // Empleo 2 — fechas concretas
     await page.click('#empleo-add');
     await page.waitForSelector('input[name="empleo_2_empleador"]', { timeout: 3000 });
     await fillText(page, 'input[name="empleo_2_empleador"]', 'Empresa SA');
     await fillText(page, 'input[name="empleo_2_cargo"]', 'Administrativa');
-    await fillText(page, 'input[name="empleo_2_desde"]', '03/1985');
-    await fillText(page, 'input[name="empleo_2_hasta"]', '02/1995');
+    await fillText(page, 'input[name="empleo_2_desde"]', '031985');
+    await fillText(page, 'input[name="empleo_2_hasta"]', '021995');
     await fillText(page, 'input[name="empleo_2_caja"]', 'ANSES');
     ok('Sección 4 (Historia Laboral) completa — 2 empleos');
+
+    // Verificar que el checkbox "Actual" deshabilitó el input Hasta del empleo 1
+    const empleo1HastaState = await page.evaluate(() => {
+      const inp = document.querySelector('input[name="empleo_1_hasta"]');
+      return inp ? { disabled: inp.disabled, value: inp.value } : null;
+    });
+    if (!empleo1HastaState || !empleo1HastaState.disabled) {
+      throw new Error('El input "Hasta" del empleo 1 debería estar deshabilitado al tildar Actual');
+    }
+    if (empleo1HastaState.value !== '') {
+      throw new Error(`El input "Hasta" del empleo 1 debería estar vacío, pero tiene "${empleo1HastaState.value}"`);
+    }
+    ok('Checkbox "Actual" deshabilita y limpia el input Hasta');
 
     // ---- Sección 5: docentes -------------------------------------------
     // Esperar que la sección sea realmente visible (no sólo sin atributo hidden).
@@ -362,6 +377,24 @@ async function runTest() {
       throw new Error('No se capturaron los 2 empleos');
     }
     ok('2 empleos capturados (sección 4 dinámica)');
+
+    // Auto-format month-year en Desde / Hasta
+    if (capturedPayload.empleo_1_desde !== '03/1995') {
+      throw new Error(`empleo_1_desde mal formateado — esperado "03/1995", recibido "${capturedPayload.empleo_1_desde}"`);
+    }
+    if (capturedPayload.empleo_2_hasta !== '02/1995') {
+      throw new Error(`empleo_2_hasta mal formateado — esperado "02/1995", recibido "${capturedPayload.empleo_2_hasta}"`);
+    }
+    ok('Auto-format mm/aaaa funciona en Desde / Hasta');
+
+    // El "Actual" del empleo 1 debe estar marcado, y el Hasta debe estar vacío
+    if (!capturedPayload.empleo_1_actual) {
+      throw new Error('Falta el flag empleo_1_actual en el payload');
+    }
+    if (capturedPayload.empleo_1_hasta) {
+      throw new Error(`empleo_1_hasta debería estar vacío (está "Actual"), pero tiene "${capturedPayload.empleo_1_hasta}"`);
+    }
+    ok('Empleo 1 marcado como "Actual" (sin fecha Hasta)');
 
     // Datos docentes
     if (!capturedPayload.niveles) {
