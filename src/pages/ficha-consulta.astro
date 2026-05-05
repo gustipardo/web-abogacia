@@ -72,7 +72,7 @@ import Layout from '../layouts/Layout.astro';
                 name="fecha_nacimiento"
                 required
                 inputmode="numeric"
-                placeholder="DD/MM/AAAA"
+                placeholder="dd/mm/aaaa"
                 pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}"
                 maxlength="10"
                 autocomplete="bday"
@@ -691,76 +691,10 @@ import Layout from '../layouts/Layout.astro';
     gap: 0.85rem;
   }
 
-  .empleo-row {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
-  .empleo-row-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-  }
-
-  .empleo-row .empleo-num {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .empleo-grid {
-    display: grid;
-    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
-    gap: 0.6rem;
-  }
-
-  .empleo-row .field span {
-    font-size: 0.72rem;
-  }
-
-  .empleo-row input,
-  .empleo-row textarea {
-    font-size: 0.85rem;
-    padding: 0.5rem 0.65rem;
-  }
-
-  .empleo-remove {
-    background: var(--white);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 0.78rem;
-    font-weight: 600;
-    font-family: var(--font-sans);
-    height: 34px;
-    padding: 0 0.85rem;
-    border-radius: 6px;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    transition: all 0.15s;
-    flex-shrink: 0;
-  }
-
-  .empleo-remove:hover,
-  .empleo-remove:focus-visible {
-    background: #FEEFEF;
-    border-color: #E89B9B;
-    color: #B33939;
-    outline: none;
-  }
-
-  .empleo-remove svg {
-    flex-shrink: 0;
-  }
+  /* Estilos de .empleo-row, .empleo-row-head, .empleo-num, .empleo-grid,
+     .empleo-remove están en el <style is:global> al final del archivo,
+     porque las filas se crean dinámicamente con innerHTML desde JS y los
+     estilos scoped de Astro no las alcanzan. */
 
   .btn-add {
     align-self: flex-start;
@@ -860,12 +794,8 @@ import Layout from '../layouts/Layout.astro';
   /* Hidden conditional sections */
   .ficha-section[hidden] { display: none; }
 
-  /* === Tablet (≤ 900px): empleo-grid pasa a 2 cols ======================== */
-  @media (max-width: 900px) {
-    .empleo-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
+  /* Media queries de .empleo-grid y .empleo-row* viven en el bloque
+     <style is:global> al final del archivo. */
 
   /* === Mobile (≤ 700px) =================================================== */
   @media (max-width: 700px) {
@@ -925,8 +855,7 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .grid-2,
-    .grid-3,
-    .empleo-grid {
+    .grid-3 {
       grid-template-columns: 1fr;
       gap: 0.85rem;
     }
@@ -937,14 +866,6 @@ import Layout from '../layouts/Layout.astro';
     .field textarea {
       font-size: 1rem;
       padding: 0.75rem 0.9rem;
-    }
-    .empleo-row input,
-    .empleo-row textarea {
-      font-size: 1rem;
-      padding: 0.65rem 0.75rem;
-    }
-    .empleo-row .field span {
-      font-size: 0.8rem;
     }
 
     /* Checkboxes: tap target ≥ 44px */
@@ -969,19 +890,6 @@ import Layout from '../layouts/Layout.astro';
       width: 22px;
       height: 22px;
       margin: 0;
-    }
-
-    /* Empleo: el botón Eliminar pasa a full-width abajo de la fila */
-    .empleo-row {
-      padding: 1rem 0.85rem;
-    }
-    .empleo-row-head {
-      align-items: center;
-    }
-    .empleo-remove {
-      height: 38px;
-      padding: 0 0.7rem;
-      font-size: 0.8rem;
     }
 
     /* Botón "+ Agregar empleo" full width en mobile */
@@ -1026,6 +934,139 @@ import Layout from '../layouts/Layout.astro';
     }
     .ficha-header h1 {
       font-size: 1.1rem;
+    }
+  }
+</style>
+
+<!--
+  Estilos GLOBALES para los .empleo-row* — son creados dinámicamente vía
+  innerHTML en el <script>, y los estilos scoped de Astro no se les aplican
+  (Astro inyecta un atributo `data-astro-cid-…` en los elementos del SSR
+  pero no en los creados en runtime).
+-->
+<style is:global>
+  .empleo-row {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .empleo-row-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .empleo-row .empleo-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .empleo-grid {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  .empleo-row .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .empleo-row .field span {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .empleo-row input,
+  .empleo-row textarea {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    padding: 0.5rem 0.65rem;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.15s, background 0.15s;
+    outline: none;
+    width: 100%;
+  }
+
+  .empleo-row input:focus,
+  .empleo-row textarea:focus {
+    border-color: var(--navy);
+    background: var(--white);
+  }
+
+  .empleo-remove {
+    background: transparent;
+    border: 1px solid #C0392B;
+    color: #C0392B;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    height: 34px;
+    padding: 0 0.85rem;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .empleo-remove:hover,
+  .empleo-remove:focus-visible {
+    background: #C0392B;
+    color: var(--white);
+    outline: none;
+  }
+
+  .empleo-remove svg {
+    flex-shrink: 0;
+    stroke-width: 2;
+  }
+
+  /* Tablet: 5 cols → 2 cols */
+  @media (max-width: 900px) {
+    .empleo-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Mobile: 1 col, inputs más grandes, Eliminar más prominente */
+  @media (max-width: 700px) {
+    .empleo-row {
+      padding: 1rem 0.85rem;
+    }
+    .empleo-grid {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+    .empleo-row input,
+    .empleo-row textarea {
+      font-size: 1rem;
+      padding: 0.65rem 0.75rem;
+    }
+    .empleo-row .field span {
+      font-size: 0.8rem;
+    }
+    .empleo-remove {
+      height: 38px;
+      padding: 0 0.7rem;
+      font-size: 0.8rem;
     }
   }
 </style>
