@@ -59,11 +59,29 @@ import Layout from '../layouts/Layout.astro';
           <div class="grid-3">
             <label class="field">
               <span>DNI *</span>
-              <input type="text" name="dni" inputmode="numeric" required placeholder="20.123.456" />
+              <input
+                type="text"
+                name="dni"
+                inputmode="numeric"
+                required
+                placeholder="20.123.456"
+                maxlength="11"
+                autocomplete="off"
+                data-autoformat="dni"
+              />
             </label>
             <label class="field">
               <span>CUIL *</span>
-              <input type="text" name="cuil" inputmode="numeric" required placeholder="20-12345678-3" />
+              <input
+                type="text"
+                name="cuil"
+                inputmode="numeric"
+                required
+                placeholder="20-12345678-3"
+                maxlength="13"
+                autocomplete="off"
+                data-autoformat="cuil"
+              />
             </label>
             <label class="field">
               <span>Fecha de nacimiento *</span>
@@ -629,6 +647,38 @@ import Layout from '../layouts/Layout.astro';
     background: var(--white);
   }
 
+  /* Campo marcado como inválido tras un intento de submit fallido. */
+  .field input.is-invalid,
+  .field select.is-invalid,
+  .field textarea.is-invalid {
+    border-color: #C0392B;
+    background: #FDF6F5;
+  }
+  .field input.is-invalid:focus,
+  .field select.is-invalid:focus,
+  .field textarea.is-invalid:focus {
+    border-color: #C0392B;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+  }
+  /* Para checkboxes (declaración) */
+  input[type="checkbox"].is-invalid {
+    outline: 2px solid #C0392B;
+    outline-offset: 2px;
+  }
+
+  /* Fieldset (grupo de tipo de consulta) cuando no hay ninguno seleccionado */
+  .fieldset.is-invalid {
+    background: #FDF6F5;
+    border: 1px solid #E89B9B;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin: -0.85rem -1rem;
+  }
+  .fieldset.is-invalid legend {
+    color: #C0392B;
+    font-weight: 700;
+  }
+
   /* Checkboxes */
   .checkbox-grid {
     display: grid;
@@ -1087,7 +1137,7 @@ import Layout from '../layouts/Layout.astro';
     // página rota: no hacemos nada
   } else {
 
-    // ---- Auto-format de fecha (DD/MM/AAAA) ----------------------------------
+    // ---- Auto-format de campos numéricos formateados ------------------------
     function formatDateValue(raw: string): string {
       const digits = raw.replace(/\D/g, '').slice(0, 8);
       if (digits.length <= 2) return digits;
@@ -1095,14 +1145,105 @@ import Layout from '../layouts/Layout.astro';
       return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
     }
 
-    form.querySelectorAll<HTMLInputElement>('input[data-autoformat="date"]').forEach((inp) => {
+    function formatDniValue(raw: string): string {
+      const digits = raw.replace(/\D/g, '').slice(0, 8);
+      if (digits.length === 0) return '';
+      if (digits.length <= 3) return digits;
+      if (digits.length <= 6) return `${digits.slice(0, -3)}.${digits.slice(-3)}`;
+      return `${digits.slice(0, -6)}.${digits.slice(-6, -3)}.${digits.slice(-3)}`;
+    }
+
+    function formatCuilValue(raw: string): string {
+      const digits = raw.replace(/\D/g, '').slice(0, 11);
+      if (digits.length <= 2) return digits;
+      if (digits.length <= 10) return `${digits.slice(0, 2)}-${digits.slice(2)}`;
+      return `${digits.slice(0, 2)}-${digits.slice(2, 10)}-${digits.slice(10)}`;
+    }
+
+    const formatters: Record<string, (s: string) => string> = {
+      date: formatDateValue,
+      dni: formatDniValue,
+      cuil: formatCuilValue,
+    };
+
+    form.querySelectorAll<HTMLInputElement>('input[data-autoformat]').forEach((inp) => {
+      const kind = inp.dataset.autoformat || '';
+      const fmt = formatters[kind];
+      if (!fmt) return;
       inp.addEventListener('input', () => {
-        const formatted = formatDateValue(inp.value);
+        const formatted = fmt(inp.value);
         if (formatted !== inp.value) {
           inp.value = formatted;
         }
       });
     });
+
+    // ---- Validación de fecha real (no sólo formato) -------------------------
+    function isRealDate(str: string): boolean {
+      const m = str.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+      if (!m) return false;
+      const day = parseInt(m[1], 10);
+      const month = parseInt(m[2], 10);
+      const year = parseInt(m[3], 10);
+      const currentYear = new Date().getFullYear();
+      if (year < 1920 || year > currentYear) return false;
+      if (month < 1 || month > 12) return false;
+      if (day < 1 || day > 31) return false;
+      const d = new Date(year, month - 1, day);
+      return d.getFullYear() === year && d.getMonth() === month - 1 && d.getDate() === day;
+    }
+
+    const fechaInput = form.querySelector<HTMLInputElement>('input[name="fecha_nacimiento"]');
+    if (fechaInput) {
+      const validateFecha = () => {
+        if (fechaInput.value && !isRealDate(fechaInput.value)) {
+          fechaInput.setCustomValidity('Fecha inválida — usá el formato dd/mm/aaaa (ej: 15/03/1965).');
+        } else {
+          fechaInput.setCustomValidity('');
+        }
+      };
+      fechaInput.addEventListener('input', validateFecha);
+      fechaInput.addEventListener('blur', validateFecha);
+    }
+
+    // ---- Validación de DNI / CUIL longitud mínima ---------------------------
+    function setLengthValidity(inp: HTMLInputElement, expectedDigits: number, label: string) {
+      const onChange = () => {
+        const digits = inp.value.replace(/\D/g, '');
+        if (inp.value && digits.length > 0 && digits.length < expectedDigits) {
+          inp.setCustomValidity(`${label} incompleto — debe tener ${expectedDigits} dígitos.`);
+        } else {
+          inp.setCustomValidity('');
+        }
+      };
+      inp.addEventListener('input', onChange);
+      inp.addEventListener('blur', onChange);
+    }
+
+    const dniInput = form.querySelector<HTMLInputElement>('input[name="dni"]');
+    if (dniInput) setLengthValidity(dniInput, 7, 'DNI'); // 7 u 8 dígitos; mínimo 7
+    const cuilInput = form.querySelector<HTMLInputElement>('input[name="cuil"]');
+    if (cuilInput) setLengthValidity(cuilInput, 11, 'CUIL');
+
+    // ---- Marcado visual de campos inválidos ---------------------------------
+    function clearInvalid(el: Element) {
+      el.classList.remove('is-invalid');
+      el.removeAttribute('aria-invalid');
+    }
+    function markInvalid(el: Element) {
+      el.classList.add('is-invalid');
+      el.setAttribute('aria-invalid', 'true');
+    }
+    // Si el usuario edita un campo marcado como inválido, lo limpiamos en cuanto
+    // pase a ser válido. No esperamos al próximo submit.
+    form.addEventListener('input', (e) => {
+      const el = e.target;
+      if (el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement) {
+        if (el.classList.contains('is-invalid') && el.checkValidity()) {
+          clearInvalid(el);
+        }
+      }
+    }, true);
 
     // ---- Empleos dinámicos ---------------------------------------------------
     let empleoCounter = 0;
@@ -1174,9 +1315,21 @@ import Layout from '../layouts/Layout.astro';
       generalSection.hidden = !hasGeneral;
     }
 
+    // Fieldset que envuelve los checkboxes de "tipo de consulta" — lo usamos
+    // para mostrar el estado inválido cuando no hay ninguno seleccionado.
+    const tipoFieldset = tipoCheckboxes[0]?.closest('fieldset.fieldset') as HTMLFieldSetElement | null;
+
+    function anyTipoChecked(): boolean {
+      return Array.from(tipoCheckboxes).some((c) => c.checked);
+    }
+
     tipoCheckboxes.forEach((cb) => cb.addEventListener('change', () => {
       refreshConditionals();
       saveDraft();
+      // Al marcar cualquier tipo, limpiar la marca de inválido del fieldset
+      if (tipoFieldset && anyTipoChecked()) {
+        tipoFieldset.classList.remove('is-invalid');
+      }
     }));
 
     // ---- Autosave a localStorage --------------------------------------------
@@ -1265,12 +1418,78 @@ import Layout from '../layouts/Layout.astro';
       errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
+    // Etiquetas amigables para los campos obligatorios — se usan en la lista
+    // de errores que mostramos cuando el formulario no es válido.
+    const FIELD_LABELS: Record<string, string> = {
+      apellidos: 'Apellido/s',
+      nombres: 'Nombre/s',
+      dni: 'DNI',
+      cuil: 'CUIL',
+      fecha_nacimiento: 'Fecha de nacimiento',
+      telefono_celular: 'Teléfono celular',
+      email_cliente: 'Email',
+      descripcion_consulta: 'Descripción de la consulta',
+      declaracion: 'Declaración (al final del formulario)',
+    };
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorBox.hidden = true;
 
-      if (!form.checkValidity()) {
-        form.reportValidity();
+      // Limpiar marcas de validación previas
+      form.querySelectorAll('.is-invalid').forEach(clearInvalid);
+      if (tipoFieldset) tipoFieldset.classList.remove('is-invalid');
+
+      // Forzar validación de fecha real antes de chequear
+      if (fechaInput && fechaInput.value && !isRealDate(fechaInput.value)) {
+        fechaInput.setCustomValidity('Fecha inválida — usá el formato dd/mm/aaaa (ej: 15/03/1965).');
+      } else if (fechaInput) {
+        fechaInput.setCustomValidity('');
+      }
+
+      // Validación custom: al menos un "tipo de consulta" debe estar tildado.
+      // No es expresable con `required` porque required en un checkbox individual
+      // exige ese checkbox específico, no "uno cualquiera del grupo".
+      const tipoMissing = !anyTipoChecked();
+
+      const baseFormValid = form.checkValidity();
+
+      if (!baseFormValid || tipoMissing) {
+        const invalidEls = Array.from(form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input, select, textarea'))
+          .filter((el) => !el.checkValidity());
+
+        invalidEls.forEach(markInvalid);
+
+        const labels = invalidEls
+          .map((el) => FIELD_LABELS[el.name] || el.name)
+          .filter((v, i, arr) => v && arr.indexOf(v) === i);
+
+        if (tipoMissing) {
+          labels.unshift('Tipo de consulta');
+          if (tipoFieldset) tipoFieldset.classList.add('is-invalid');
+        }
+
+        if (labels.length > 0) {
+          const list = labels.length === 1
+            ? labels[0]
+            : labels.slice(0, -1).join(', ') + ' y ' + labels.slice(-1);
+          showError(`Faltan o son inválidos: ${list}.`);
+        } else {
+          showError('Por favor revise los datos antes de enviar.');
+        }
+
+        // Scrollear al primer problema (priorizar el fieldset de tipo si falta)
+        const firstTarget: HTMLElement | null = tipoMissing && tipoFieldset
+          ? tipoFieldset
+          : (invalidEls[0] ?? null);
+        if (firstTarget) {
+          firstTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (tipoMissing && tipoCheckboxes[0]) {
+            setTimeout(() => tipoCheckboxes[0].focus({ preventScroll: true }), 350);
+          } else if (invalidEls[0]) {
+            setTimeout(() => invalidEls[0].focus({ preventScroll: true }), 350);
+          }
+        }
         return;
       }
 
@@ -1288,17 +1507,19 @@ import Layout from '../layouts/Layout.astro';
         return;
       }
 
-      // Construir payload estructurado
+      // Construir payload estructurado, trimming todos los strings
       const fd = new FormData(form);
       const payload: Record<string, any> = {};
       for (const [k, v] of fd.entries()) {
         if (k === 'website') continue;
+        const val = typeof v === 'string' ? v.trim() : v;
+        if (val === '') continue; // omitimos strings vacíos tras trim
         if (payload[k] === undefined) {
-          payload[k] = v;
+          payload[k] = val;
         } else if (Array.isArray(payload[k])) {
-          payload[k].push(v);
+          payload[k].push(val);
         } else {
-          payload[k] = [payload[k], v];
+          payload[k] = [payload[k], val];
         }
       }
 
