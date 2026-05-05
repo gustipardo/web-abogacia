@@ -10,10 +10,13 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "flyers": "node scripts/generate-flyers.mjs"
+    "flyers": "node scripts/generate-flyers.mjs",
+    "test:ficha": "node scripts/test-ficha.mjs"
   },
   "dependencies": {
-    "astro": "^6.1.5"
+    "@astrojs/vercel": "^10.0.6",
+    "astro": "^6.1.5",
+    "resend": "^6.12.2"
   },
   "devDependencies": {
     "puppeteer": "^24.42.0"

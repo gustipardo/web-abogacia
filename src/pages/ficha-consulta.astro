@@ -1,0 +1,1293 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Ficha de Consulta Previsional · Estudio Ghetti"
+  description="Formulario confidencial de primera consulta previsional. Estudio Ghetti — Dra. Adriana Ghetti."
+  noindex={true}
+>
+  <main class="ficha-page">
+    <div class="ficha-container">
+
+      <header class="ficha-header">
+        <img src="/logo.png" alt="Estudio Ghetti" class="ficha-logo" width="64" height="64" />
+        <h1>Ficha de Primera Consulta Previsional</h1>
+        <p class="ficha-intro">
+          Complete los datos posibles. Esta información es confidencial y se utiliza
+          exclusivamente para el análisis de su situación jubilatoria.
+        </p>
+        <p class="ficha-credit">
+          Estudio Ghetti · Dra. Graciela Adriana Ghetti · Abogada UBA · Tel: 11-6938-0777
+        </p>
+      </header>
+
+      <div class="ficha-privacy">
+        <strong>🔒 Confidencial.</strong>
+        Los datos viajan cifrados (HTTPS) y se envían únicamente a la Dra. Ghetti. Este sitio
+        no almacena la información.
+      </div>
+
+      <form id="ficha-form" class="ficha-form" novalidate>
+
+        <!-- Honeypot anti-spam (no visible para humanos) -->
+        <div class="hp" aria-hidden="true">
+          <label>No completar este campo</label>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 1 — DATOS PERSONALES                                  -->
+        <!-- ============================================================ -->
+        <section class="ficha-section">
+          <div class="section-head">
+            <span class="section-tag tag-todos">TODOS</span>
+            <h2>1. Datos Personales</h2>
+          </div>
+
+          <div class="grid-2">
+            <label class="field">
+              <span>Apellido/s *</span>
+              <input type="text" name="apellidos" required autocomplete="family-name" />
+            </label>
+            <label class="field">
+              <span>Nombre/s *</span>
+              <input type="text" name="nombres" required autocomplete="given-name" />
+            </label>
+          </div>
+
+          <div class="grid-3">
+            <label class="field">
+              <span>DNI *</span>
+              <input type="text" name="dni" inputmode="numeric" required placeholder="20.123.456" />
+            </label>
+            <label class="field">
+              <span>CUIL *</span>
+              <input type="text" name="cuil" inputmode="numeric" required placeholder="20-12345678-3" />
+            </label>
+            <label class="field">
+              <span>Fecha de nacimiento *</span>
+              <input
+                type="text"
+                name="fecha_nacimiento"
+                required
+                inputmode="numeric"
+                placeholder="DD/MM/AAAA"
+                pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}"
+                maxlength="10"
+                autocomplete="bday"
+                data-autoformat="date"
+              />
+            </label>
+          </div>
+
+          <div class="grid-3">
+            <label class="field">
+              <span>Nacionalidad</span>
+              <input type="text" name="nacionalidad" placeholder="Argentina" />
+            </label>
+            <label class="field">
+              <span>Estado civil</span>
+              <select name="estado_civil">
+                <option value="">Seleccionar…</option>
+                <option>Soltero/a</option>
+                <option>Casado/a</option>
+                <option>Conviviente</option>
+                <option>Divorciado/a</option>
+                <option>Viudo/a</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Sexo (s/ DNI)</span>
+              <select name="sexo">
+                <option value="">Seleccionar…</option>
+                <option>Femenino</option>
+                <option>Masculino</option>
+                <option>X</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Domicilio actual (calle, número, localidad, partido, provincia)</span>
+            <input type="text" name="domicilio" autocomplete="street-address" />
+          </label>
+
+          <div class="grid-3">
+            <label class="field">
+              <span>Teléfono celular *</span>
+              <input type="tel" name="telefono_celular" required placeholder="11 5555 5555" autocomplete="tel" />
+            </label>
+            <label class="field">
+              <span>Teléfono alternativo</span>
+              <input type="tel" name="telefono_alternativo" placeholder="(opcional)" />
+            </label>
+            <label class="field">
+              <span>Email *</span>
+              <input type="email" name="email_cliente" required placeholder="su@email.com" autocomplete="email" />
+            </label>
+          </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 2 — CREDENCIALES DIGITALES                            -->
+        <!-- ============================================================ -->
+        <section class="ficha-section">
+          <div class="section-head">
+            <span class="section-tag tag-todos">TODOS</span>
+            <h2>2. Credenciales Digitales</h2>
+          </div>
+          <p class="section-help">Indique si tiene usuario y clave activos en estos organismos:</p>
+
+          <div class="checkbox-grid">
+            <label class="check"><input type="checkbox" name="cred_anses" /> <span>Mi ANSES (clave activa)</span></label>
+            <label class="check"><input type="checkbox" name="cred_afip" /> <span>AFIP / ARCA (clave fiscal)</span></label>
+            <label class="check"><input type="checkbox" name="cred_ips" /> <span>Mi IPS (autogestión)</span></label>
+            <label class="check"><input type="checkbox" name="cred_abc" /> <span>ABC Docente (portal)</span></label>
+          </div>
+
+          <label class="field">
+            <span>Observaciones sobre accesos digitales</span>
+            <input type="text" name="credenciales_obs" placeholder="Ej.: clave bloqueada, no recuerdo usuario…" />
+          </label>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 3 — TIPO DE CONSULTA                                  -->
+        <!-- ============================================================ -->
+        <section class="ficha-section">
+          <div class="section-head">
+            <span class="section-tag tag-todos">TODOS</span>
+            <h2>3. Tipo de Consulta</h2>
+          </div>
+
+          <fieldset class="fieldset">
+            <legend>¿Qué tipo de jubilación consulta? *</legend>
+            <div class="checkbox-grid">
+              <label class="check"><input type="checkbox" name="tipo" value="ordinaria" data-route="general" /> <span>Jubilación ordinaria (edad + aportes)</span></label>
+              <label class="check"><input type="checkbox" name="tipo" value="docente" data-route="docente" /> <span>Jubilación docente (IPS)</span></label>
+              <label class="check"><input type="checkbox" name="tipo" value="invalidez" data-route="general" /> <span>Retiro por invalidez</span></label>
+              <label class="check"><input type="checkbox" name="tipo" value="pension" data-route="general" /> <span>Pensión por fallecimiento</span></label>
+              <label class="check"><input type="checkbox" name="tipo" value="diagnostico" data-route="general" /> <span>Diagnóstico previsional</span></label>
+              <label class="check"><input type="checkbox" name="tipo" value="reajuste" data-route="general" /> <span>Reajuste de haberes</span></label>
+              <label class="check"><input type="checkbox" name="tipo" value="otro" data-route="general" /> <span>Otro</span></label>
+            </div>
+          </fieldset>
+
+          <div class="grid-2">
+            <label class="field">
+              <span>¿Está trabajando actualmente?</span>
+              <select name="trabajando_actualmente">
+                <option value="">Seleccionar…</option>
+                <option>Sí</option>
+                <option>No</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>¿Cobra algún beneficio previsional?</span>
+              <input type="text" name="cobra_beneficio" placeholder="Sí / No · qué beneficio" />
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Descripción breve de la consulta *</span>
+            <textarea name="descripcion_consulta" rows="4" required placeholder="Cuéntenos brevemente su situación…"></textarea>
+          </label>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 4 — HISTORIA LABORAL                                  -->
+        <!-- ============================================================ -->
+        <section class="ficha-section">
+          <div class="section-head">
+            <span class="section-tag tag-todos">TODOS</span>
+            <h2>4. Historia Laboral — Empleos / Cargos</h2>
+          </div>
+          <p class="section-help">
+            Detalle cada empleo, cargo docente o actividad autónoma. Puede agregar todas las filas
+            que necesite.
+          </p>
+
+          <div id="empleos-list" class="empleos-list"></div>
+
+          <button type="button" id="empleo-add" class="btn-add">+ Agregar empleo</button>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 5 — DATOS DOCENTES (condicional)                      -->
+        <!-- ============================================================ -->
+        <section class="ficha-section route-docente" data-route="docente" hidden>
+          <div class="section-head">
+            <span class="section-tag tag-docente">SOLO DOCENTES</span>
+            <h2>5. Datos Específicos — Carrera Docente (IPS)</h2>
+          </div>
+
+          <fieldset class="fieldset">
+            <legend>Niveles en los que se desempeñó</legend>
+            <div class="checkbox-grid">
+              <label class="check"><input type="checkbox" name="niveles" value="Inicial" /> <span>Inicial</span></label>
+              <label class="check"><input type="checkbox" name="niveles" value="Primaria" /> <span>Primaria</span></label>
+              <label class="check"><input type="checkbox" name="niveles" value="Secundaria" /> <span>Secundaria</span></label>
+              <label class="check"><input type="checkbox" name="niveles" value="Superior/Terciario" /> <span>Superior / Terciario</span></label>
+              <label class="check"><input type="checkbox" name="niveles" value="Ed. Especial" /> <span>Ed. Especial</span></label>
+              <label class="check"><input type="checkbox" name="niveles" value="Ed. Artística" /> <span>Ed. Artística</span></label>
+              <label class="check"><input type="checkbox" name="niveles" value="Ed. Adultos (FINES/CENS)" /> <span>Ed. Adultos (FINES/CENS)</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend>Tipo de gestión</legend>
+            <div class="checkbox-grid">
+              <label class="check"><input type="checkbox" name="gestion" value="Estatal" /> <span>Estatal</span></label>
+              <label class="check"><input type="checkbox" name="gestion" value="Privada subvencionada" /> <span>Privada subvencionada</span></label>
+              <label class="check"><input type="checkbox" name="gestion" value="Privada sin subvención" /> <span>Privada sin subvención</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend>Tipo de cargo</legend>
+            <div class="checkbox-grid">
+              <label class="check"><input type="checkbox" name="cargo" value="Titular" /> <span>Titular</span></label>
+              <label class="check"><input type="checkbox" name="cargo" value="Provisional" /> <span>Provisional</span></label>
+              <label class="check"><input type="checkbox" name="cargo" value="Suplente" /> <span>Suplente</span></label>
+              <label class="check"><input type="checkbox" name="cargo" value="Horas cátedra" /> <span>Horas cátedra</span></label>
+              <label class="check"><input type="checkbox" name="cargo" value="Cargo directivo" /> <span>Cargo directivo</span></label>
+              <label class="check"><input type="checkbox" name="cargo" value="Secretario/a" /> <span>Secretario/a</span></label>
+              <label class="check"><input type="checkbox" name="cargo" value="Preceptor/a" /> <span>Preceptor/a</span></label>
+              <label class="check"><input type="checkbox" name="cargo" value="Otro" /> <span>Otro</span></label>
+            </div>
+          </fieldset>
+
+          <div class="grid-3">
+            <label class="field">
+              <span>Máx. horas simultáneas</span>
+              <input type="text" name="max_horas_simultaneas" inputmode="numeric" />
+            </label>
+            <label class="field">
+              <span>¿Cargos simultáneos?</span>
+              <select name="cargos_simultaneos">
+                <option value="">Seleccionar…</option>
+                <option>Sí</option>
+                <option>No</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Años con simultaneidad</span>
+              <input type="text" name="anos_simultaneidad" inputmode="numeric" />
+            </label>
+          </div>
+
+          <fieldset class="fieldset">
+            <legend>Licencias relevantes</legend>
+            <div class="checkbox-grid">
+              <label class="check"><input type="checkbox" name="licencias" value="Maternidad" /> <span>Maternidad</span></label>
+              <label class="check"><input type="checkbox" name="licencias" value="Sin goce de sueldo" /> <span>Sin goce de sueldo</span></label>
+              <label class="check"><input type="checkbox" name="licencias" value="Enfermedad prolongada (Art. 114/115)" /> <span>Enfermedad prolongada (Art. 114/115)</span></label>
+              <label class="check"><input type="checkbox" name="licencias" value="Cargo mayor jerarquía" /> <span>Cargo mayor jerarquía</span></label>
+              <label class="check"><input type="checkbox" name="licencias" value="Otras" /> <span>Otras</span></label>
+            </div>
+          </fieldset>
+
+          <label class="field">
+            <span>Detalle de licencias (períodos y motivos)</span>
+            <textarea name="detalle_licencias" rows="3"></textarea>
+          </label>
+
+          <div class="grid-2">
+            <label class="field">
+              <span>¿Tiene la hoja de vida de ABC descargada?</span>
+              <select name="hoja_vida_abc">
+                <option value="">Seleccionar…</option>
+                <option>Sí</option>
+                <option>No</option>
+                <option>No sé</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>¿Tiene certificaciones de servicios?</span>
+              <select name="certificaciones_servicios">
+                <option value="">Seleccionar…</option>
+                <option>Sí</option>
+                <option>No</option>
+                <option>Algunas</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 6 — DATOS ANSES (condicional)                         -->
+        <!-- ============================================================ -->
+        <section class="ficha-section route-general" data-route="general" hidden>
+          <div class="section-head">
+            <span class="section-tag tag-general">GENERAL / ANSES</span>
+            <h2>6. Datos Específicos — Trabajador General (ANSES)</h2>
+          </div>
+
+          <div class="grid-2">
+            <label class="field">
+              <span>¿Tiene la "sábana" (historia laboral ANSES)?</span>
+              <select name="tiene_sabana">
+                <option value="">Seleccionar…</option>
+                <option>Sí</option>
+                <option>No</option>
+                <option>No sé</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Años estimados con aportes</span>
+              <input type="text" name="anos_aportes" inputmode="numeric" />
+            </label>
+          </div>
+
+          <fieldset class="fieldset">
+            <legend>Tipo de actividad</legend>
+            <div class="checkbox-grid">
+              <label class="check"><input type="checkbox" name="tipo_actividad" value="Rel. dependencia privada" /> <span>Rel. dependencia privada</span></label>
+              <label class="check"><input type="checkbox" name="tipo_actividad" value="Empleo público nacional" /> <span>Empleo público nacional</span></label>
+              <label class="check"><input type="checkbox" name="tipo_actividad" value="Autónomo" /> <span>Autónomo</span></label>
+              <label class="check"><input type="checkbox" name="tipo_actividad" value="Monotributista" /> <span>Monotributista</span></label>
+              <label class="check"><input type="checkbox" name="tipo_actividad" value="Servicio doméstico" /> <span>Servicio doméstico</span></label>
+              <label class="check"><input type="checkbox" name="tipo_actividad" value="Rural" /> <span>Rural</span></label>
+              <label class="check"><input type="checkbox" name="tipo_actividad" value="Otro" /> <span>Otro</span></label>
+            </div>
+          </fieldset>
+
+          <div class="grid-2">
+            <label class="field">
+              <span>¿Realizó moratoria previsional?</span>
+              <select name="moratoria">
+                <option value="">Seleccionar…</option>
+                <option>Sí</option>
+                <option>No</option>
+                <option>No sé</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>¿Tiene empleadores cerrados / quebrados?</span>
+              <select name="empleadores_cerrados">
+                <option value="">Seleccionar…</option>
+                <option>Sí</option>
+                <option>No</option>
+                <option>No sé</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Detalle de moratorias / empleadores cerrados</span>
+            <textarea name="detalle_moratorias" rows="3"></textarea>
+          </label>
+
+          <div class="grid-2">
+            <label class="field">
+              <span>¿Cobra actualmente algún beneficio?</span>
+              <input type="text" name="cobra_beneficio_actual" placeholder="Sí / No · qué beneficio" />
+            </label>
+            <label class="field">
+              <span>Monto aproximado del beneficio actual ($)</span>
+              <input type="text" name="monto_beneficio" inputmode="numeric" />
+            </label>
+          </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 7 — DOCUMENTACIÓN                                     -->
+        <!-- ============================================================ -->
+        <section class="ficha-section">
+          <div class="section-head">
+            <span class="section-tag tag-todos">TODOS</span>
+            <h2>7. Documentación que Aporta</h2>
+          </div>
+          <p class="section-help">Marque la documentación que tiene o puede conseguir:</p>
+
+          <div class="checkbox-grid">
+            <label class="check"><input type="checkbox" name="doc" value="DNI (fotocopia)" /> <span>DNI (fotocopia)</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Partida de nacimiento" /> <span>Partida de nacimiento</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Acta de matrimonio" /> <span>Acta de matrimonio</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Certificado de defunción" /> <span>Certificado de defunción (pensión)</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Historia laboral ANSES (sábana)" /> <span>Historia laboral ANSES (sábana)</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Hoja de Vida ABC" /> <span>Hoja de Vida ABC</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Certificaciones de servicios" /> <span>Certificaciones de servicios</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Recibos de sueldo (últ. 12 meses)" /> <span>Recibos de sueldo (últ. 12 meses)</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Resoluciones de designación" /> <span>Resoluciones de designación</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Constancia de CUIL" /> <span>Constancia de CUIL</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Comprobante de moratoria" /> <span>Comprobante de moratoria</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Sentencia judicial previsional" /> <span>Sentencia judicial previsional</span></label>
+            <label class="check"><input type="checkbox" name="doc" value="Otro" /> <span>Otro</span></label>
+          </div>
+
+          <label class="field">
+            <span>Detalle de documentación adicional</span>
+            <textarea name="doc_detalle" rows="2"></textarea>
+          </label>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- DECLARACIÓN + ENVÍO                                           -->
+        <!-- ============================================================ -->
+        <section class="ficha-section">
+          <label class="check check-declaration">
+            <input type="checkbox" name="declaracion" required />
+            <span>
+              Declaro que los datos consignados en la presente ficha son verdaderos
+              y completos según mi leal saber y entender. *
+            </span>
+          </label>
+
+          <div id="ficha-error" class="form-error" hidden role="alert"></div>
+
+          <button type="submit" id="ficha-submit" class="btn btn-primary submit-btn">
+            Enviar ficha →
+          </button>
+
+          <p class="form-note">
+            Datos protegidos por el secreto profesional. Estudio Ghetti · adriana@estudioghetti.com
+          </p>
+        </section>
+
+      </form>
+
+      <div id="ficha-success" class="ficha-success" hidden>
+        <div class="success-check" aria-hidden="true">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h2>Ficha enviada correctamente</h2>
+        <p>
+          La Dra. Ghetti recibió su ficha y la analizará para la consulta. Si necesita
+          contactarla, puede hacerlo por WhatsApp al <strong>11-6938-0777</strong> o por
+          email a <strong>adriana@estudioghetti.com</strong>.
+        </p>
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .ficha-page {
+    background: var(--bg);
+    min-height: 100vh;
+    padding: 2rem 0 5rem;
+  }
+
+  .ficha-container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  /* Header */
+  .ficha-header {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 2rem 1.75rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .ficha-logo {
+    margin: 0 auto 0.75rem;
+    background: var(--white);
+    border-radius: 50%;
+    padding: 6px;
+  }
+
+  .ficha-header h1 {
+    font-size: clamp(1.4rem, 3vw, 1.85rem);
+    color: var(--white);
+    margin-bottom: 0.6rem;
+  }
+
+  .ficha-intro {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.85);
+    max-width: 540px;
+    margin: 0 auto 0.75rem;
+    line-height: 1.6;
+  }
+
+  .ficha-credit {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.04em;
+  }
+
+  .ficha-privacy {
+    background: #F0F8F1;
+    border: 1px solid #C8E6CC;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 0.85rem;
+    color: #2E5232;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  /* Form */
+  .ficha-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .ficha-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    box-shadow: 0 2px 8px rgba(27,42,74,0.04);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.85rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .section-head h2 {
+    font-size: 1.1rem;
+    color: var(--navy);
+    margin: 0;
+  }
+
+  .section-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.55rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  .tag-todos { background: #E8F0E9; color: #2E5232; }
+  .tag-docente { background: #FDF1DD; color: #8A5A1A; }
+  .tag-general { background: #E3ECFA; color: #2A4A78; }
+
+  .section-help {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin: -0.4rem 0 0.25rem;
+  }
+
+  /* Layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+
+  /* Field */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .field span {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    padding: 0.65rem 0.85rem;
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color 0.15s, background 0.15s;
+    resize: vertical;
+    outline: none;
+    width: 100%;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--navy);
+    background: var(--white);
+  }
+
+  /* Checkboxes */
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.6rem 1rem;
+  }
+
+  .check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    cursor: pointer;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .check input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 1px 0 0;
+    accent-color: var(--navy);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .check span { flex: 1; }
+
+  .check-declaration {
+    background: #F8F6F2;
+    border: 1.5px solid var(--gold);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* Fieldset */
+  .fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .fieldset legend {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+    padding: 0;
+  }
+
+  /* Empleos (sección 4) */
+  .empleos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .empleo-row {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .empleo-row-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .empleo-row .empleo-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .empleo-grid {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  .empleo-row .field span {
+    font-size: 0.72rem;
+  }
+
+  .empleo-row input,
+  .empleo-row textarea {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.65rem;
+  }
+
+  .empleo-remove {
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    height: 34px;
+    padding: 0 0.85rem;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .empleo-remove:hover,
+  .empleo-remove:focus-visible {
+    background: #FEEFEF;
+    border-color: #E89B9B;
+    color: #B33939;
+    outline: none;
+  }
+
+  .empleo-remove svg {
+    flex-shrink: 0;
+  }
+
+  .btn-add {
+    align-self: flex-start;
+    background: transparent;
+    border: 1.5px dashed var(--gold);
+    color: var(--gold);
+    padding: 0.6rem 1.1rem;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    transition: background 0.15s;
+  }
+
+  .btn-add:hover {
+    background: rgba(184,152,106,0.1);
+  }
+
+  /* Submit */
+  .submit-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+  }
+
+  .form-error {
+    background: #FEEFEF;
+    border: 1px solid #F5C2C2;
+    color: #B33939;
+    border-radius: 7px;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .form-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  .form-submit-loading {
+    opacity: 0.7;
+    cursor: wait;
+  }
+
+  /* Honeypot */
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  /* Success state */
+  .ficha-success {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--shadow);
+  }
+
+  .ficha-success[hidden] { display: none; }
+
+  .success-check {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #E8F5E9;
+    color: #2E7D32;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ficha-success h2 {
+    color: var(--navy);
+    font-size: 1.6rem;
+  }
+
+  .ficha-success p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  /* Hidden conditional sections */
+  .ficha-section[hidden] { display: none; }
+
+  /* === Tablet (≤ 900px): empleo-grid pasa a 2 cols ======================== */
+  @media (max-width: 900px) {
+    .empleo-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* === Mobile (≤ 700px) =================================================== */
+  @media (max-width: 700px) {
+    .ficha-page {
+      padding: 0.75rem 0 2.5rem;
+    }
+    .ficha-container {
+      padding: 0 0.85rem;
+    }
+
+    /* Header más compacto */
+    .ficha-header {
+      padding: 1.5rem 1.1rem;
+      border-radius: 10px;
+    }
+    .ficha-header h1 {
+      font-size: 1.25rem;
+      line-height: 1.3;
+    }
+    .ficha-intro {
+      font-size: 0.88rem;
+    }
+    .ficha-credit {
+      font-size: 0.7rem;
+      line-height: 1.5;
+    }
+    .ficha-logo {
+      width: 52px;
+      height: 52px;
+    }
+
+    .ficha-privacy {
+      font-size: 0.8rem;
+      padding: 0.75rem 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .ficha-form {
+      gap: 0.85rem;
+    }
+
+    .ficha-section {
+      padding: 1.25rem 1rem;
+      border-radius: 10px;
+      gap: 1rem;
+    }
+
+    /* Section head: tag arriba, h2 abajo */
+    .section-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .section-head h2 {
+      font-size: 1.05rem;
+      line-height: 1.3;
+    }
+
+    .grid-2,
+    .grid-3,
+    .empleo-grid {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    /* Inputs: 16px+ para que iOS no haga auto-zoom */
+    .field input,
+    .field select,
+    .field textarea {
+      font-size: 1rem;
+      padding: 0.75rem 0.9rem;
+    }
+    .empleo-row input,
+    .empleo-row textarea {
+      font-size: 1rem;
+      padding: 0.65rem 0.75rem;
+    }
+    .empleo-row .field span {
+      font-size: 0.8rem;
+    }
+
+    /* Checkboxes: tap target ≥ 44px */
+    .checkbox-grid {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+    .check {
+      min-height: 44px;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      align-items: center;
+      background: var(--bg);
+      border: 1px solid transparent;
+      transition: border-color 0.12s, background 0.12s;
+    }
+    .check:has(input:checked) {
+      background: rgba(184,152,106,0.12);
+      border-color: var(--gold);
+    }
+    .check input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      margin: 0;
+    }
+
+    /* Empleo: el botón Eliminar pasa a full-width abajo de la fila */
+    .empleo-row {
+      padding: 1rem 0.85rem;
+    }
+    .empleo-row-head {
+      align-items: center;
+    }
+    .empleo-remove {
+      height: 38px;
+      padding: 0 0.7rem;
+      font-size: 0.8rem;
+    }
+
+    /* Botón "+ Agregar empleo" full width en mobile */
+    .btn-add {
+      align-self: stretch;
+      text-align: center;
+      padding: 0.8rem 1rem;
+      font-size: 0.92rem;
+    }
+
+    /* Submit y declaración */
+    .check-declaration {
+      padding: 0.85rem 0.85rem;
+      font-size: 0.88rem;
+    }
+    .submit-btn {
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+    }
+
+    .ficha-success {
+      padding: 2rem 1.25rem;
+    }
+    .ficha-success h2 {
+      font-size: 1.35rem;
+    }
+    .ficha-success p {
+      font-size: 0.92rem;
+    }
+  }
+
+  /* === Mobile chico (≤ 380px) ============================================= */
+  @media (max-width: 380px) {
+    .ficha-container {
+      padding: 0 0.65rem;
+    }
+    .ficha-section {
+      padding: 1.1rem 0.85rem;
+    }
+    .ficha-header {
+      padding: 1.25rem 0.9rem;
+    }
+    .ficha-header h1 {
+      font-size: 1.1rem;
+    }
+  }
+</style>
+
+<script>
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const form = document.getElementById('ficha-form') as HTMLFormElement | null;
+  const success = document.getElementById('ficha-success') as HTMLDivElement | null;
+  const errorBox = document.getElementById('ficha-error') as HTMLDivElement | null;
+  const submitBtn = document.getElementById('ficha-submit') as HTMLButtonElement | null;
+  const empleosList = document.getElementById('empleos-list') as HTMLDivElement | null;
+  const empleoAddBtn = document.getElementById('empleo-add') as HTMLButtonElement | null;
+
+  const STORAGE_KEY = 'ficha-consulta-v1';
+  const PAGE_LOAD_TS = Date.now();
+
+  if (!form || !success || !errorBox || !submitBtn || !empleosList || !empleoAddBtn) {
+    // página rota: no hacemos nada
+  } else {
+
+    // ---- Auto-format de fecha (DD/MM/AAAA) ----------------------------------
+    function formatDateValue(raw: string): string {
+      const digits = raw.replace(/\D/g, '').slice(0, 8);
+      if (digits.length <= 2) return digits;
+      if (digits.length <= 4) return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+      return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
+    }
+
+    form.querySelectorAll<HTMLInputElement>('input[data-autoformat="date"]').forEach((inp) => {
+      inp.addEventListener('input', () => {
+        const formatted = formatDateValue(inp.value);
+        if (formatted !== inp.value) {
+          inp.value = formatted;
+        }
+      });
+    });
+
+    // ---- Empleos dinámicos ---------------------------------------------------
+    let empleoCounter = 0;
+    function buildEmpleoRow(num: number, prefill?: Record<string, string>) {
+      const row = document.createElement('div');
+      row.className = 'empleo-row';
+      row.innerHTML = `
+        <div class="empleo-row-head">
+          <span class="empleo-num">Empleo #${num}</span>
+          <button type="button" class="empleo-remove" aria-label="Eliminar empleo ${num}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+              <path d="M10 11v6"></path>
+              <path d="M14 11v6"></path>
+              <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+            </svg>
+            <span>Eliminar</span>
+          </button>
+        </div>
+        <div class="empleo-grid">
+          <label class="field"><span>Empleador / Escuela</span><input type="text" name="empleo_${num}_empleador" /></label>
+          <label class="field"><span>Cargo / Función</span><input type="text" name="empleo_${num}_cargo" /></label>
+          <label class="field"><span>Desde</span><input type="text" name="empleo_${num}_desde" placeholder="MM/AAAA" /></label>
+          <label class="field"><span>Hasta</span><input type="text" name="empleo_${num}_hasta" placeholder="MM/AAAA o actual" /></label>
+          <label class="field"><span>Caja</span><input type="text" name="empleo_${num}_caja" placeholder="ANSES, IPS, …" /></label>
+        </div>
+        <label class="field"><span>Observaciones</span><input type="text" name="empleo_${num}_observaciones" /></label>
+      `;
+      if (prefill) {
+        row.querySelectorAll('input').forEach((inp) => {
+          const v = prefill[inp.name];
+          if (v) inp.value = v;
+        });
+      }
+      const removeBtn = row.querySelector('.empleo-remove') as HTMLButtonElement;
+      removeBtn.addEventListener('click', () => {
+        row.remove();
+        saveDraft();
+      });
+      empleosList.appendChild(row);
+    }
+
+    function addEmpleo(prefill?: Record<string, string>) {
+      empleoCounter += 1;
+      buildEmpleoRow(empleoCounter, prefill);
+    }
+
+    empleoAddBtn.addEventListener('click', () => {
+      addEmpleo();
+      saveDraft();
+    });
+
+    // ---- Conditional sections ------------------------------------------------
+    const docenteSection = document.querySelector('.route-docente') as HTMLElement;
+    const generalSection = document.querySelector('.route-general') as HTMLElement;
+    const tipoCheckboxes = form.querySelectorAll<HTMLInputElement>('input[name="tipo"]');
+
+    function refreshConditionals() {
+      let hasDocente = false;
+      let hasGeneral = false;
+      tipoCheckboxes.forEach((cb) => {
+        if (cb.checked) {
+          if (cb.dataset.route === 'docente') hasDocente = true;
+          if (cb.dataset.route === 'general') hasGeneral = true;
+        }
+      });
+      docenteSection.hidden = !hasDocente;
+      generalSection.hidden = !hasGeneral;
+    }
+
+    tipoCheckboxes.forEach((cb) => cb.addEventListener('change', () => {
+      refreshConditionals();
+      saveDraft();
+    }));
+
+    // ---- Autosave a localStorage --------------------------------------------
+    function saveDraft() {
+      try {
+        const data = new FormData(form);
+        const obj: Record<string, any> = {};
+        for (const [k, v] of data.entries()) {
+          if (obj[k] === undefined) {
+            obj[k] = v;
+          } else if (Array.isArray(obj[k])) {
+            obj[k].push(v);
+          } else {
+            obj[k] = [obj[k], v];
+          }
+        }
+        // Guardar también checkboxes desmarcados (FormData no los incluye)
+        form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]').forEach((cb) => {
+          if (!cb.checked && cb.name && obj[cb.name] === undefined) {
+            obj[`__unchecked_${cb.name}_${cb.value}`] = '0';
+          }
+        });
+        obj.__empleo_count = String(empleoCounter);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+      } catch {
+        // localStorage no disponible — silenciar
+      }
+    }
+
+    function loadDraft() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          // Inicializar con un empleo vacío
+          addEmpleo();
+          return;
+        }
+        const obj = JSON.parse(raw) as Record<string, any>;
+
+        // Crear filas de empleos primero
+        const count = parseInt(obj.__empleo_count || '0', 10);
+        if (count > 0) {
+          for (let i = 1; i <= count; i++) {
+            const prefill: Record<string, string> = {};
+            ['empleador', 'cargo', 'desde', 'hasta', 'caja', 'observaciones'].forEach((suf) => {
+              const k = `empleo_${i}_${suf}`;
+              if (typeof obj[k] === 'string') prefill[k] = obj[k];
+            });
+            buildEmpleoRow(i, prefill);
+          }
+          empleoCounter = count;
+        } else {
+          addEmpleo();
+        }
+
+        // Rellenar inputs / selects / checkboxes
+        Object.entries(obj).forEach(([key, val]) => {
+          if (key.startsWith('__') || key.startsWith('empleo_')) return;
+          const fields = form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(`[name="${key}"]`);
+          fields.forEach((f) => {
+            if (f instanceof HTMLInputElement && (f.type === 'checkbox' || f.type === 'radio')) {
+              const values = Array.isArray(val) ? val : [val];
+              if (values.includes(f.value)) f.checked = true;
+            } else {
+              f.value = String(val);
+            }
+          });
+        });
+
+        refreshConditionals();
+      } catch {
+        addEmpleo();
+      }
+    }
+
+    // Save on every input change
+    form.addEventListener('input', saveDraft);
+    form.addEventListener('change', saveDraft);
+
+    loadDraft();
+
+    // ---- Submit -------------------------------------------------------------
+    function showError(msg: string) {
+      errorBox.textContent = msg;
+      errorBox.hidden = false;
+      errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.hidden = true;
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Honeypot: si está lleno, es un bot — fingimos éxito sin enviar
+      const hp = (form.elements.namedItem('website') as HTMLInputElement | null)?.value || '';
+      if (hp.trim() !== '') {
+        form.hidden = true;
+        success.hidden = false;
+        return;
+      }
+
+      // Mínimo tiempo en página: 4 segundos
+      if (Date.now() - PAGE_LOAD_TS < 4000) {
+        showError('Por favor revise los datos antes de enviar.');
+        return;
+      }
+
+      // Construir payload estructurado
+      const fd = new FormData(form);
+      const payload: Record<string, any> = {};
+      for (const [k, v] of fd.entries()) {
+        if (k === 'website') continue;
+        if (payload[k] === undefined) {
+          payload[k] = v;
+        } else if (Array.isArray(payload[k])) {
+          payload[k].push(v);
+        } else {
+          payload[k] = [payload[k], v];
+        }
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.classList.add('form-submit-loading');
+      const originalLabel = submitBtn.textContent;
+      submitBtn.textContent = 'Enviando…';
+
+      try {
+        const resp = await fetch('/api/submit-ficha', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const result = await resp.json().catch(() => ({}));
+        if (!resp.ok || !result.ok) {
+          throw new Error(result.error || 'Error desconocido');
+        }
+        // Éxito: limpiar borrador y mostrar pantalla de éxito
+        localStorage.removeItem(STORAGE_KEY);
+        form.hidden = true;
+        success.hidden = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : 'Error al enviar';
+        showError(`No pudimos enviar la ficha: ${msg}. Probá de nuevo en un momento o escribinos a adriana@estudioghetti.com.`);
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('form-submit-loading');
+        submitBtn.textContent = originalLabel;
+      }
+    });
+  }
+</script>
