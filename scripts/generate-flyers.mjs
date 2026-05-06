@@ -22,6 +22,14 @@ const flyers = [
       'public/flyer-jubilacion.png',
     ],
   },
+  {
+    html: 'Context/og/ficha-consulta.html',
+    outs: ['public/og-ficha-consulta.png'],
+  },
+  {
+    html: 'Context/og/home.html',
+    outs: ['public/og-default.png'],
+  },
 ];
 
 const browser = await puppeteer.launch({

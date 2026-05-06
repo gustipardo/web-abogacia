@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8" />
+<title>OG · Ficha de Consulta Previsional · Estudio Ghetti</title>
+<style>
+  :root{
+    --navy:#1B2A4A;
+    --gold:#B8986A;
+    --gold-light:#D4B88A;
+    --bg:#F8F6F2;
+    --white:#FFFFFF;
+    --text:#1A1A1A;
+    --text-muted:#5A5A6A;
+    --border:#E0DBD4;
+    --serif:'Georgia','Times New Roman',serif;
+    --sans:'Segoe UI',system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#2a2a2a}
+  body{
+    font-family:var(--sans);
+    color:var(--text);
+    padding:32px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    min-height:100vh;
+  }
+
+  /* OG card: 1200×630, fixed (no scale on smaller viewports — we render at 1400 wide) */
+  .flyer{
+    width:1200px;
+    height:630px;
+    background:var(--bg);
+    color:var(--text);
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 24px 80px rgba(0,0,0,0.4);
+    display:flex;
+    flex-direction:column;
+  }
+
+  .flyer::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:10px;
+    background:linear-gradient(90deg,var(--gold) 0%,var(--gold-light) 50%,var(--gold) 100%);
+    z-index:3;
+  }
+
+  /* Decorative navy block on the right */
+  .flyer::after{
+    content:"";position:absolute;top:0;right:0;bottom:0;width:38%;
+    background:var(--navy);
+    clip-path:polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+    z-index:1;
+  }
+
+  .top{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:54px 64px 0 64px;
+    position:relative;
+    z-index:2;
+  }
+  .top img{
+    width:72px;height:72px;object-fit:contain;flex-shrink:0;
+  }
+  .top .who strong{
+    display:block;
+    font-family:var(--serif);
+    font-size:22px;
+    color:var(--navy);
+    line-height:1.15;
+  }
+  .top .who span{
+    display:block;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    margin-top:4px;
+  }
+
+  .hero{
+    padding:38px 64px 0 64px;
+    position:relative;
+    z-index:2;
+    max-width:780px;
+  }
+  .kicker{
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:14px;
+  }
+  .title{
+    font-family:var(--serif);
+    font-size:64px;
+    font-weight:400;
+    color:var(--navy);
+    line-height:1.05;
+    letter-spacing:-1px;
+    margin-bottom:20px;
+  }
+  .title em{
+    font-style:italic;
+    color:var(--gold);
+  }
+  .lede{
+    font-size:20px;
+    line-height:1.5;
+    color:var(--text-muted);
+    max-width:680px;
+  }
+
+  /* Right-side accent: vertical badge */
+  .accent{
+    position:absolute;
+    right:64px;
+    top:54px;
+    z-index:2;
+    text-align:right;
+    color:var(--white);
+  }
+  .accent small{
+    display:block;
+    font-size:12px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--gold-light);
+    margin-bottom:8px;
+  }
+  .accent strong{
+    font-family:var(--serif);
+    font-size:34px;
+    font-weight:400;
+    line-height:1.15;
+    display:block;
+  }
+
+  .foot{
+    margin-top:auto;
+    background:var(--navy);
+    color:var(--white);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 64px;
+    gap:24px;
+    position:relative;
+    z-index:2;
+  }
+  .foot .brand{
+    font-family:var(--serif);
+    font-size:16px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .foot .areas{
+    font-size:14px;
+    letter-spacing:0.04em;
+    color:rgba(255,255,255,0.85);
+  }
+</style>
+</head>
+<body>
+
+<div class="flyer">
+
+  <div class="top">
+    <img src="../../public/logo.png" alt="Estudio Ghetti" />
+    <div class="who">
+      <strong>Dra. Adriana Ghetti</strong>
+      <span>Abogada UBA · Estudio Ghetti</span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="kicker">Formulario online</div>
+    <h1 class="title">Ficha de Consulta <em>Previsional</em></h1>
+    <p class="lede">
+      Cargá tus datos para la primera consulta. Información protegida por el secreto profesional.
+    </p>
+  </div>
+
+  <div class="accent">
+    <small>Áreas</small>
+    <strong>Jubilación<br/>docente</strong>
+  </div>
+
+  <div class="foot">
+    <div class="brand">estudioghetti.com</div>
+    <div class="areas">Jubilación docente · Sucesiones · Multas de tránsito</div>
+  </div>
+
+</div>
+
+</body>
+</html>
