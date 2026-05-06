@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /ficha-consulta
-Disallow: /api/
-
-Allow: /
