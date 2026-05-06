@@ -1,5 +1,16 @@
 ---
+import { getCollection } from 'astro:content';
+
 const year = new Date().getFullYear();
+
+const all = await getCollection('articulos', ({ data }) => data.lang === 'es');
+const recentArticles = all
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 5)
+  .map((a) => ({
+    slug: a.id.replace(/\.md$/, ''),
+    title: a.data.title,
+  }));
 ---
 
 <footer class="footer">
@@ -40,11 +51,10 @@ const year = new Date().getFullYear();
     <div class="footer-links-group">
       <h4>Artículos</h4>
       <ul>
-        <li><a href="#articulos">Años de servicio docente</a></li>
-        <li><a href="#articulos">Reajuste mal liquidado</a></li>
-        <li><a href="#articulos">Jubilación provincial vs. nacional</a></li>
-        <li><a href="#articulos">Pasos del trámite jubilatorio</a></li>
-        <li><a href="#articulos">Reconocimiento de servicios</a></li>
+        {recentArticles.map((a) => (
+          <li><a href={`/articulos/${a.slug}/`}>{a.title}</a></li>
+        ))}
+        <li><a href="/articulos/" class="footer-link-all">Ver todos →</a></li>
       </ul>
     </div>
 
@@ -190,7 +200,13 @@ const year = new Date().getFullYear();
 
   .footer-bottom p {
     font-size: 0.78rem;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.62);
+  }
+
+  .footer-link-all {
+    color: var(--gold) !important;
+    font-weight: 600;
+    font-size: 0.82rem;
   }
 
   .footer-legal {

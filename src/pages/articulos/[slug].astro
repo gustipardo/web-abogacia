@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 const { articulo } = Astro.props;
 const { Content } = await render(articulo);
 const d = articulo.data;
+const slug = articulo.id.replace(/\.md$/, '');
 ---
 
 <ArticleLayout
@@ -22,11 +23,14 @@ const d = articulo.data;
   shortAnswer={d.shortAnswer}
   tag={d.tag}
   publishDate={d.publishDate}
+  dateModified={d.dateModified}
   readingMinutes={d.readingMinutes}
   author={d.author}
   faqs={d.faqs}
   lang={d.lang}
   status={d.status}
+  image={d.image}
+  slug={slug}
 >
   <Content />
 </ArticleLayout>

@@ -1,0 +1,215 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const all = await getCollection('articulos', ({ data }) => data.lang === 'es');
+const articulos = all
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .map((a) => ({
+    slug: a.id.replace(/\.md$/, ''),
+    title: a.data.title,
+    question: a.data.question,
+    shortAnswer: a.data.shortAnswer,
+    tag: a.data.tag,
+    date: new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric' }).format(a.data.publishDate),
+    mins: a.data.readingMinutes,
+    status: a.data.status,
+  }));
+
+// Agrupados por tag para el listado
+const byTag: Record<string, typeof articulos> = {};
+for (const art of articulos) {
+  (byTag[art.tag] ??= []).push(art);
+}
+const tags = Object.keys(byTag).sort();
+
+const PAGE_TITLE = 'Artículos sobre jubilación docente y multas — Estudio Ghetti';
+const PAGE_DESC = 'Artículos de la Dra. Adriana Ghetti sobre jubilación docente (IPS, Ley 24.016), multas de tránsito y derecho previsional. Información para entender su caso antes de iniciar cualquier trámite.';
+
+// Mientras todos estén en pending-validation, no indexamos el listado público.
+const allPending = articulos.every((a) => a.status !== 'published');
+---
+
+<Layout
+  title={PAGE_TITLE}
+  description={PAGE_DESC}
+  noindex={allPending}
+>
+  <Header />
+
+  <main id="main" class="articulos-index">
+    <section class="articulos-hero">
+      <div class="container">
+        <p class="section-label">Biblioteca de artículos</p>
+        <h1 class="articulos-title">Información jurídica clara, escrita por una abogada que también fue docente</h1>
+        <p class="articulos-lead">
+          {articulos.length} artículos sobre jubilación docente, derecho previsional y multas de tránsito
+          en la Provincia de Buenos Aires.
+        </p>
+      </div>
+    </section>
+
+    <section class="articulos-list-section">
+      <div class="container">
+        {tags.map((tag) => (
+          <div class="tag-group">
+            <h2 class="tag-group-title">{tag}</h2>
+            <ul class="articulos-grid">
+              {byTag[tag].map((a) => (
+                <li>
+                  <a href={`/articulos/${a.slug}/`} class="articulo-card">
+                    <span class="articulo-tag">{a.tag}</span>
+                    <h3 class="articulo-card-title">{a.question}</h3>
+                    <p class="articulo-card-excerpt">{a.shortAnswer}</p>
+                    <span class="articulo-meta">{a.date} · {a.mins} min de lectura</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+        <div class="articulos-cta">
+          <p>¿Tiene una consulta sobre su situación particular?</p>
+          <a href="/#contacto" class="btn btn-primary">Consultar con la Dra. Ghetti</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .articulos-index {
+    background: var(--white);
+  }
+
+  .articulos-hero {
+    background: var(--navy);
+    color: var(--white);
+    padding: 4rem 0 3rem;
+  }
+
+  .articulos-hero .section-label {
+    color: var(--gold);
+  }
+
+  .articulos-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 0.85rem;
+    max-width: 760px;
+  }
+
+  .articulos-lead {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 1.05rem;
+    max-width: 600px;
+    line-height: 1.65;
+  }
+
+  .articulos-list-section {
+    padding: 4rem 0 5rem;
+  }
+
+  .tag-group {
+    margin-bottom: 3rem;
+  }
+
+  .tag-group-title {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    color: var(--navy);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--gold);
+  }
+
+  .articulos-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .articulo-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    height: 100%;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .articulo-card:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+
+  .articulo-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    align-self: flex-start;
+    background: rgba(184, 152, 106, 0.12);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+  }
+
+  .articulo-card-title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--navy);
+    line-height: 1.35;
+  }
+
+  .articulo-card-excerpt {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .articulo-meta {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: auto;
+  }
+
+  .articulos-cta {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .articulos-cta p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .articulos-grid {
+      grid-template-columns: 1fr;
+    }
+    .articulos-hero {
+      padding: 3rem 0 2.25rem;
+    }
+    .articulos-list-section {
+      padding: 2.5rem 0 3rem;
+    }
+    .articulos-cta .btn {
+      width: 100%;
+    }
+  }
+</style>

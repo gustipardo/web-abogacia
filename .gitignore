@@ -16,6 +16,8 @@ pnpm-debug.log*
 
 # environment variables
 .env
+.env.local
+.env.*.local
 .env.production
 
 # macOS-specific files
@@ -23,6 +25,13 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# vim/emacs swap files
+*.swp
+*~
+
+# screenshots de debug mobile (se generan localmente, no van al repo)
+.mobile-shots/
 
 # casos y materiales con datos de clientes (informes técnicos, dumps, etc.)
 Context/casos/

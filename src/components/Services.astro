@@ -68,7 +68,7 @@ const services = [
     <div class="services-grid">
       {services.map((s, i) => (
         <div class={`service-card ${i === 0 ? 'service-card--featured' : ''}`}>
-          <div class="service-icon">{s.icon}</div>
+          <div class="service-icon" aria-hidden="true">{s.icon}</div>
           <h3 class="service-title">{s.title}</h3>
           <p class="service-desc">{s.desc}</p>
           <ul class="service-points">

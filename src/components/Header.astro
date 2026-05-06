@@ -14,7 +14,7 @@ const nav = [
       <img src="/logo.png" alt="Estudio Ghetti" class="logo-img" width="42" height="42" />
       <div class="logo-text">
         <strong>Dra. Adriana Ghetti</strong>
-        <span>Abogada · Mat. <!--MATRICULA--></span>
+        <span>Abogada · CASI</span>
       </div>
     </a>
 
@@ -34,7 +34,7 @@ const nav = [
       Consulta gratis
     </a>
 
-    <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-controls="mobile-nav" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -187,6 +187,7 @@ const nav = [
   btn.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
     btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
     nav.setAttribute('aria-hidden', String(!open));
   });
   // close on link click

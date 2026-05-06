@@ -5,6 +5,31 @@
   padding: 0;
 }
 
+/* Skip-link — visible solo al recibir foco con teclado. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 9999;
+  padding: 0.75rem 1.25rem;
+  background: #1B2A4A;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 0 0 8px 0;
+}
+.skip-link:focus {
+  left: 0;
+  outline: 2px solid #B8986A;
+  outline-offset: 2px;
+}
+
+/* Foco visible global para teclado. */
+*:focus-visible {
+  outline: 2px solid #B8986A;
+  outline-offset: 2px;
+}
+
 :root {
   --navy: #1B2A4A;
   --navy-light: #243660;

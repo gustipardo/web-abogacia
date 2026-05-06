@@ -9,11 +9,119 @@ import About from '../components/About.astro';
 import Articles from '../components/Articles.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+
+const siteUrl = Astro.site ?? new URL('https://www.estudioghetti.com');
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': new URL('/#dra-ghetti', siteUrl).href,
+  name: 'Graciela Adriana Ghetti',
+  alternateName: 'Adriana Ghetti',
+  honorificPrefix: 'Dra.',
+  jobTitle: 'Abogada',
+  description: 'Abogada argentina especializada en jubilación docente y derecho previsional. Más de 20 años de experiencia en docencia antes de ejercer el derecho.',
+  url: siteUrl.href,
+  image: new URL('/adriana-ghetti.png', siteUrl).href,
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Universidad de Buenos Aires',
+  },
+  memberOf: {
+    '@type': 'Organization',
+    name: 'Colegio de Abogados de San Isidro (CASI)',
+  },
+  worksFor: {
+    '@id': new URL('/#estudio-ghetti', siteUrl).href,
+  },
+  knowsAbout: [
+    'Jubilación docente',
+    'Ley 24.016',
+    'IPS Buenos Aires',
+    'Derecho previsional',
+    'Multas de tránsito',
+    'Ley 24.449',
+    'Sucesiones',
+  ],
+  knowsLanguage: 'es-AR',
+};
+
+const legalServiceSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['LegalService', 'Attorney'],
+  '@id': new URL('/#estudio-ghetti', siteUrl).href,
+  name: 'Estudio Ghetti',
+  legalName: 'Estudio Jurídico Ghetti',
+  description: 'Estudio jurídico argentino dirigido por la Dra. Adriana Ghetti, especializado en jubilación docente del IPS de Buenos Aires y multas de tránsito en la Provincia de Buenos Aires.',
+  url: siteUrl.href,
+  telephone: '+54-9-11-6938-0777',
+  email: 'adriana@estudioghetti.com',
+  image: new URL('/og-default.png', siteUrl).href,
+  logo: new URL('/logo.png', siteUrl).href,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Pilar',
+    addressRegion: 'Buenos Aires',
+    addressCountry: 'AR',
+  },
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: 'Provincia de Buenos Aires' },
+    { '@type': 'Country', name: 'Argentina' },
+  ],
+  founder: { '@id': new URL('/#dra-ghetti', siteUrl).href },
+  employee: { '@id': new URL('/#dra-ghetti', siteUrl).href },
+  knowsAbout: [
+    'Jubilación docente',
+    'Ley 24.016',
+    'Derecho previsional',
+    'Reajuste de haberes',
+    'Pensión por fallecimiento',
+    'Multas de tránsito',
+    'Sucesiones',
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Áreas de práctica',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: 'Jubilación docente — Informe Técnico Preventivo' },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: 'Derecho previsional — reajustes y reclamos' },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: 'Multas de tránsito — descargos y nulidades' },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: 'Derecho civil — sucesiones, contratos' },
+      },
+    ],
+  },
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  url: siteUrl.href,
+  name: 'Estudio Ghetti',
+  inLanguage: 'es-AR',
+  publisher: { '@id': new URL('/#estudio-ghetti', siteUrl).href },
+};
 ---
 
 <Layout>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(legalServiceSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(websiteSchema)} />
+  </Fragment>
+
   <Header />
-  <main>
+  <main id="main">
     <Hero />
     <Services />
     <JubilacionFlyer />

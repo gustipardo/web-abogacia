@@ -1,5 +1,30 @@
+# robots.txt — Estudio Ghetti
+# La ficha previsional contiene formularios privados y queda fuera de la indexación.
+
 User-agent: *
+Allow: /
 Disallow: /ficha-consulta
 Disallow: /api/
 
+# Bots de LLMs — los queremos leyendo el resto del sitio.
+User-agent: GPTBot
 Allow: /
+Disallow: /ficha-consulta
+Disallow: /api/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /ficha-consulta
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /ficha-consulta
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /ficha-consulta
+Disallow: /api/
+
+Sitemap: https://www.estudioghetti.com/sitemap-index.xml

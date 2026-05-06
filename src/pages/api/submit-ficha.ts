@@ -8,6 +8,51 @@ type Payload = Record<string, string | string[]>;
 const TO_EMAIL = import.meta.env.FICHA_TO_EMAIL || 'adriana@estudioghetti.com';
 const FROM_EMAIL = import.meta.env.FICHA_FROM_EMAIL || 'Estudio Ghetti <noreply@estudioghetti.com>';
 
+const ALLOWED_ORIGIN_PATTERNS = [
+  /^https:\/\/www\.estudioghetti\.com(?:\/|$)/,
+  /^https:\/\/estudioghetti\.com(?:\/|$)/,
+  // En dev y previews permitimos localhost y cualquier preview de Vercel.
+  ...(import.meta.env.DEV ? [/^http:\/\/localhost(?::\d+)?(?:\/|$)/] : []),
+  /^https:\/\/[\w-]+\.vercel\.app(?:\/|$)/,
+];
+
+// Límites de longitud por campo. Defensa contra payloads enormes.
+const MAX_FIELD_LEN: Record<string, number> = {
+  apellidos: 120,
+  nombres: 120,
+  dni: 15,
+  cuil: 15,
+  fecha_nacimiento: 10,
+  nacionalidad: 80,
+  estado_civil: 30,
+  sexo: 20,
+  domicilio: 300,
+  telefono_celular: 30,
+  telefono_alternativo: 30,
+  telefono_area: 6,
+  telefono_num: 20,
+  email_cliente: 254,
+  descripcion_consulta: 5000,
+  credenciales_obs: 500,
+  detalle_licencias: 1500,
+  detalle_moratorias: 1500,
+  doc_detalle: 1000,
+  cobra_beneficio: 200,
+  cobra_beneficio_actual: 200,
+  monto_beneficio: 30,
+  anos_aportes: 10,
+  anos_simultaneidad: 10,
+  max_horas_simultaneas: 10,
+};
+const DEFAULT_MAX_FIELD_LEN = 200;
+const MAX_PAYLOAD_BYTES = 200_000;
+const MIN_FORM_FILL_MS = 4_000;
+// Rate limit per IP, per función-instance. Es best-effort (cold starts limpian
+// el Map) pero ya filtra el spam más obvio. Subir a Upstash/KV para producción seria.
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX = 5;
+const ipHits = new Map<string, number[]>();
+
 const TIPO_LABELS: Record<string, string> = {
   ordinaria: 'Jubilación ordinaria (edad + aportes)',
   docente: 'Jubilación docente (IPS)',
@@ -25,6 +70,11 @@ function escapeHtml(s: string): string {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+// Quita CR/LF para evitar inyección de headers SMTP en campos como nombre.
+function stripCRLF(s: string): string {
+  return s.replace(/[\r\n]+/g, ' ').trim();
 }
 
 function get(p: Payload, key: string): string {
@@ -56,7 +106,6 @@ function rowList(label: string, values: string[]): string {
 
 function buildEmpleosHtml(p: Payload): string {
   const rows: string[] = [];
-  // Buscar todos los empleos numerados
   const indices = new Set<number>();
   Object.keys(p).forEach((k) => {
     const m = k.match(/^empleo_(\d+)_/);
@@ -100,8 +149,8 @@ function buildEmpleosHtml(p: Payload): string {
 }
 
 function buildEmail(p: Payload): { subject: string; html: string; text: string } {
-  const apellidos = get(p, 'apellidos');
-  const nombres = get(p, 'nombres');
+  const apellidos = stripCRLF(get(p, 'apellidos'));
+  const nombres = stripCRLF(get(p, 'nombres'));
   const fullName = `${nombres} ${apellidos}`.trim() || 'Cliente sin nombre';
 
   const tipos = getArray(p, 'tipo').map((t) => TIPO_LABELS[t] || t);
@@ -226,7 +275,6 @@ function buildEmail(p: Payload): { subject: string; html: string; text: string }
 </body>
 </html>`;
 
-  // Texto plano fallback (mínimo)
   const text = `Ficha de Primera Consulta Previsional
 Cliente: ${fullName}
 
@@ -251,52 +299,127 @@ Descripción: ${get(p, 'descripcion_consulta')}
   return { subject, html, text };
 }
 
+function jsonResponse(status: number, body: Record<string, unknown>): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+
+function getClientIp(request: Request): string {
+  // Vercel pone la IP real en x-forwarded-for. Tomamos la primera del listado.
+  const xff = request.headers.get('x-forwarded-for');
+  if (xff) return xff.split(',')[0]!.trim();
+  return request.headers.get('x-real-ip') ?? 'unknown';
+}
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const cutoff = now - RATE_LIMIT_WINDOW_MS;
+  const hits = (ipHits.get(ip) ?? []).filter((t) => t > cutoff);
+  if (hits.length >= RATE_LIMIT_MAX) {
+    ipHits.set(ip, hits);
+    return false;
+  }
+  hits.push(now);
+  ipHits.set(ip, hits);
+  // GC ocasional para que el Map no crezca sin tope.
+  if (ipHits.size > 1000) {
+    for (const [k, v] of ipHits) {
+      if (v.every((t) => t <= cutoff)) ipHits.delete(k);
+    }
+  }
+  return true;
+}
+
+function violatesLengthLimits(p: Payload): string | null {
+  for (const [k, v] of Object.entries(p)) {
+    const max = MAX_FIELD_LEN[k] ?? DEFAULT_MAX_FIELD_LEN;
+    if (typeof v === 'string') {
+      if (v.length > max) return k;
+    } else if (Array.isArray(v)) {
+      if (v.some((s) => typeof s === 'string' && s.length > max)) return k;
+    }
+  }
+  return null;
+}
+
 export const POST: APIRoute = async ({ request }) => {
   const apiKey = import.meta.env.RESEND_API_KEY;
   if (!apiKey) {
-    return new Response(JSON.stringify({ ok: false, error: 'Servicio de email no configurado' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(500, { ok: false, error: 'Servicio de email no configurado' });
+  }
+
+  // 1) Origin / Referer check — bloquea POSTs desde otros dominios.
+  const origin = request.headers.get('origin');
+  const referer = request.headers.get('referer');
+  const sourceUrl = origin ?? referer ?? '';
+  const sourceOk = sourceUrl !== '' && ALLOWED_ORIGIN_PATTERNS.some((pat) => pat.test(sourceUrl));
+  if (!sourceOk) {
+    return jsonResponse(403, { ok: false, error: 'Origen no autorizado' });
+  }
+
+  // 2) Rate limit por IP.
+  const ip = getClientIp(request);
+  if (!checkRateLimit(ip)) {
+    return jsonResponse(429, { ok: false, error: 'Demasiadas solicitudes. Esperá un momento e intentá de nuevo.' });
+  }
+
+  // 3) Tamaño total del payload.
+  const lengthHeader = request.headers.get('content-length');
+  if (lengthHeader && parseInt(lengthHeader, 10) > MAX_PAYLOAD_BYTES) {
+    return jsonResponse(413, { ok: false, error: 'Payload demasiado grande' });
   }
 
   let payload: Payload;
   try {
-    payload = (await request.json()) as Payload;
+    const raw = await request.text();
+    if (raw.length > MAX_PAYLOAD_BYTES) {
+      return jsonResponse(413, { ok: false, error: 'Payload demasiado grande' });
+    }
+    payload = JSON.parse(raw) as Payload;
   } catch {
-    return new Response(JSON.stringify({ ok: false, error: 'Payload inválido' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(400, { ok: false, error: 'Payload inválido' });
   }
 
-  // Validación mínima
-  const apellidos = get(payload, 'apellidos').trim();
-  const nombres = get(payload, 'nombres').trim();
+  // 4) Honeypot: si vino completo, fingimos éxito sin enviar.
+  const honeypot = get(payload, 'website');
+  if (honeypot.trim() !== '') {
+    return jsonResponse(200, { ok: true });
+  }
+
+  // 5) Tiempo mínimo en página: el cliente envía _loaded_at (ms epoch).
+  const loadedAtRaw = get(payload, '_loaded_at');
+  const loadedAt = parseInt(loadedAtRaw, 10);
+  if (!Number.isFinite(loadedAt) || Date.now() - loadedAt < MIN_FORM_FILL_MS) {
+    return jsonResponse(400, { ok: false, error: 'Formulario enviado demasiado rápido. Intentá de nuevo.' });
+  }
+
+  // 6) Longitudes máximas por campo.
+  const tooLong = violatesLengthLimits(payload);
+  if (tooLong) {
+    return jsonResponse(400, { ok: false, error: `Campo "${tooLong}" excede la longitud máxima permitida.` });
+  }
+
+  // 7) Validación mínima de campos obligatorios.
+  const apellidos = stripCRLF(get(payload, 'apellidos'));
+  const nombres = stripCRLF(get(payload, 'nombres'));
   const dni = get(payload, 'dni').trim();
   const cuil = get(payload, 'cuil').trim();
-  const email = get(payload, 'email_cliente').trim();
+  const email = stripCRLF(get(payload, 'email_cliente'));
   const telefono = get(payload, 'telefono_celular').trim();
   const descripcion = get(payload, 'descripcion_consulta').trim();
   const declaracion = get(payload, 'declaracion');
 
   if (!apellidos || !nombres || !dni || !cuil || !email || !telefono || !descripcion) {
-    return new Response(JSON.stringify({ ok: false, error: 'Faltan campos obligatorios' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(400, { ok: false, error: 'Faltan campos obligatorios' });
   }
   if (!declaracion) {
-    return new Response(JSON.stringify({ ok: false, error: 'Debe aceptar la declaración' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(400, { ok: false, error: 'Debe aceptar la declaración' });
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return new Response(JSON.stringify({ ok: false, error: 'Email inválido' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+  // Email más estricto que el regex anterior.
+  if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
+    return jsonResponse(400, { ok: false, error: 'Email inválido' });
   }
 
   const { subject, html, text } = buildEmail(payload);
@@ -312,21 +435,18 @@ export const POST: APIRoute = async ({ request }) => {
       text,
     });
     if (error) {
-      console.error('[submit-ficha] Resend error:', error);
-      return new Response(JSON.stringify({ ok: false, error: 'No se pudo enviar el email' }), {
-        status: 502,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      // Loguear solo el name/code/message — nunca el cuerpo del error completo
+      // ni los emails involucrados, que pueden contener PII.
+      const safe = error && typeof error === 'object'
+        ? { name: (error as { name?: string }).name, message: (error as { message?: string }).message }
+        : 'unknown';
+      console.error('[submit-ficha] Resend error:', safe);
+      return jsonResponse(502, { ok: false, error: 'No se pudo enviar el email' });
     }
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse(200, { ok: true });
   } catch (err) {
-    console.error('[submit-ficha] Unexpected error:', err);
-    return new Response(JSON.stringify({ ok: false, error: 'Error inesperado' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const safe = err instanceof Error ? { name: err.name, message: err.message } : 'unknown';
+    console.error('[submit-ficha] Unexpected error:', safe);
+    return jsonResponse(500, { ok: false, error: 'Error inesperado' });
   }
 };

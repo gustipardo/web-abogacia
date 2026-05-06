@@ -8,7 +8,7 @@ import Layout from '../layouts/Layout.astro';
   ogImage="/og-ficha-consulta.png"
   noindex={true}
 >
-  <main class="ficha-page">
+  <main id="main" class="ficha-page">
     <div class="ficha-container">
 
       <header class="ficha-header">
@@ -1595,7 +1595,6 @@ import Layout from '../layouts/Layout.astro';
       const fd = new FormData(form);
       const payload: Record<string, any> = {};
       for (const [k, v] of fd.entries()) {
-        if (k === 'website') continue;
         const val = typeof v === 'string' ? v.trim() : v;
         if (val === '') continue; // omitimos strings vacíos tras trim
         if (payload[k] === undefined) {
@@ -1606,6 +1605,11 @@ import Layout from '../layouts/Layout.astro';
           payload[k] = [payload[k], val];
         }
       }
+      // Honeypot y timestamp llegan SIEMPRE, así el server los puede validar.
+      // (El honeypot debería estar vacío para humanos; si está lleno, igual lo
+      // mandamos para que el server registre y/o lo descarte explícitamente.)
+      payload.website = (form.elements.namedItem('website') as HTMLInputElement | null)?.value || '';
+      payload._loaded_at = String(PAGE_LOAD_TS);
 
       submitBtn.disabled = true;
       submitBtn.classList.add('form-submit-loading');
