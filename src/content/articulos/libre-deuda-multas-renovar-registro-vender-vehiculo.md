@@ -1,39 +1,40 @@
 ---
 title: "Libre deuda de multas: cómo darlas de baja para renovar registro o vender el auto"
-description: "Sin libre deuda no podés renovar la licencia ni transferir el vehículo. Cómo gestionar la baja integral de multas del sistema por prescripción, anulación o nulidad."
+description: "Las multas impagas pueden bloquear la renovación de la licencia. Cómo gestionar la baja integral por prescripción, anulación, nulidad o pago con reducción."
 question: "¿Cómo gestiono el libre deuda de multas para renovar el registro o vender el vehículo?"
-shortAnswer: "Las multas impagas impiden renovar el registro de conducir, transferir o vender el vehículo. La baja integral de multas se gestiona por las vías legales que correspondan en cada caso — prescripción, anulación, nulidad o pago con reducción — para regularizar el estado del titular y del vehículo en el sistema."
+shortAnswer: "Las multas firmes impagas pueden impedir la renovación de la licencia de conducir y generar trabas operativas en la transferencia del vehículo. La baja del sistema se gestiona por las vías legales que correspondan en cada caso — prescripción, anulación, nulidad o pago con reducción — para regularizar el estado del titular y del vehículo."
 tag: "Multas"
 publishDate: 2026-04-28
+dateModified: 2026-05-06
 readingMinutes: 4
 status: pending-validation
 lang: es
 author: "Dra. Adriana Ghetti"
 faqs:
   - question: "¿Por qué no puedo renovar el registro si tengo multas?"
-    answer: "Porque la legislación de tránsito exige el libre deuda como requisito para la renovación de la licencia y para los trámites registrales del vehículo. Mientras haya multas firmes pendientes, los sistemas oficiales bloquean estos trámites."
+    answer: "En la Provincia de Buenos Aires y en muchos municipios, las normas locales exigen libre deuda de infracciones firmes como requisito para renovar la licencia. Hay precedentes judiciales que han cuestionado esa exigencia cuando las multas no están firmes; corresponde analizar caso por caso."
   - question: "¿Si compro un auto con multas, las heredo?"
-    answer: "Las multas viejas siguen vinculadas al titular registral del momento de la infracción. Pero pueden generar trabas en la transferencia y aparecer en el libre deuda del vehículo. Conviene revisar la situación antes de comprar y exigir al vendedor que regularice antes de la transferencia."
+    answer: "Las multas siguen vinculadas al titular registral del momento de la infracción. Desde la Disposición DNRPA 142/2024, el libre deuda dejó de ser obligatorio para inscribir la transferencia, pero conviene revisar la situación antes de comprar y dejarlo expresamente acordado con el vendedor."
   - question: "¿La baja del sistema es automática después de pagar?"
-    answer: "No siempre. La baja del sistema requiere que el organismo procese el pago, descargo o recurso, y actualice los registros. En la práctica puede demorar y a veces requiere seguimiento activo para que efectivamente se refleje en el libre deuda."
+    answer: "No siempre. La baja del sistema requiere que el organismo procese el pago, descargo o recurso, y actualice los registros. En PBA, los pagos pueden demorar aproximadamente 72 hs en impactar; las bajas por prescripción o nulidad suelen demorar más y requerir seguimiento activo."
 ---
 
 ## ¿Por qué importa el libre deuda?
 
-El libre deuda de multas es **el documento que certifica que no hay sanciones de tránsito firmes pendientes** sobre el titular o el vehículo. Sin él, no podés:
+El libre deuda de multas es **el documento que certifica que no hay sanciones de tránsito firmes pendientes** sobre el titular o el vehículo. Su incidencia hoy depende del trámite:
 
-- **Renovar la licencia de conducir**.
-- **Transferir** el vehículo a otra persona.
-- **Vender** el auto formalmente.
-- En algunos casos, hacer cambios registrales.
+- **Renovar la licencia de conducir**: en la Provincia de Buenos Aires y en muchos municipios sigue siendo requisito explícito.
+- **Transferir** el vehículo: tras la Disposición DNRPA 142/2024 dejó de ser obligatorio. Hoy es opcional, salvo que el comprador lo exija. La deuda permanece a nombre del titular registral original.
+- **Vender** el auto: aunque la transferencia pueda registrarse, las multas pueden trabar la operación de hecho — el comprador suele pedir el libre deuda, descontar la deuda del precio o exigir su cancelación previa.
+- En algunos casos, hacer cambios registrales o trámites municipales (VTV, habilitaciones).
 
-Los sistemas oficiales bloquean estos trámites mientras haya multas firmes impagas. Por eso, antes de iniciar cualquiera de esos procedimientos, conviene **revisar el estado de deuda y regularizarlo**.
+Por eso, antes de iniciar cualquiera de esos procedimientos, conviene **revisar el estado de deuda y regularizarlo**.
 
 ## ¿Cómo se consulta la deuda?
 
-En la **Provincia de Buenos Aires**, las infracciones provinciales se consultan en `infraccionesba.gba.gob.ar/consulta-infraccion`. Las infracciones municipales se consultan en los sistemas de cada municipio.
+En la **Provincia de Buenos Aires**, las infracciones provinciales se consultan en `infraccionesba.gba.gob.ar/consulta-infraccion` — sistema oficial del Ministerio de Transporte. Las infracciones municipales se consultan en los sistemas de cada municipio.
 
-A nivel nacional, el sistema **SUCIVE / RUIT** y los registros del **RNA** (Registro Nacional Automotor) reflejan parte del estado registral del vehículo.
+A nivel nacional, las infracciones de jurisdicciones adheridas al sistema nacional pueden consultarse en `consultainfracciones.seguridadvial.gob.ar` (Agencia Nacional de Seguridad Vial). El estado registral del vehículo y las inhibiciones se reflejan en los **Registros Seccionales de la DNRPA**.
 
 Conviene **chequear todos los sistemas relevantes** antes de iniciar trámites — una multa antigua olvidada puede frenar una venta o una renovación en el peor momento.
 
@@ -43,15 +44,15 @@ Depende de la situación de cada multa:
 
 ### 1. Prescripción
 
-Para multas viejas que superen los plazos del Art. 89 Ley 24.449 (2 años en faltas leves, 5 en graves). Se solicita formalmente y, si procede, se da de baja la sanción.
+Para multas viejas que superen los plazos del **Art. 89 Ley 24.449**: 2 años para faltas leves y 5 años para faltas graves y sanciones. La prescripción se interrumpe por la comisión de una nueva falta grave o por la secuela del juicio contravencional, ejecutivo o judicial. Se solicita formalmente y, si procede, se da de baja la sanción. En la PBA se aplica además la regulación del procedimiento contravencional de tránsito previsto en la Ley 13.927 y su decreto reglamentario.
 
 ### 2. Anulación o nulidad
 
-Para multas con errores en el acta (Art. 70-72) o vicios de procedimiento (Art. 40 Ley 13.927 PBA). Si el planteo prospera, la multa se elimina del sistema.
+Para multas con vicios en el acta o en la notificación (deberes de comprobación del **Art. 70 Ley 24.449**) y por incumplimiento de las garantías procedimentales del régimen contravencional de tránsito. Si el planteo prospera, la multa se elimina del sistema. Contra las resoluciones del juez de faltas en PBA caben los recursos previstos en el **Art. 40 de la Ley 13.927** (revocatoria y apelación, dentro de los 5 días de notificada).
 
 ### 3. Pago con reducción
 
-Para multas válidas y vigentes, sin defectos atacables. Se puede acceder al descuento del 50% (Art. 85 Ley 24.449) si corresponde, o negociar rebajas adicionales según el caso.
+Para multas válidas y vigentes, sin defectos atacables. El **Art. 85 Ley 24.449** prevé la posibilidad de abonar la multa con una reducción del 50% cuando se trate de normas de circulación en la vía pública y exista reconocimiento voluntario de la infracción — el pago tiene efectos de sanción firme.
 
 ### 4. Plan de pagos
 
@@ -85,4 +86,4 @@ En esos casos, gestionar la baja con asesoramiento técnico **acorta tiempos y a
 
 ---
 
-> *Información basada en la Ley 24.449, la Ley 13.927 de la Provincia de Buenos Aires y normativa registral aplicable. Cada caso requiere análisis individual. Para tu situación particular, consultá con un profesional.*
+> *Información basada en la Ley 24.449, la Ley 13.927 de la Provincia de Buenos Aires, la Disposición DNRPA 142/2024 y normativa registral y municipal aplicable. Cada caso requiere análisis individual. Para tu situación particular, consultá con un profesional.*

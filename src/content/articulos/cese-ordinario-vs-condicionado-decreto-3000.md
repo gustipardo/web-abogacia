@@ -5,6 +5,7 @@ question: "¿Conviene el cese ordinario o el cese condicionado al jubilarme como
 shortAnswer: "El cese ordinario implica renunciar y dejar de trabajar mientras se espera el cobro, con la opción de pedir un anticipo del 60% del sueldo. El cese condicionado del Decreto 3000 permite seguir trabajando hasta que el IPS notifique el otorgamiento del beneficio, lo que evita quedar meses sin ingresos."
 tag: "Jubilación Docente"
 publishDate: 2026-04-26
+dateModified: 2026-05-06
 readingMinutes: 4
 status: pending-validation
 lang: es

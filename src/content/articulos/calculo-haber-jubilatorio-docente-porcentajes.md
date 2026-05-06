@@ -1,10 +1,11 @@
 ---
-title: "Cómo se calcula el haber jubilatorio docente: del 70% al 85%"
-description: "Cómo se determina el haber jubilatorio docente en el régimen del IPS, con la escala de porcentajes según los años excedentes de edad y servicio."
+title: "Cómo se calcula el haber jubilatorio docente: del 75% al 85%"
+description: "Cómo se determina el haber jubilatorio docente en el régimen del IPS, con la escala de porcentajes según los años excedentes de edad."
 question: "¿Cómo se calcula el haber jubilatorio de un docente en Buenos Aires?"
-shortAnswer: "El haber base es del 70% del cargo de mayor jerarquía con aportes. Si superás los mínimos de edad y años requeridos, el porcentaje sube al 75%, 80% o hasta el 85% (máximo legal). El sistema es móvil: los aumentos paritarios se trasladan automáticamente al jubilado."
+shortAnswer: "El haber base es del 75% del cargo de mayor jerarquía con aportes. Si excedés la edad requerida en 3 años, sube al 80%; si la excedés en 5 o más años, llegás al 85% (máximo legal). El sistema es móvil: los aumentos paritarios se trasladan automáticamente al jubilado."
 tag: "Jubilación Docente"
 publishDate: 2026-05-02
+dateModified: 2026-05-06
 readingMinutes: 5
 status: pending-validation
 lang: es
@@ -15,7 +16,7 @@ faqs:
   - question: "¿Qué significa que el sistema sea móvil?"
     answer: "Significa que cualquier aumento que logren los docentes en actividad por paritarias se traslada automáticamente al haber jubilatorio en la misma proporción. No hay que iniciar un trámite extra para recibir esos aumentos."
   - question: "¿Puedo subir el porcentaje si sigo trabajando después de cumplir los requisitos?"
-    answer: "Sí. La permanencia voluntaria una vez cumplidos los requisitos eleva el porcentaje del haber. Cada año extra de edad y de aportes por encima del mínimo suma sobre el 70% base, hasta el tope del 85%."
+    answer: "Sí. La permanencia voluntaria una vez cumplidos los requisitos eleva el haber por escalones. Si al cesar excedés en 3 años la edad requerida, el haber pasa al 80%; si la excedés en 5 o más años, llega al 85%. No es un aumento lineal: son dos escalones discretos previstos por la ley."
 ---
 
 ## ¿Sobre qué se calcula el haber?
@@ -26,13 +27,12 @@ Ese cargo no siempre es el último que ocupaste. Por eso conviene revisar la hoj
 
 ## ¿Cuál es el porcentaje base y cómo sube?
 
-El haber base es del **70%** del cargo de mayor jerarquía. Pero si superás los mínimos legales, el porcentaje sube por escalones:
+El haber base es del **75%** del cargo de mayor jerarquía. Pero si seguís en actividad después de cumplir los requisitos y excedés la edad requerida, el porcentaje sube por escalones:
 
-- **75%** si tenés 3 años más de edad y 3 años más de servicios de los requeridos.
-- **80%** si tenés 5 años más de edad y 5 años más de servicios.
-- **85%** si tenés 10 años más de edad y 10 años más de servicios. Es el máximo legal.
+- **80%** si al momento de cesar excedés la edad requerida en 3 años.
+- **85%** si excedés la edad requerida en 5 o más años. Es el máximo legal.
 
-Por eso, en algunos casos, conviene postergar el cese unos meses o años: cada escalón implica más plata todos los meses, de por vida.
+Por eso, en algunos casos, conviene postergar el cese unos años: cada escalón implica más plata todos los meses, de por vida.
 
 ## ¿Y si tengo dos cargos a la vez?
 
@@ -52,4 +52,4 @@ Eso quiere decir que no necesitás iniciar trámites extra para recibir los aume
 
 ---
 
-> *Las reglas descritas corresponden al régimen del IPS de la Provincia de Buenos Aires (Decreto Ley 9650/80, especialmente artículos 41, 42 y 47). Cada caso requiere análisis individual. Para evaluar tu situación particular, consultá con un profesional.*
+> *Las reglas descritas corresponden al régimen del IPS de la Provincia de Buenos Aires (Decreto Ley 9650/80, especialmente artículos 41, 43 y 47). Cada caso requiere análisis individual. Para evaluar tu situación particular, consultá con un profesional.*
