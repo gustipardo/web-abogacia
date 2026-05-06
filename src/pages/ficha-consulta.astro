@@ -552,6 +552,8 @@ import Layout from '../layouts/Layout.astro';
     gap: 1.25rem;
   }
 
+  .ficha-form[hidden] { display: none; }
+
   .ficha-section {
     background: var(--white);
     border: 1px solid var(--border);
@@ -1623,7 +1625,7 @@ import Layout from '../layouts/Layout.astro';
         localStorage.removeItem(STORAGE_KEY);
         form.hidden = true;
         success.hidden = false;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        success.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } catch (err) {
         const msg = err instanceof Error ? err.message : 'Error al enviar';
         showError(`No pudimos enviar la ficha: ${msg}. Probá de nuevo en un momento o escribinos a adriana@estudioghetti.com.`);
