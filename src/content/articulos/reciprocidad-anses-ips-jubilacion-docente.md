@@ -5,6 +5,7 @@ question: "¿Puedo sumar años de ANSES con años del IPS para jubilarme como do
 shortAnswer: "Sí. El reconocimiento de servicios permite sumar años aportados en ANSES, otras provincias o el sector privado para llegar a la antigüedad requerida. La jubilación la otorga la caja donde tengas la mayor cantidad de años de aportes — la llamada caja otorgante."
 tag: "Jubilación Docente"
 publishDate: 2026-04-27
+dateModified: 2026-05-06
 readingMinutes: 5
 status: pending-validation
 lang: es
@@ -20,7 +21,7 @@ faqs:
 
 ## ¿Qué es la reciprocidad previsional?
 
-Es **el régimen que permite sumar años aportados en cajas previsionales distintas** para llegar a la antigüedad requerida por la jubilación. Está previsto en la Ley 24.241 (artículo 168, entre otros).
+Es **el régimen que permite sumar años aportados en cajas previsionales distintas** para llegar a la antigüedad requerida por la jubilación. Fue instituido por el Decreto-Ley 9316/46 y luego integrado por el artículo 168 de la Ley 24.241, que define la caja otorgante.
 
 Sirve para docentes que ejercieron en distintas provincias, o que combinaron docencia con empleos no docentes en el sector público o privado.
 
@@ -50,4 +51,4 @@ Los años trabajados sin aportes — en negro — no se reconocen, salvo que se 
 
 ---
 
-> *Información basada en la Ley 24.241 (artículo 168) y normativa provincial complementaria. Cada caso requiere análisis individual del historial de aportes en distintas cajas. Para tu situación particular, consultá con un profesional.*
+> *Información basada en el Decreto-Ley 9316/46, la Ley 24.241 (artículo 168) y normativa provincial complementaria. Cada caso requiere análisis individual del historial de aportes en distintas cajas. Para tu situación particular, consultá con un profesional.*

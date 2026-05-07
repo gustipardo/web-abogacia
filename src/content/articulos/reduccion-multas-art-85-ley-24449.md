@@ -5,6 +5,7 @@ question: "¿Cómo se puede reducir el monto de una multa de tránsito en Argent
 shortAnswer: "El artículo 85 de la Ley 24.449 (modificado por la Ley 26.363) permite una reducción del 50% del valor de la multa cuando corresponde a normas de circulación y existe reconocimiento voluntario de la infracción. Además, se pueden negociar rebajas adicionales según los antecedentes del caso."
 tag: "Multas"
 publishDate: 2026-05-03
+dateModified: 2026-05-06
 readingMinutes: 4
 status: pending-validation
 lang: es

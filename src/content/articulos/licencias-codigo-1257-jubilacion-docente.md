@@ -2,9 +2,10 @@
 title: "Licencias sin goce y código 1257: el detalle que puede costarte la jubilación"
 description: "Por qué las licencias por causas particulares (código 1257) pueden cortar la simultaneidad de cargos y reducir el haber jubilatorio docente, y cómo detectarlas a tiempo."
 question: "¿Pueden las licencias por causas particulares afectar mi jubilación docente?"
-shortAnswer: "Sí. Una sola licencia sin goce de sueldo — incluso de un solo día, cargada con código 1257 — puede cortar la línea de simultaneidad entre cargos y reducir el porcentaje del haber. Una vez otorgada la jubilación, el error ya no se puede corregir."
+shortAnswer: "Sí. Una sola licencia sin goce de sueldo — incluso de un solo día, cargada con código 1257 — puede cortar la línea de simultaneidad entre cargos y reducir el porcentaje del haber. Una vez otorgada la jubilación, las posibilidades de corregir el cómputo se reducen drásticamente."
 tag: "Jubilación Docente"
 publishDate: 2026-04-30
+dateModified: 2026-05-06
 readingMinutes: 5
 status: pending-validation
 lang: es

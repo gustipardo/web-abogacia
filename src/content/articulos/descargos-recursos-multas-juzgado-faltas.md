@@ -5,13 +5,14 @@ question: "¿Cómo se presenta un descargo o recurso contra una multa de tránsi
 shortAnswer: "Todo infractor tiene derecho a presentar un descargo antes de que la multa quede firme. El descargo se presenta ante el Juzgado de Faltas o autoridad sancionadora y, si la decisión es desfavorable, puede apelarse ante tribunales superiores. Quien viva a más de 60 km del juzgado puede defenderse por escrito mediante correo postal fehaciente."
 tag: "Multas"
 publishDate: 2026-04-29
+dateModified: 2026-05-06
 readingMinutes: 5
 status: pending-validation
 lang: es
 author: "Dra. Adriana Ghetti"
 faqs:
   - question: "¿Cuál es el plazo para presentar el descargo?"
-    answer: "Depende de la jurisdicción y de la forma de notificación. En general, los plazos son cortos — entre 5 y 15 días hábiles desde la notificación válida. Por eso conviene actuar rápido y, si hay dudas, consultar con un abogado antes de que la multa quede firme."
+    answer: "Depende de la jurisdicción y del momento procesal. Los plazos son cortos: en la PBA, ante el Juzgado de Faltas Municipal el descargo se realiza típicamente en la audiencia que se fija entre los 5 y 10 días posteriores a la notificación (Art. 46 del Decreto-Ley 8751/77); para apelar la sentencia hay 72 horas (Art. 54 del mismo Decreto-Ley) o 5 días para revocatoria/apelación bajo la Ley 13.927 (Art. 40). Por eso conviene actuar rápido y, si hay dudas, consultar con un abogado antes de que la multa quede firme."
   - question: "¿El descargo se puede presentar sin abogado?"
     answer: "Sí, técnicamente. Pero el descargo es un acto técnico-jurídico que debe invocar normas concretas, identificar correctamente los defectos y aportar la prueba pertinente. Un descargo mal fundado puede ser rechazado y dejar firme la multa, perdiendo la oportunidad de defenderse."
   - question: "¿Qué pasa si vivo lejos del juzgado?"
@@ -25,8 +26,8 @@ El descargo es **la presentación formal donde el infractor expone sus argumento
 A través del descargo se pueden invocar:
 
 - **Prescripción** de la sanción (Art. 89 Ley 24.449).
-- **Errores en el acta** que justifican la anulación (Art. 70-72).
-- **Vicios del procedimiento** que generan nulidad (Art. 40 Ley 13.927 PBA).
+- **Errores en el acta** que justifican la anulación (Art. 69 Ley 24.449).
+- **Vicios del procedimiento** que pueden generar nulidad (Art. 56 del Decreto-Ley 8751/77 — Código de Faltas Municipales de la PBA).
 - **Reducción del monto** por reconocimiento voluntario (Art. 85 Ley 24.449).
 - **Cualquier otro argumento** que demuestre la improcedencia de la sanción.
 
@@ -34,7 +35,10 @@ A través del descargo se pueden invocar:
 
 Ante el **Juzgado de Faltas o autoridad sancionadora competente** según la jurisdicción donde se labró el acta. La identificación del organismo correcto es fundamental — un descargo mal dirigido puede no ser tramitado.
 
-En PBA, los Juzgados de Faltas municipales tramitan la mayoría de las infracciones de tránsito locales. Las infracciones provinciales pueden requerir presentación ante distintas autoridades según el caso.
+En la PBA hay que distinguir dos circuitos:
+
+- **Juzgado de Faltas Municipal**: interviene cuando la infracción se cometió en el ejido urbano y se rige por el Decreto-Ley 8751/77 (Código de Faltas Municipales). Es la vía habitual para multas de tránsito locales.
+- **Juzgado de Faltas Provincial / autoridad provincial de aplicación**: interviene cuando la infracción se cometió fuera del ejido urbano (rutas, autopistas) o en partidos sin Juzgado de Faltas Municipal. Se rige por la Ley 13.927.
 
 ## ¿Qué tiene que contener un buen descargo?
 
@@ -49,11 +53,16 @@ Un descargo genérico — "no estoy de acuerdo, esto es injusto" — **no funcio
 
 ## ¿Y si el descargo es rechazado?
 
-Se puede **interponer recurso de apelación** ante los tribunales competentes. La decisión del Juzgado de Faltas no es la última palabra — el sistema procesal permite revisión por instancias superiores.
+Se pueden **interponer los recursos previstos por la ley**. La decisión del Juzgado de Faltas no es la última palabra — el sistema procesal admite revisión.
 
-El recurso de apelación debe:
+En la Provincia de Buenos Aires:
 
-- Presentarse en plazo (por lo general, breve).
+- Bajo la **Ley 13.927** (infracciones de tránsito provinciales): **revocatoria y apelación** dentro de los 5 días de notificada la resolución (Art. 40). La apelación se eleva al Juez en lo Correccional (o Juez de Paz Letrado, según el departamento).
+- Bajo el **Decreto-Ley 8751/77** (Código de Faltas Municipales): **apelación y nulidad** dentro de las 72 horas de notificada la sentencia (Art. 54). El Juez en lo Penal en turno resuelve dentro de los 15 días.
+
+El recurso debe:
+
+- Presentarse en plazo — son plazos breves.
 - Identificar los errores de la resolución apelada.
 - Fundar técnicamente las razones para revertirla.
 
@@ -79,4 +88,4 @@ Pagar sin analizar es la peor decisión: implica reconocer la falta y perder la 
 
 ---
 
-> *Información basada en la Ley 24.449 (artículo 71) y la Ley 13.927 (artículos 39 a 41) de la Provincia de Buenos Aires. Los plazos y formas pueden variar según la jurisdicción. Para tu situación particular, consultá con un profesional.*
+> *Información basada en la Ley 24.449 (artículo 71), la Ley 13.927 (artículos 40 y 41) de la Provincia de Buenos Aires y el Decreto-Ley 8751/77 (Código de Faltas Municipales PBA, artículos 46, 52, 54 y 56). Los plazos y formas varían según la jurisdicción. Para tu situación particular, consultá con un profesional.*

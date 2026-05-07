@@ -5,6 +5,7 @@ question: "¿Una multa con errores en el acta puede anularse?"
 shortAnswer: "Sí. El acta de infracción es un instrumento formal que debe cumplir requisitos estrictos. Si contiene errores en los datos del vehículo, la patente, el lugar, la fecha, la hora o la identificación del infractor, puede solicitarse su anulación total. Un solo dato incorrecto puede invalidar todo el procedimiento sancionatorio."
 tag: "Multas"
 publishDate: 2026-05-01
+dateModified: 2026-05-06
 readingMinutes: 4
 status: pending-validation
 lang: es
@@ -36,7 +37,7 @@ El acta debe contener, como mínimo:
 - **Descripción concreta** de la conducta sancionada.
 - **Firma** de la autoridad actuante.
 
-Estos requisitos surgen de los artículos 70 a 72 de la Ley 24.449 y de los principios constitucionales de **legalidad** (Art. 18 de la Constitución Nacional) y debido proceso.
+Estos requisitos surgen del artículo 69 de la **Ley 24.449** (Tránsito Nacional) y, en la Provincia de Buenos Aires, de la **Ley 13.927** y su decreto reglamentario **532/09**, junto con los principios constitucionales de **legalidad** y **defensa en juicio** (Art. 18 de la Constitución Nacional).
 
 ## ¿Qué pasa si hay un error?
 
@@ -74,4 +75,4 @@ Si la presentación es sólida, el organismo debe **declarar la nulidad del acta
 
 ---
 
-> *Información basada en los artículos 70 a 72 de la Ley 24.449 y el artículo 18 de la Constitución Nacional. Cada acta requiere análisis individual. Para tu situación particular, consultá con un profesional.*
+> *Información basada en el artículo 69 de la Ley 24.449, la Ley 13.927 de la Provincia de Buenos Aires y su Decreto reglamentario 532/09, y el artículo 18 de la Constitución Nacional. Cada acta requiere análisis individual. Para tu situación particular, consultá con un profesional.*

@@ -2,9 +2,10 @@
 title: "Años de servicio para jubilarse como docente en Argentina"
 description: "Requisitos de antigüedad, edad mínima y cómputo de servicios para acceder a la jubilación docente bajo la Ley 24.016 y los regímenes provinciales."
 question: "¿Cuántos años de servicio necesita un docente para jubilarse en Argentina?"
-shortAnswer: "El régimen nacional docente de la Ley 24.016 exige 25 años de servicios para mujeres y 30 años para varones, con al menos 10 años efectivos al frente del alumno. Las cajas provinciales pueden establecer requisitos distintos."
+shortAnswer: "El régimen nacional docente de la Ley 24.016 exige 25 años de servicios con al menos 10 al frente del alumno. Si los años al frente del alumno son menos de 10, se requieren 30 años de servicios totales. Las cajas provinciales pueden establecer requisitos distintos."
 tag: "Jubilación Docente"
 publishDate: 2026-04-22
+dateModified: 2026-05-06
 readingMinutes: 5
 status: pending-validation
 lang: es
@@ -15,14 +16,14 @@ faqs:
   - question: "¿Se pueden sumar años trabajados en empleos no docentes?"
     answer: "Sí, se pueden sumar por reciprocidad previsional. No cuentan como tiempo al frente del alumno y pueden afectar la tasa de sustitución del haber final."
   - question: "¿Qué pasa si trabajé en una caja provincial y después en una nacional?"
-    answer: "Existe un sistema de reciprocidad entre cajas que permite acumular los años. El haber lo liquida la caja otorgante, que es donde se completaron los últimos aportes."
+    answer: "Existe un sistema de reciprocidad entre cajas que permite acumular los años. La caja otorgante es aquella en la que se acrediten más años de servicios con aportes; en caso de empate, puede elegirla la persona afiliada."
 ---
 
 ## ¿Cuántos años de servicio exige el régimen nacional?
 
-El régimen nacional docente pide 25 años de servicios para mujeres y 30 años para varones. De esos años, al menos 10 deben haber sido *al frente del alumno* de forma efectiva.
+El régimen nacional docente pide 25 años de servicios con al menos 10 *al frente del alumno*, sin distinción de género. Si la persona estuvo al frente del alumno menos de 10 años, puede jubilarse igual reuniendo 30 años de servicios docentes totales.
 
-Los servicios diferenciales — por ejemplo, docencia en zonas desfavorables o en escuelas especiales — se computan con una bonificación que establece el decreto reglamentario.
+Los servicios en escuelas de ubicación muy desfavorable o de educación especial se computan a razón de 4 años por cada 3 de servicios efectivos, según el artículo 3 de la Ley 24.016.
 
 ## ¿Qué edad mínima se pide?
 
