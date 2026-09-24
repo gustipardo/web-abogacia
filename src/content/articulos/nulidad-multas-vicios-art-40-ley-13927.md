@@ -4,7 +4,7 @@ description: "Cuándo una multa puede declararse nula: notificación defectuosa,
 question: "¿En qué casos puede declararse nula una multa de tránsito?"
 shortAnswer: "Una multa puede ser declarada nula cuando el procedimiento presenta irregularidades sustanciales: notificación defectuosa, falta de pruebas suficientes, radares sin homologación vigente, señalización inadecuada de los controles o incompetencia territorial de la autoridad. La Ley 13.927 (PBA) lo contempla expresamente en su artículo 40."
 tag: "Multas"
-publishDate: 2026-04-30
+publishDate: 2025-02-28
 readingMinutes: 5
 status: pending-validation
 lang: es

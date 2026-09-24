@@ -4,7 +4,7 @@ description: "Cómo presentar un descargo técnico antes de que la multa quede f
 question: "¿Cómo se presenta un descargo o recurso contra una multa de tránsito?"
 shortAnswer: "Todo infractor tiene derecho a presentar un descargo antes de que la multa quede firme. El descargo se presenta ante el Juzgado de Faltas o autoridad sancionadora y, si la decisión es desfavorable, puede apelarse ante tribunales superiores. Quien viva a más de 60 km del juzgado puede defenderse por escrito mediante correo postal fehaciente."
 tag: "Multas"
-publishDate: 2026-04-29
+publishDate: 2025-10-29
 readingMinutes: 5
 status: pending-validation
 lang: es

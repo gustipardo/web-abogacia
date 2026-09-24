@@ -4,7 +4,7 @@ description: "Sin libre deuda no podés renovar la licencia ni transferir el veh
 question: "¿Cómo gestiono el libre deuda de multas para renovar el registro o vender el vehículo?"
 shortAnswer: "Las multas impagas impiden renovar el registro de conducir, transferir o vender el vehículo. La baja integral de multas se gestiona por las vías legales que correspondan en cada caso — prescripción, anulación, nulidad o pago con reducción — para regularizar el estado del titular y del vehículo en el sistema."
 tag: "Multas"
-publishDate: 2026-04-28
+publishDate: 2026-05-28
 readingMinutes: 4
 status: pending-validation
 lang: es

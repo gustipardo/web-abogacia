@@ -6,11 +6,11 @@ const year = new Date().getFullYear();
  <div><a href="/#inicio" class="footer-brand">ESTUDIO GHETTI</a><p>Dra. Adriana Ghetti · Abogada</p><p>Pilar, Buenos Aires<br />Atención por videollamada</p></div>
  <nav aria-label="Servicios al pie"><h2>Servicios</h2><ul>{services.map(s=><li><a href={'/#'+s.id}>{s.title}</a></li>)}</ul></nav>
  <nav aria-label="Información al pie"><h2>El estudio</h2><ul><li><a href="/#sobre-mi">Conocé a Adriana</a></li><li><a href="/articulos/">Artículos</a></li><li><a href="/#contacto">Contacto</a></li><li><a href="/#inicio">Volver al inicio ↑</a></li></ul></nav>
-</div><div class="container footer-bottom"><p>© {year} Estudio Ghetti</p><p>El contenido de este sitio es informativo y no constituye asesoramiento jurídico.</p></div></footer>
+</div><div class="container footer-bottom"><p>© {year} Dra. Adriana Ghetti · Todos los derechos reservados</p><p>El contenido de este sitio es de carácter informativo y no constituye asesoramiento jurídico.</p></div></footer>
 <style>
 .footer{background:var(--bordo);color:var(--marfil);padding:48px 0 24px}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px}.footer-brand{font:25px Georgia,serif;letter-spacing:1px}
-p,li{font-size:13px}.footer-grid p{margin-top:12px}h2{font:bold 11px Arial,sans-serif;letter-spacing:1.8px;text-transform:uppercase;color:var(--arena);margin-bottom:18px}
+p,li{font-size:13px}.footer-grid p{margin-top:12px}h2{font:500 11px var(--font-sans);letter-spacing:1.8px;text-transform:uppercase;color:var(--arena);margin-bottom:18px}
 ul{list-style:none}li{margin-bottom:10px}a:hover{text-decoration:underline;text-underline-offset:4px}
-.footer-bottom{display:flex;justify-content:space-between;gap:30px;border-top:1px solid #80515a;margin-top:35px;padding-top:22px}.footer-bottom p{font-size:11px}
+.footer-bottom{display:flex;justify-content:space-between;gap:30px;border-top:1px solid #80515a;margin-top:35px;padding-top:22px}.footer-bottom p{font-size:12px}.footer-bottom p:last-child{max-width:440px}
 @media(max-width:700px){.footer-grid{grid-template-columns:1fr 1fr;gap:30px}.footer-grid>div{grid-column:1/-1}.footer-bottom{flex-direction:column;gap:10px}}
 </style>

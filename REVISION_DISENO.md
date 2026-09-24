@@ -26,3 +26,15 @@ La rama contiene los cambios para revisar antes de incorporarlos a main. CLAUDE.
 - test:redesign: correcto en 320, 390, 768 y 1440 px; sin desbordes ni imágenes rotas; menú con teclado y móvil, opciones y envío de contacto simulado, fechas y consola.
 - test:ficha: escenarios positivo y negativo correctos, sin correos reales.
 - git diff --check: correcto.
+
+## Ajustes solicitados antes de publicar
+- Foto de portada más discreta: máximo 280 px de ancho en escritorio y retrato de 92 × 110 px junto al nombre en móvil.
+- Sucesiones se mantiene como servicio propio; Derecho Civil pasa a «Otros asuntos civiles» para aclarar el alcance de la cuarta opción.
+- Fechas de multas asignadas según el orden del listado anterior: reducción marzo 2023, prescripción noviembre 2023, anulación junio 2024, nulidad febrero 2025, descargos octubre 2025, libre deuda mayo 2026.
+- Se conserva el día original, salvo nulidad: el día 30 no existe en febrero de 2025 y se ajusta al 28.
+- La usuaria solicitó explícitamente publicar esta versión. No volver a pedir autorización para publicar; completar cuando GitHub esté autenticado y las verificaciones pasen.
+
+## Referencia tipográfica solicitada
+Cormorant Garamond para títulos y Jost para texto, como neusoliver.com. Fuentes alojadas localmente con licencias OFL; se mantienen el logo y los colores de marca. Títulos sin punto final, párrafos con puntuación intacta. Pie restaurado con todos los derechos reservados y aviso jurídico completo.
+
+Verificación de esta revisión: build correcto y test:redesign correcto en cuatro anchos, con pruebas de fuentes locales, pie completo, títulos sin punto y fechas de cada artículo de multas. Publicación autorizada por la usuaria, pendiente de autenticar GitHub; el código de dispositivo anterior venció.

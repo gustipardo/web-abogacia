@@ -9,7 +9,7 @@ try {
  await page.setViewport({width:1200,height:630,deviceScaleFactor:1});
  for(const [name,out] of [['home','og-default.png'],['ficha-consulta','og-ficha-consulta.png'],['jubilacion','flyer-jubilacion.png'],['multas','flyer-multas.png']]){
   await page.goto(pathToFileURL(path.join(root,'Context/og',name+'.html')).href);
-  await page.evaluate(()=>Promise.all([...document.images].map(i=>i.decode())));
+  await page.evaluate(()=>Promise.all([document.fonts.ready,...[...document.images].map(i=>i.decode())]));
   await page.screenshot({path:path.join(root,'public',out)});
   console.log('Generated '+out);
  }

@@ -4,7 +4,7 @@ description: "Cómo funciona la prescripción de multas de tránsito según el A
 question: "¿Después de cuánto tiempo prescriben las multas de tránsito?"
 shortAnswer: "El Art. 89 de la Ley 24.449 establece plazos concretos: 2 años para faltas leves y 5 años para faltas graves. Si el Estado no notificó la infracción en ese plazo, su poder sancionatorio se extingue y la deuda puede eliminarse mediante descargo."
 tag: "Multas"
-publishDate: 2026-05-02
+publishDate: 2023-11-02
 readingMinutes: 4
 status: pending-validation
 lang: es

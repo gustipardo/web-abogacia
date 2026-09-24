@@ -4,7 +4,7 @@ description: "Por qué un error en los datos del acta de infracción (vehículo,
 question: "¿Una multa con errores en el acta puede anularse?"
 shortAnswer: "Sí. El acta de infracción es un instrumento formal que debe cumplir requisitos estrictos. Si contiene errores en los datos del vehículo, la patente, el lugar, la fecha, la hora o la identificación del infractor, puede solicitarse su anulación total. Un solo dato incorrecto puede invalidar todo el procedimiento sancionatorio."
 tag: "Multas"
-publishDate: 2026-05-01
+publishDate: 2024-06-01
 readingMinutes: 4
 status: pending-validation
 lang: es

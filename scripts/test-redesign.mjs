@@ -16,6 +16,16 @@ try{
    const state=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,missing:[...document.images].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src),text:document.body.innerText}));
    assert.ok(state.scroll<=width+1,route+' overflows at '+width+': '+state.scroll);
    assert.deepEqual(state.missing,[]);
+   await page.evaluate(()=>document.fonts.ready);
+   const dots=await page.$$eval('h1,h2,h3',els=>els.filter(e=>/\.$/.test(e.textContent.trim())).map(e=>e.textContent));
+   assert.deepEqual(dots,[],'Headings must not end in a full stop');
+   assert.ok(await page.evaluate(()=>document.fonts.check('400 20px "Cormorant Garamond"')),'Serif font loaded');
+   if(route==='/'){
+    const footer=await page.$eval('.footer-bottom',e=>e.innerText);
+    assert.ok(footer.includes('Dra. Adriana Ghetti · Todos los derechos reservados'));
+    assert.ok(footer.includes('El contenido de este sitio es de carácter informativo y no constituye asesoramiento jurídico.'));
+   }
+
    assert.ok(!/gratis|gratuit|sin cargo|sin costo/i.test(state.text));
    await page.evaluate(()=>document.querySelector('astro-dev-toolbar')?.remove());
    if(route==='/'&&(width===390||width===1440))await page.screenshot({path:'.mobile-shots/home-'+width+'.png',fullPage:true});
@@ -39,7 +49,7 @@ try{
  await page.click('[data-consultation-area="sucesiones"]');
  assert.equal(await page.$eval('select[name="area"]',e=>e.value),'sucesiones');
  const labels=await page.$$eval('select[name="area"] option',els=>els.map(e=>e.textContent));
- assert.ok(labels.includes('Derecho Civil')&&labels.includes('Sucesiones'));
+ assert.ok(labels.includes('Otros asuntos civiles')&&labels.includes('Sucesiones'));
  await page.click('#form-submit');
  assert.equal(await page.$eval('input[name="nombre"]',e=>e.validity.valueMissing),true);
  await page.type('input[name="nombre"]','Prueba local');
@@ -63,6 +73,19 @@ try{
  await page.goto(base+'/articulos/',{waitUntil:'networkidle0'});
  const listing=await page.$eval('main',e=>e.innerText);
  for(const month of ['agosto de 2026','enero de 2026','julio de 2025','marzo de 2025','enero de 2025','octubre de 2024','mayo de 2024','diciembre de 2023','mayo de 2026'])assert.ok(listing.includes(month),month);
+
+ const expectedFineDates = {
+  'reduccion-multas-art-85-ley-24449': 'marzo de 2023',
+  'prescripcion-multas-transito-art-89': 'noviembre de 2023',
+  'anulacion-multas-errores-acta': 'junio de 2024',
+  'nulidad-multas-vicios-art-40-ley-13927': 'febrero de 2025',
+  'descargos-recursos-multas-juzgado-faltas': 'octubre de 2025',
+  'libre-deuda-multas-renovar-registro-vender-vehiculo': 'mayo de 2026',
+ };
+ for(const [slug,date] of Object.entries(expectedFineDates)){
+  const text=await page.$eval('a[href="/articulos/'+slug+'/"]',e=>e.innerText);
+  assert.ok(text.includes(date),slug+' must show '+date);
+ }
  assert.deepEqual(errors,[]);
  console.log('Article dates and browser console OK');
 }finally{await browser.close()}
