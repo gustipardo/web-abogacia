@@ -13,6 +13,7 @@
   ].join(','))];
   let observer: IntersectionObserver | undefined;
   let navigationFrame = 0;
+  let navigationTarget: HTMLElement | null = null;
 
   function anchorTarget() {
     return location.hash ? document.getElementById(location.hash.slice(1)) : null;
@@ -32,6 +33,7 @@
 
   function cancelAll() {
     cancelAnimationFrame(navigationFrame);
+    navigationTarget = null;
     observer?.disconnect();
     animations.forEach(animation => animation.cancel());
     animations.clear();
@@ -102,8 +104,41 @@
   }
 
   function revealDestination(target: HTMLElement) {
+    // click and hashchange describe the same navigation; prepare it only once.
+    if (navigationTarget === target) return;
     cancelAnimationFrame(navigationFrame);
+    expose(navigationTarget);
     expose(target);
+    navigationTarget = target;
+    if (!('animate' in Element.prototype)) { navigationTarget = null; return; }
+    const pending: Animation[] = [];
+    const candidates = [...target.querySelectorAll<HTMLElement>('h1, h2, h3, p, li, .btn, .portrait')];
+    const elements = candidates.filter(element =>
+      !candidates.some(parent => parent !== element && parent.contains(element)));
+    try {
+      // Hide synchronously, before the browser paints the native anchor jump.
+      // Pause at frame zero while scrolling, then play the already prepared fade.
+      elements.forEach((element, index) => {
+        if (element.contains(document.activeElement)) return;
+        const animation = element.animate(preference.matches ? [
+          { opacity: 0 }, { opacity: 1 },
+        ] : [
+          { opacity: 0, transform: 'translateY(12px)' },
+          { opacity: 1, transform: 'translateY(0)' },
+        ], {
+          duration: 650, delay: Math.min(index * 55, 220),
+          easing: 'cubic-bezier(.4,0,.2,1)', fill: 'both',
+        });
+        animation.pause();
+        animation.currentTime = 0;
+        animations.set(element, animation);
+        pending.push(animation);
+        animation.addEventListener('finish', () => {
+          if (animations.get(element) === animation) animations.delete(element);
+          animation.cancel();
+        }, { once: true });
+      });
+    } catch { expose(target); navigationTarget = null; return; }
     const started = performance.now();
     let previousTop = target.getBoundingClientRect().top;
     let stableSince = started;
@@ -111,36 +146,15 @@
       const top = target.getBoundingClientRect().top;
       if (Math.abs(top - previousTop) > 1) stableSince = now;
       previousTop = top;
-      // Let native anchor scrolling finish before revealing the destination.
       if (now - stableSince < 100 && now - started < 1600) {
         navigationFrame = requestAnimationFrame(arrive);
         return;
       }
-      if (!('animate' in Element.prototype)) return;
-      const candidates = [...target.querySelectorAll<HTMLElement>('h1, h2, h3, p, li, .btn, .portrait')];
-      const elements = candidates.filter(element =>
-        !candidates.some(parent => parent !== element && parent.contains(element)));
-      try {
-        elements.forEach((element, index) => {
-          if (element.contains(document.activeElement)) return;
-          const rect = element.getBoundingClientRect();
-          if (rect.bottom <= 0 || rect.top >= innerHeight) return;
-          const animation = element.animate(preference.matches ? [
-            { opacity: 0 }, { opacity: 1 },
-          ] : [
-            { opacity: 0, transform: 'translateY(12px)' },
-            { opacity: 1, transform: 'translateY(0)' },
-          ], {
-            duration: 650, delay: Math.min(index * 55, 220),
-            easing: 'cubic-bezier(.4,0,.2,1)', fill: 'both',
-          });
-          animations.set(element, animation);
-          animation.addEventListener('finish', () => {
-            if (animations.get(element) === animation) animations.delete(element);
-            animation.cancel();
-          }, { once: true });
-        });
-      } catch { expose(target); }
+      navigationTarget = null;
+      pending.forEach(animation => {
+        // Focus/printing may have cancelled an effect while scrolling.
+        if (animation.playState === 'paused') animation.play();
+      });
     }
     navigationFrame = requestAnimationFrame(arrive);
   }

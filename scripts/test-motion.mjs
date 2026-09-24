@@ -99,6 +99,18 @@ try {
       for (let repeat = 0; repeat < 2; repeat++) {
         if (width === 390) await page.click('.menu-toggle');
         await page.click('.services-menu summary');
+        await page.evaluate(() => {
+          document.querySelector('.services-dropdown a[href="/#jubilacion"]').addEventListener('click', () => {
+            const start = performance.now();
+            const frames = [];
+            window.clickFrames = frames;
+            function sample() {
+              frames.push(Number(getComputedStyle(document.querySelector('#jubilacion h2')).opacity));
+              if (performance.now() - start < 2200) requestAnimationFrame(sample);
+            }
+            requestAnimationFrame(sample);
+          }, {once:true});
+        });
         await page.click('.services-dropdown a[href="/#jubilacion"]');
         await page.waitForFunction(() => {
           const heading = document.querySelector('#jubilacion h2');
@@ -109,6 +121,10 @@ try {
           assert.equal(await page.$eval('#jubilacion h2', e => getComputedStyle(e).transform), 'none');
         }
         await page.waitForFunction(() => getComputedStyle(document.querySelector('#jubilacion h2')).opacity === '1');
+        const frames = await page.evaluate(() => window.clickFrames);
+        assert.ok(frames.length > 2 && frames[0] < 0.05, 'Destination is hidden on the first painted frame');
+        assert.ok(frames.every((value, index) => !index || value >= frames[index - 1] - 0.01),
+          'Opacity never flashes visible then drops back to transparent');
         assert.equal(await page.$eval('.services-menu', e => e.open), false);
       }
       await page.click('#jubilacion [data-consultation-area]');
