@@ -44,12 +44,17 @@
       seen.add(element);
       return;
     }
-    const animation = element.animate([
+    // Reduced motion keeps a gentle dissolve, without any spatial movement.
+    const reduced = preference.matches;
+    const animation = element.animate(reduced ? [
+      { opacity: 0 },
+      { opacity: 1 },
+    ] : [
       { opacity: 0, transform: 'translateY(26px)' },
       { opacity: 1, transform: 'translateY(0)' },
     ], {
-      duration: isHero ? 1400 : 1100,
-      delay,
+      duration: reduced ? 900 : isHero ? 1400 : 1100,
+      delay: reduced ? Math.min(delay, 160) : delay,
       easing: 'cubic-bezier(.22,.61,.36,1)',
       fill: 'both',
     });
@@ -70,7 +75,7 @@
 
   function observe() {
     cancelAll();
-    if (preference.matches || !('IntersectionObserver' in window) ||
+    if (!('IntersectionObserver' in window) ||
         !('animate' in Element.prototype)) return;
     observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {

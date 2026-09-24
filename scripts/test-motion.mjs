@@ -20,6 +20,43 @@ try {
       return original.apply(this, args);
     };
   });
+  // Check rendered opacity with the actual OS setting, then both explicit modes.
+  // Merely counting animate() calls missed the original reduced-motion failure.
+  await page.evaluateOnNewDocument(() => {
+    window.renderedFade = [];
+    const start = performance.now();
+    function sample() {
+      const heading = document.querySelector('.hero-grid h1');
+      if (heading) window.renderedFade.push(Number(getComputedStyle(heading).opacity));
+      if (performance.now() - start < 6000) requestAnimationFrame(sample);
+    }
+    requestAnimationFrame(sample);
+  });
+  for (const mode of [null, 'reduce', 'no-preference']) {
+    if (mode) await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:mode}]);
+    await page.goto(base, {waitUntil:'domcontentloaded'});
+    await page.waitForFunction(() => window.renderedFade?.some(value => value > 0.15 && value < 0.85));
+    await page.waitForFunction(() => getComputedStyle(document.querySelector('.hero-grid h1')).opacity === '1');
+    const result = await page.evaluate(() => ({
+      reduced: matchMedia('(prefers-reduced-motion: reduce)').matches,
+      min: Math.min(...window.renderedFade), max: Math.max(...window.renderedFade),
+    }));
+    assert.ok(result.min < 0.3 && result.max > 0.95, 'Visible fade from transparent to opaque');
+    await page.evaluate(() => {
+      document.documentElement.style.scrollBehavior = 'auto';
+      document.querySelector('.services .service').scrollIntoView({block:'center', behavior:'instant'});
+    });
+    await page.waitForFunction(() => {
+      const opacity = Number(getComputedStyle(document.querySelector('.services .service')).opacity);
+      return opacity > 0.05 && opacity < 0.9;
+    });
+    if (result.reduced) {
+      assert.ok(await page.evaluate(() => document.getAnimations().every(a =>
+        a.effect.getKeyframes().every(frame => !frame.transform || frame.transform === 'none'))));
+    }
+    await page.waitForFunction(() => getComputedStyle(document.querySelector('.services .service')).opacity === '1');
+    console.log(`Rendered heading and scroll fade: ${mode || 'system default'} (reduce=${result.reduced}) OK`);
+  }
   await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'no-preference'}]);
   await page.goto(base, {waitUntil:'networkidle0'});
   assert.ok(await page.evaluate(() => window.motionCalls > 0), 'Entrance animation runs');
@@ -33,7 +70,10 @@ try {
   await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}]);
   await page.waitForFunction(() => document.getAnimations().every(a => a.playState !== 'running'));
   await page.goto(base, {waitUntil:'networkidle0'});
-  assert.equal(await page.evaluate(() => window.motionCalls), 0, 'Reduced motion disables entrances');
+  assert.ok(await page.evaluate(() => window.motionCalls > 0), 'Reduced motion preserves opacity fades');
+  assert.ok(await page.evaluate(() => document.getAnimations().every(a =>
+    a.effect.getKeyframes().every(frame => !frame.transform || frame.transform === 'none'))),
+    'Reduced motion never translates or scales content');
   for (const width of [390, 1440]) {
     await page.setViewport({width, height:900});
     await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'no-preference'}]);
