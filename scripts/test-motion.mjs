@@ -89,7 +89,38 @@ try {
   }
   await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'no-preference'}]);
   await page.goto(base + '/#contacto', {waitUntil:'networkidle0'});
+  await page.waitForFunction(() => getComputedStyle(document.querySelector('#contacto h2')).opacity === '1');
   assert.equal(await page.$eval('.contact-grid',e=>getComputedStyle(e.children[0]).opacity), '1');
+  for (const width of [390, 1440]) {
+    await page.setViewport({width, height:900});
+    for (const mode of ['reduce', 'no-preference']) {
+      await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:mode}]);
+      await page.goto(base, {waitUntil:'networkidle0'});
+      for (let repeat = 0; repeat < 2; repeat++) {
+        if (width === 390) await page.click('.menu-toggle');
+        await page.click('.services-menu summary');
+        await page.click('.services-dropdown a[href="/#jubilacion"]');
+        await page.waitForFunction(() => {
+          const heading = document.querySelector('#jubilacion h2');
+          const opacity = Number(getComputedStyle(heading).opacity);
+          return location.hash === '#jubilacion' && opacity > 0.05 && opacity < 0.9;
+        });
+        if (mode === 'reduce') {
+          assert.equal(await page.$eval('#jubilacion h2', e => getComputedStyle(e).transform), 'none');
+        }
+        await page.waitForFunction(() => getComputedStyle(document.querySelector('#jubilacion h2')).opacity === '1');
+        assert.equal(await page.$eval('.services-menu', e => e.open), false);
+      }
+      await page.click('#jubilacion [data-consultation-area]');
+      await page.waitForFunction(() => {
+        const opacity = Number(getComputedStyle(document.querySelector('#contacto h2')).opacity);
+        return opacity > 0.05 && opacity < 0.9;
+      });
+      assert.equal(await page.$eval('select[name="area"]', e => e.value), 'jubilacion-docente');
+      await page.waitForFunction(() => getComputedStyle(document.querySelector('#contacto h2')).opacity === '1');
+      console.log(`Anchor click, repeat click and contact selection: ${width}px ${mode} OK`);
+    }
+  }
   await page.setJavaScriptEnabled(false);
   await page.goto(base, {waitUntil:'networkidle0'});
   const visible = await page.$$eval('.hero-grid > *, .service, .contact-grid > *', els =>

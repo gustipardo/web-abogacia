@@ -12,6 +12,7 @@
     '.tag-group-title', '.articulo-card',
   ].join(','))];
   let observer: IntersectionObserver | undefined;
+  let navigationFrame = 0;
 
   function anchorTarget() {
     return location.hash ? document.getElementById(location.hash.slice(1)) : null;
@@ -30,6 +31,7 @@
   }
 
   function cancelAll() {
+    cancelAnimationFrame(navigationFrame);
     observer?.disconnect();
     animations.forEach(animation => animation.cancel());
     animations.clear();
@@ -99,11 +101,72 @@
     }
   }
 
+  function revealDestination(target: HTMLElement) {
+    cancelAnimationFrame(navigationFrame);
+    expose(target);
+    const started = performance.now();
+    let previousTop = target.getBoundingClientRect().top;
+    let stableSince = started;
+    function arrive(now: number) {
+      const top = target.getBoundingClientRect().top;
+      if (Math.abs(top - previousTop) > 1) stableSince = now;
+      previousTop = top;
+      // Let native anchor scrolling finish before revealing the destination.
+      if (now - stableSince < 100 && now - started < 1600) {
+        navigationFrame = requestAnimationFrame(arrive);
+        return;
+      }
+      if (!('animate' in Element.prototype)) return;
+      const candidates = [...target.querySelectorAll<HTMLElement>('h1, h2, h3, p, li, .btn, .portrait')];
+      const elements = candidates.filter(element =>
+        !candidates.some(parent => parent !== element && parent.contains(element)));
+      try {
+        elements.forEach((element, index) => {
+          if (element.contains(document.activeElement)) return;
+          const rect = element.getBoundingClientRect();
+          if (rect.bottom <= 0 || rect.top >= innerHeight) return;
+          const animation = element.animate(preference.matches ? [
+            { opacity: 0 }, { opacity: 1 },
+          ] : [
+            { opacity: 0, transform: 'translateY(12px)' },
+            { opacity: 1, transform: 'translateY(0)' },
+          ], {
+            duration: 650, delay: Math.min(index * 55, 220),
+            easing: 'cubic-bezier(.4,0,.2,1)', fill: 'both',
+          });
+          animations.set(element, animation);
+          animation.addEventListener('finish', () => {
+            if (animations.get(element) === animation) animations.delete(element);
+            animation.cancel();
+          }, { once: true });
+        });
+      } catch { expose(target); }
+    }
+    navigationFrame = requestAnimationFrame(arrive);
+  }
+
+  // Preserve native history, keyboard navigation and modified/new-tab clicks.
+  document.addEventListener('click', event => {
+    if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const link = (event.target as Element).closest<HTMLAnchorElement>('a[href]');
+    if (!link || link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname || url.search !== location.search || !url.hash) return;
+    const target = document.getElementById(url.hash.slice(1));
+    if (target && target.matches('section')) revealDestination(target);
+  });
+
   preference.addEventListener('change', observe);
   document.addEventListener('focusin', event => expose(event.target as Element));
-  window.addEventListener('hashchange', () => expose(anchorTarget()));
+  window.addEventListener('hashchange', () => {
+    const target = anchorTarget();
+    if (target?.matches('section')) revealDestination(target);
+    else expose(target);
+  });
   window.addEventListener('beforeprint', cancelAll);
   window.addEventListener('pagehide', cancelAll);
   window.addEventListener('pageshow', event => { if (event.persisted) observe(); });
   observe();
+  const initialTarget = anchorTarget();
+  if (initialTarget?.matches('section')) revealDestination(initialTarget);
 </script>
