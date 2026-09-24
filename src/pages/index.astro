@@ -6,8 +6,10 @@ import Services from '../components/Services.astro';
 import JubilacionFlyer from '../components/JubilacionFlyer.astro';
 import MultasFlyer from '../components/MultasFlyer.astro';
 import About from '../components/About.astro';
+import CivilServices from '../components/CivilServices.astro';
 import Articles from '../components/Articles.astro';
 import Contact from '../components/Contact.astro';
+import Questions from '../components/Questions.astro';
 import Footer from '../components/Footer.astro';
 
 const siteUrl = Astro.site ?? new URL('https://www.estudioghetti.com');
@@ -52,7 +54,7 @@ const legalServiceSchema = {
   '@id': new URL('/#estudio-ghetti', siteUrl).href,
   name: 'Estudio Ghetti',
   legalName: 'Estudio Jurídico Ghetti',
-  description: 'Estudio jurídico argentino dirigido por la Dra. Adriana Ghetti, especializado en jubilación docente del IPS de Buenos Aires y multas de tránsito en la Provincia de Buenos Aires.',
+  description: 'Estudio jurídico dirigido por la Dra. Adriana Ghetti. Jubilación docente, multas de tránsito, sucesiones y Derecho Civil. Atención en Pilar y por videollamada.',
   url: siteUrl.href,
   telephone: '+54-9-11-6938-0777',
   email: 'adriana@estudioghetti.com',
@@ -126,8 +128,10 @@ const websiteSchema = {
     <Services />
     <JubilacionFlyer />
     <MultasFlyer />
+    <CivilServices />
     <About />
     <Articles />
+    <Questions />
     <Contact />
   </main>
   <Footer />

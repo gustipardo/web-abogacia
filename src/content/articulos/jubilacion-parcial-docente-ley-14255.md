@@ -4,7 +4,7 @@ description: "Cómo funciona la jubilación parcial docente bajo la Ley 14.255: 
 question: "¿Puedo jubilarme de un cargo y seguir trabajando en otro?"
 shortAnswer: "Sí. La Ley 14.255 permite jubilar un cargo — siempre que se cumplan los requisitos de edad y aportes — y continuar en actividad en otro. Es una herramienta útil para una transición gradual al retiro y para ordenar mejor el haber jubilatorio."
 tag: "Jubilación Docente"
-publishDate: 2026-04-28
+publishDate: 2025-01-28
 readingMinutes: 4
 status: pending-validation
 lang: es

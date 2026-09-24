@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "flyers": "node scripts/generate-flyers.mjs",
-    "test:ficha": "node scripts/test-ficha.mjs"
+    "test:ficha": "node scripts/test-ficha.mjs",
+    "test:redesign": "node scripts/test-redesign.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",

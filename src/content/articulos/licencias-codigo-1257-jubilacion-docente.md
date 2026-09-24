@@ -4,7 +4,7 @@ description: "Por qué las licencias por causas particulares (código 1257) pued
 question: "¿Pueden las licencias por causas particulares afectar mi jubilación docente?"
 shortAnswer: "Sí. Una sola licencia sin goce de sueldo — incluso de un solo día, cargada con código 1257 — puede cortar la línea de simultaneidad entre cargos y reducir el porcentaje del haber. Una vez otorgada la jubilación, el error ya no se puede corregir."
 tag: "Jubilación Docente"
-publishDate: 2026-04-30
+publishDate: 2025-07-30
 readingMinutes: 5
 status: pending-validation
 lang: es

@@ -1,74 +1,27 @@
 import puppeteer from 'puppeteer';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
-
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-
-// Each flyer is rendered once and copied to all `outs` so caso/, public/
-// and any legacy duplicate stay in sync.
-const flyers = [
-  {
-    html: 'Context/casos/Multas/flyer.html',
-    outs: [
-      'Context/casos/Multas/flyer.png',
-      'public/flyer-multas.png',
-    ],
-  },
-  {
-    html: 'Context/casos/Jubilacion Docente/flyer.html',
-    outs: [
-      'Context/casos/Jubilacion Docente/flyer.png',
-      'Context/casos/Jubilacion Docente/flyer-jubilacion-estudio-ghetti.png',
-      'public/flyer-jubilacion.png',
-    ],
-  },
-  {
-    html: 'Context/og/ficha-consulta.html',
-    outs: ['public/og-ficha-consulta.png'],
-  },
-  {
-    html: 'Context/og/home.html',
-    outs: ['public/og-default.png'],
-  },
-];
-
-const browser = await puppeteer.launch({
-  headless: true,
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
-});
-
-for (const f of flyers) {
-  const page = await browser.newPage();
-  // Wide viewport so the @media (max-width:1200px){scale 0.6} doesn't trigger.
-  await page.setViewport({ width: 1400, height: 4000, deviceScaleFactor: 2 });
-
-  const url = 'file://' + path.join(root, f.html);
-  await page.goto(url, { waitUntil: 'networkidle0' });
-
-  // Measure after the final viewport is set so the bbox is accurate.
-  const box = await page.evaluate(() => {
-    const el = document.querySelector('.flyer');
-    const r = el.getBoundingClientRect();
-    return { x: r.left, y: r.top, width: r.width, height: r.height };
-  });
-
-  const buf = await page.screenshot({
-    type: 'png',
-    clip: {
-      x: box.x,
-      y: box.y,
-      width: Math.ceil(box.width),
-      height: Math.ceil(box.height),
-    },
-  });
-
-  const fs = await import('node:fs/promises');
-  for (const out of f.outs) {
-    const outPath = path.join(root, out);
-    await fs.writeFile(outPath, buf);
-    console.log(`✓ ${out} (${Math.ceil(box.width)}x${Math.ceil(box.height)})`);
-  }
-  await page.close();
-}
-
-await browser.close();
+import fs from 'node:fs/promises';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const browser=await puppeteer.launch({headless:true,executablePath:process.env.PUPPETEER_EXECUTABLE_PATH||undefined});
+try {
+ const page=await browser.newPage();
+ await page.setViewport({width:1200,height:630,deviceScaleFactor:1});
+ for(const [name,out] of [['home','og-default.png'],['ficha-consulta','og-ficha-consulta.png'],['jubilacion','flyer-jubilacion.png'],['multas','flyer-multas.png']]){
+  await page.goto(pathToFileURL(path.join(root,'Context/og',name+'.html')).href);
+  await page.evaluate(()=>Promise.all([...document.images].map(i=>i.decode())));
+  await page.screenshot({path:path.join(root,'public',out)});
+  console.log('Generated '+out);
+ }
+ const logo=await fs.readFile(path.join(root,'public/logo.png'));
+ for(const [size,name] of [[32,'favicon-32.png'],[180,'apple-touch-icon.png']]){
+  await page.setViewport({width:size,height:size,deviceScaleFactor:1});
+  await page.setContent('<style>body{margin:0;background:#FDFCF9;overflow:hidden}img{position:absolute;width:230%;max-width:none;left:-65%;top:-42%}</style><img src="data:image/png;base64,'+logo.toString('base64')+'">');
+  await page.evaluate(()=>document.images[0].decode());
+  await page.screenshot({path:path.join(root,'public',name)});
+ }
+ // Encode the generated PNG in the standard ICO container for legacy requests.
+ const png=await fs.readFile(path.join(root,'public/favicon-32.png'));
+ const ico=Buffer.alloc(22);ico.writeUInt16LE(1,2);ico.writeUInt16LE(1,4);ico[6]=32;ico[7]=32;ico.writeUInt16LE(1,10);ico.writeUInt16LE(32,12);ico.writeUInt32LE(png.length,14);ico.writeUInt32LE(22,18);
+ await fs.writeFile(path.join(root,'public/favicon.ico'),Buffer.concat([ico,png]));
+} finally {await browser.close()}

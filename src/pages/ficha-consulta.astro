@@ -12,11 +12,11 @@ import Layout from '../layouts/Layout.astro';
     <div class="ficha-container">
 
       <header class="ficha-header">
-        <img src="/logo.png" alt="Estudio Ghetti" class="ficha-logo" width="64" height="64" />
+        <img src="/logo.png" alt="Estudio Ghetti" class="ficha-logo" width="96" height="96" />
         <h1>Ficha de Primera Consulta Previsional</h1>
         <p class="ficha-intro">
-          Complete los datos posibles. Esta información es confidencial y se utiliza
-          exclusivamente para el análisis de su situación jubilatoria.
+          Completá los datos posibles. Esta información es confidencial y se utiliza
+          exclusivamente para el análisis de tu situación jubilatoria.
         </p>
         <p class="ficha-credit">
           Estudio Ghetti · Dra. Graciela Adriana Ghetti · Abogada UBA · Tel: 11-6938-0777
@@ -210,7 +210,7 @@ import Layout from '../layouts/Layout.astro';
 
           <label class="field">
             <span>Descripción breve de la consulta *</span>
-            <textarea name="descripcion_consulta" rows="4" required placeholder="Cuéntenos brevemente su situación…"></textarea>
+            <textarea name="descripcion_consulta" rows="4" required placeholder="Contame brevemente tu situación…"></textarea>
           </label>
         </section>
 
@@ -314,7 +314,7 @@ import Layout from '../layouts/Layout.astro';
 
           <div class="grid-2">
             <label class="field">
-              <span>¿Tiene la hoja de vida de ABC descargada?</span>
+              <span>¿Tenés la hoja de vida de ABC descargada?</span>
               <select name="hoja_vida_abc">
                 <option value="">Seleccionar…</option>
                 <option>Sí</option>
@@ -323,7 +323,7 @@ import Layout from '../layouts/Layout.astro';
               </select>
             </label>
             <label class="field">
-              <span>¿Tiene certificaciones de servicios?</span>
+              <span>¿Tenés certificaciones de servicios?</span>
               <select name="certificaciones_servicios">
                 <option value="">Seleccionar…</option>
                 <option>Sí</option>
@@ -345,7 +345,7 @@ import Layout from '../layouts/Layout.astro';
 
           <div class="grid-2">
             <label class="field">
-              <span>¿Tiene la "sábana" (historia laboral ANSES)?</span>
+              <span>¿Tenés la "sábana" (historia laboral ANSES)?</span>
               <select name="tiene_sabana">
                 <option value="">Seleccionar…</option>
                 <option>Sí</option>
@@ -383,7 +383,7 @@ import Layout from '../layouts/Layout.astro';
               </select>
             </label>
             <label class="field">
-              <span>¿Tiene empleadores cerrados / quebrados?</span>
+              <span>¿Tenés empleadores cerrados / quebrados?</span>
               <select name="empleadores_cerrados">
                 <option value="">Seleccionar…</option>
                 <option>Sí</option>
@@ -502,13 +502,15 @@ import Layout from '../layouts/Layout.astro';
   .ficha-header {
     background: var(--navy);
     color: var(--white);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 2rem 1.75rem;
     text-align: center;
     margin-bottom: 1.25rem;
   }
 
   .ficha-logo {
+    width: 96px;
+    height: 96px;
     margin: 0 auto 0.75rem;
     background: var(--white);
     border-radius: 50%;
@@ -538,7 +540,7 @@ import Layout from '../layouts/Layout.astro';
   .ficha-privacy {
     background: #F0F8F1;
     border: 1px solid #C8E6CC;
-    border-radius: 8px;
+    border-radius: 0;
     padding: 0.85rem 1rem;
     font-size: 0.85rem;
     color: #2E5232;
@@ -558,12 +560,12 @@ import Layout from '../layouts/Layout.astro';
   .ficha-section {
     background: var(--white);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 1.75rem 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1.1rem;
-    box-shadow: 0 2px 8px rgba(27,42,74,0.04);
+    box-shadow: 0 2px 8px rgba(81,23,37,0.04);
   }
 
   .section-head {
@@ -587,7 +589,7 @@ import Layout from '../layouts/Layout.astro';
     font-weight: 700;
     letter-spacing: 0.1em;
     padding: 0.25rem 0.55rem;
-    border-radius: 4px;
+    border-radius: 0;
     text-transform: uppercase;
   }
 
@@ -673,7 +675,7 @@ import Layout from '../layouts/Layout.astro';
   .fieldset.is-invalid {
     background: #FDF6F5;
     border: 1px solid #E89B9B;
-    border-radius: 8px;
+    border-radius: 0;
     padding: 0.85rem 1rem;
     margin: -0.85rem -1rem;
   }
@@ -711,9 +713,9 @@ import Layout from '../layouts/Layout.astro';
   .check span { flex: 1; }
 
   .check-declaration {
-    background: #F8F6F2;
+    background: var(--marfil);
     border: 1.5px solid var(--gold);
-    border-radius: 8px;
+    border-radius: 0;
     padding: 0.85rem 1rem;
     font-size: 0.9rem;
     line-height: 1.5;
@@ -764,7 +766,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .btn-add:hover {
-    background: rgba(184,152,106,0.1);
+    background: rgba(216,200,184,0.1);
   }
 
   /* Submit */
@@ -810,7 +812,7 @@ import Layout from '../layouts/Layout.astro';
   .ficha-success {
     background: var(--white);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 3rem 2rem;
     text-align: center;
     display: flex;
@@ -862,7 +864,7 @@ import Layout from '../layouts/Layout.astro';
     /* Header más compacto */
     .ficha-header {
       padding: 1.5rem 1.1rem;
-      border-radius: 10px;
+      border-radius: 0;
     }
     .ficha-header h1 {
       font-size: 1.25rem;
@@ -892,7 +894,7 @@ import Layout from '../layouts/Layout.astro';
 
     .ficha-section {
       padding: 1.25rem 1rem;
-      border-radius: 10px;
+      border-radius: 0;
       gap: 1rem;
     }
 
@@ -929,14 +931,14 @@ import Layout from '../layouts/Layout.astro';
     .check {
       min-height: 44px;
       padding: 0.5rem 0.6rem;
-      border-radius: 6px;
+      border-radius: 0;
       align-items: center;
       background: var(--bg);
       border: 1px solid transparent;
       transition: border-color 0.12s, background 0.12s;
     }
     .check:has(input:checked) {
-      background: rgba(184,152,106,0.12);
+      background: rgba(216,200,184,0.12);
       border-color: var(--gold);
     }
     .check input[type="checkbox"] {
@@ -1001,7 +1003,7 @@ import Layout from '../layouts/Layout.astro';
   .empleo-row {
     background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 0;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -1071,7 +1073,7 @@ import Layout from '../layouts/Layout.astro';
     font-family: var(--font-sans);
     height: 34px;
     padding: 0 0.85rem;
-    border-radius: 6px;
+    border-radius: 0;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;

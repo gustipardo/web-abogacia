@@ -26,13 +26,13 @@ const {
 } = Astro.props;
 
 const formattedDate = new Intl.DateTimeFormat('es-AR', {
-  day: 'numeric', month: 'long', year: 'numeric',
+  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
 }).format(publishDate);
 
 const effectiveDateModified = dateModified ?? publishDate;
 const showUpdated = effectiveDateModified.getTime() !== publishDate.getTime();
 const formattedUpdated = showUpdated
-  ? new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', year: 'numeric' }).format(effectiveDateModified)
+  ? new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(effectiveDateModified)
   : null;
 
 const siteUrl = Astro.site ?? new URL('https://www.estudioghetti.com');
@@ -152,7 +152,7 @@ const noindex = status !== 'published';
         </div>
 
         <footer class="article-footer">
-          <p>¿Tiene una consulta sobre su situación particular?</p>
+          <p>¿Tenés una consulta sobre tu situación particular?</p>
           <a href="/#contacto" class="btn btn-primary">Consultar con la Dra. Ghetti</a>
         </footer>
       </div>
@@ -197,12 +197,12 @@ const noindex = status !== 'published';
   }
 
   .article-draft-banner {
-    background: rgba(184, 152, 106, 0.12);
+    background: rgba(216, 200, 184, 0.12);
     border-left: 3px solid var(--gold);
     padding: 0.85rem 1rem;
     font-size: 0.88rem;
     color: var(--text);
-    border-radius: 4px;
+    border-radius: 0;
     margin-bottom: 2rem;
   }
 
@@ -218,10 +218,10 @@ const noindex = status !== 'published';
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    background: rgba(184, 152, 106, 0.15);
+    background: rgba(216, 200, 184, 0.15);
     color: var(--gold);
     padding: 0.25rem 0.6rem;
-    border-radius: 4px;
+    border-radius: 0;
     margin-bottom: 1rem;
   }
 

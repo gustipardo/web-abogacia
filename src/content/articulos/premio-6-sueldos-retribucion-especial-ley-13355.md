@@ -4,7 +4,7 @@ description: "Qué es la Retribución Especial de la Ley 13.355, conocida como e
 question: "¿Qué es el premio de los 6 sueldos y quién puede cobrarlo?"
 shortAnswer: "La Retribución Especial de la Ley 13.355 — conocida como el premio de los 6 sueldos — es un beneficio económico al cese para docentes del IPS. Se cobra solo si se cumplen tres condiciones: tener al menos 25 años de servicios en la Provincia, ser titular en el cargo al cese y no tener sumarios administrativos pendientes."
 tag: "Jubilación Docente"
-publishDate: 2026-04-29
+publishDate: 2025-03-29
 readingMinutes: 4
 status: pending-validation
 lang: es

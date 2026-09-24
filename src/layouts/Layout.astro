@@ -18,7 +18,7 @@ interface Props {
 
 const {
   title = "Dra. Adriana Ghetti — Jubilación Docente y Multas | Estudio Ghetti",
-  description = "Estudio jurídico argentino especializado en jubilación docente (IPS, Ley 24.016) y multas de tránsito. Más de 20 años de experiencia educativa. Consulta sin cargo.",
+  description = "Estudio jurídico argentino especializado en jubilación docente (IPS, Ley 24.016) y multas de tránsito. Más de 20 años de experiencia educativa. Atención personalizada en Pilar y por videollamada.",
   ogType = 'website',
   ogImage = '/og-default.png',
   noindex = false,
@@ -37,7 +37,7 @@ const ogImageUrl = new URL(ogImage, siteUrl).href;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
-    <meta name="theme-color" content="#1B2A4A" />
+    <meta name="theme-color" content="#511725" />
 
     <link rel="canonical" href={canonicalUrl} />
     {alternateLanguages.map((alt) => (
@@ -63,7 +63,6 @@ const ogImageUrl = new URL(ogImage, siteUrl).href;
     <meta name="twitter:image" content={ogImageUrl} />
 
     <title>{title}</title>
-    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 

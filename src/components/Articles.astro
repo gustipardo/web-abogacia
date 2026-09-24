@@ -10,7 +10,7 @@ const articles = all
     tag: a.data.tag,
     title: a.data.question,
     excerpt: a.data.shortAnswer,
-    date: new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric' }).format(a.data.publishDate),
+    date: new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(a.data.publishDate),
     mins: `${a.data.readingMinutes} min`,
   }));
 ---
@@ -22,11 +22,11 @@ const articles = all
         <p class="section-label">Artículos e información</p>
         <h2 class="section-title">Lo que conviene saber antes de actuar</h2>
         <p class="section-subtitle">
-          Información clara y actualizada sobre jubilación docente y multas de tránsito en Argentina. Material para entender su caso antes de iniciar cualquier trámite.
+          Información clara y actualizada sobre jubilación docente y multas de tránsito en Argentina. Material para entender tu caso antes de iniciar cualquier trámite.
         </p>
       </div>
-      <a href="#contacto" class="btn btn-navy articles-cta-desktop">
-        ¿Tiene una consulta? →
+      <a href="/articulos/" class="text-link articles-cta-desktop">
+        Ver todos los artículos →
       </a>
     </div>
 
@@ -50,8 +50,7 @@ const articles = all
     </div>
 
     <div class="articles-footer">
-      <p>¿Tiene dudas sobre su situación particular?</p>
-      <a href="#contacto" class="btn btn-primary">Consultar con la Dra. Ghetti</a>
+      <a href="/articulos/" class="text-link">Explorá la biblioteca de artículos →</a>
     </div>
   </div>
 </section>
@@ -94,10 +93,10 @@ const articles = all
   .article-card--wide .article-meta { grid-column: 2; }
   .article-card--wide .article-title { grid-column: 2; color: var(--white); }
   .article-card--wide .article-excerpt { grid-column: 2; color: rgba(255,255,255,0.75); }
-  .article-card--wide .article-link { grid-column: 2; color: var(--gold); }
+  .article-card--wide .article-link { grid-column: 2; color: var(--arena); }
 
   .article-card--wide::before {
-    content: "📌";
+    content: "01"; font-family: Georgia, serif; color: var(--arena);
     font-size: 3rem;
     grid-row: 1 / 5;
     grid-column: 1;
@@ -110,7 +109,7 @@ const articles = all
   .article-card {
     background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 1.75rem;
     display: flex;
     flex-direction: column;
@@ -135,14 +134,15 @@ const articles = all
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    background: rgba(184,152,106,0.15);
+    background: rgba(216,200,184,0.15);
     color: var(--gold);
     padding: 0.2rem 0.6rem;
-    border-radius: 4px;
+    border-radius: 0;
   }
 
   .article-card--wide .article-tag {
-    background: rgba(184,152,106,0.25);
+    color: var(--marfil);
+    background: rgba(216,200,184,0.25);
   }
 
   .article-date {

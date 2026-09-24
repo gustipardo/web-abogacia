@@ -1,201 +1,43 @@
 ---
-const nav = [
-  { label: "Servicios", href: "/#servicios" },
-  { label: "Jubilación docente", href: "/#jubilacion" },
-  { label: "Multas", href: "/#multas" },
-  { label: "Artículos", href: "/articulos/" },
-  { label: "Sobre mí", href: "/#sobre-mi" },
-  { label: "Contacto", href: "/#contacto" },
-];
+import { services } from '../data/services';
 ---
-
-<header class="header" id="header">
-  <div class="container header-inner">
-    <a href="#inicio" class="logo">
-      <img src="/logo.png" alt="Estudio Ghetti" class="logo-img" width="42" height="42" />
-      <div class="logo-text">
-        <strong>Dra. Adriana Ghetti</strong>
-        <span>Abogada · CASI</span>
-      </div>
-    </a>
-
-    <nav class="nav" aria-label="Navegación principal">
-      {nav.map((item) => (
-        <a href={item.href} class="nav-link">{item.label}</a>
-      ))}
-    </nav>
-
-    <a href="https://wa.me/5491169380777?text=Hola%20Dra.%20Ghetti%2C%20quer%C3%ADa%20hacerle%20una%20consulta."
-       class="btn btn-whatsapp header-cta"
-       target="_blank" rel="noopener">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.12 1.527 5.855L.057 23.5l5.83-1.527A11.938 11.938 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.373l-.36-.214-3.724.977.994-3.63-.235-.373A9.818 9.818 0 1112 21.818z"/>
-      </svg>
-      Consulta gratis
-    </a>
-
-    <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-controls="mobile-nav" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-
-  <!-- Mobile nav -->
-  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
-    {nav.map((item) => (
-      <a href={item.href} class="mobile-nav-link">{item.label}</a>
-    ))}
-    <a href="https://wa.me/5491169380777?text=Hola%20Dra.%20Ghetti%2C%20quer%C3%ADa%20hacerle%20una%20consulta."
-       class="btn btn-whatsapp" style="margin-top:1rem;justify-content:center;"
-       target="_blank" rel="noopener">
-      Consulta por WhatsApp
-    </a>
-  </div>
-</header>
-
+<header class="header"><div class="container header-inner">
+ <a href="/#inicio" class="brand" aria-label="Estudio Ghetti · Inicio"><span class="brand-mark"><img src="/logo.png" alt="" width="138" height="138" /></span><span class="wordmark">ESTUDIO GHETTI<small>ESTUDIO JURÍDICO</small></span></a>
+ <button class="menu-toggle" aria-controls="main-nav" aria-expanded="false">Menú</button>
+ <nav id="main-nav" class="nav" aria-label="Navegación principal">
+  <details class="services-menu"><summary>Servicios <span aria-hidden="true">⌄</span></summary><ul class="services-dropdown">{services.map(s => <li><a href={'/#'+s.id}>{s.title}</a></li>)}</ul></details>
+  <a href="/articulos/">Artículos</a><a href="/#sobre-mi">El estudio</a><a href="/#contacto">Contacto</a>
+  <a href="https://wa.me/5491169380777" target="_blank" rel="noopener" class="btn btn-primary">Consultá por WhatsApp <span aria-hidden="true">↗</span></a>
+ </nav>
+</div></header>
 <style>
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    box-shadow: 0 2px 12px rgba(27,42,74,0.07);
-  }
-
-  .header-inner {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    height: 72px;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-shrink: 0;
-  }
-
-  .logo-img {
-    width: 42px;
-    height: 42px;
-    object-fit: contain;
-    flex-shrink: 0;
-  }
-
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
-  }
-
-  .logo-text strong {
-    font-size: 0.9rem;
-    color: var(--navy);
-  }
-
-  .logo-text span {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-  }
-
-  .nav {
-    display: flex;
-    gap: 0.25rem;
-    margin-left: auto;
-  }
-
-  .nav-link {
-    padding: 0.4rem 0.75rem;
-    font-size: 0.9rem;
-    color: var(--text);
-    border-radius: 6px;
-    transition: color 0.15s, background 0.15s;
-    font-weight: 500;
-  }
-
-  .nav-link:hover {
-    color: var(--navy);
-    background: var(--bg);
-  }
-
-  .header-cta {
-    flex-shrink: 0;
-    font-size: 0.85rem;
-    padding: 0.6rem 1.2rem;
-  }
-
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.65rem;
-    margin-left: auto;
-    min-width: 44px;
-    min-height: 44px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--navy);
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
-
-  .mobile-nav {
-    display: none;
-    flex-direction: column;
-    padding: 1rem 1.5rem 1.5rem;
-    border-top: 1px solid var(--border);
-    background: var(--white);
-  }
-
-  .mobile-nav-link {
-    padding: 0.85rem 0;
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--text);
-    border-bottom: 1px solid var(--border);
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-  }
-
-  @media (max-width: 900px) {
-    .nav, .header-cta { display: none; }
-    .hamburger { display: flex; }
-    .mobile-nav.open { display: flex; }
-  }
-
-  @media (max-width: 420px) {
-    .logo-text strong { font-size: 0.82rem; }
-    .logo-text span { font-size: 0.66rem; }
-    .logo-img { width: 38px; height: 38px; }
-  }
+.header{position:sticky;top:0;z-index:100;background:var(--marfil);border-bottom:1px solid var(--arena)}
+.header-inner{min-height:100px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:16px;flex-shrink:0}.brand-mark{width:61px;height:58px;overflow:hidden;position:relative}
+.brand-mark img{position:absolute;width:138px;max-width:none;height:auto;left:-38px;top:-28px}
+.wordmark{font:22px Georgia,serif;letter-spacing:1px}.wordmark small{display:block;font:9px Arial,sans-serif;letter-spacing:2.5px;margin-top:7px}
+.nav{display:flex;align-items:center;gap:25px;font-size:13px}.nav>a:not(.btn),summary{padding:12px 0}.nav a:hover{text-decoration:underline;text-underline-offset:5px}
+.services-menu{position:relative}summary{cursor:pointer;list-style:none;display:flex;gap:10px;align-items:center}summary::-webkit-details-marker{display:none}
+.services-dropdown{position:absolute;top:100%;left:-20px;min-width:235px;list-style:none;background:var(--marfil);border:1px solid var(--arena);padding:10px 0}
+.services-dropdown a{display:block;padding:12px 20px}.services-dropdown a:hover{background:var(--arena)}
+.menu-toggle{display:none;padding:10px 14px;border:1px solid var(--arena);color:var(--bordo);background:transparent;cursor:pointer}
+@media(max-width:1100px){
+ .header-inner{min-height:84px}.menu-toggle{display:block}
+ .nav{display:none;position:absolute;top:100%;left:0;right:0;padding:20px 6% 28px;background:var(--marfil);border-bottom:1px solid var(--arena);max-height:calc(100dvh - 84px);overflow-y:auto}
+ .nav.open{display:flex;flex-direction:column;align-items:stretch;gap:8px}.services-dropdown{position:static;border:0;border-left:1px solid var(--arena);margin:6px 0 12px}
+ .brand{gap:10px}.wordmark{font-size:18px}.brand-mark{width:47px;height:47px}.brand-mark img{width:110px;left:-30px;top:-22px}
+}
+@media(max-width:360px){.wordmark{font-size:15px}.wordmark small{font-size:8px}.header-inner{gap:10px}}
 </style>
-
 <script>
-  const btn = document.getElementById('hamburger')!;
-  const nav = document.getElementById('mobile-nav')!;
-  btn.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    btn.setAttribute('aria-expanded', String(open));
-    btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-    nav.setAttribute('aria-hidden', String(!open));
-  });
-  // close on link click
-  nav.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      nav.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-    });
-  });
+const button=document.querySelector<HTMLButtonElement>('.menu-toggle')!;
+const nav=document.querySelector<HTMLElement>('#main-nav')!;
+const services=document.querySelector<HTMLDetailsElement>('.services-menu')!;
+function closeMenu(){nav.classList.remove('open');button.setAttribute('aria-expanded','false');button.textContent='Menú';services.open=false}
+button.addEventListener('click',()=>{const open=nav.classList.toggle('open');button.setAttribute('aria-expanded',String(open));button.textContent=open?'Cerrar':'Menú';if(!open)services.open=false});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(services.open){services.open=false;services.querySelector('summary')?.focus()}else if(nav.classList.contains('open')){closeMenu();button.focus()}});
+document.addEventListener('click',e=>{if(e.target instanceof Node&&!document.querySelector('.header')?.contains(e.target))closeMenu()});
+services.addEventListener('focusout',e=>{if(!services.contains(e.relatedTarget as Node|null))services.open=false});
+window.matchMedia('(max-width:1100px)').addEventListener('change',closeMenu);
 </script>

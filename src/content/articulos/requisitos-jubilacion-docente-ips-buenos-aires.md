@@ -4,7 +4,7 @@ description: "Edad mínima y años de servicio que pide el régimen docente del 
 question: "¿Qué edad y cuántos años de servicio necesito para jubilarme como docente en el IPS de Buenos Aires?"
 shortAnswer: "El régimen docente del IPS exige 50 años de edad y 25 años de servicio para docentes frente a alumnos. Para tareas administrativas o cargos técnicos sin alumnos los requisitos suben a 55 años de edad y 30 años de servicio."
 tag: "Jubilación Docente"
-publishDate: 2026-05-03
+publishDate: 2026-08-03
 readingMinutes: 4
 status: pending-validation
 lang: es

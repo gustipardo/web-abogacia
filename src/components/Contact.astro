@@ -1,4 +1,5 @@
 ---
+import { consultationAreas } from '../data/services';
 ---
 
 <section class="section contact" id="contacto">
@@ -6,72 +7,25 @@
 
     <div class="contact-info">
       <p class="section-label">Contacto</p>
-      <h2 class="section-title">Hablemos de su caso</h2>
+      <h2 class="section-title">El primer paso es conversar.</h2>
       <p class="contact-desc">
-        La primera consulta es sin costo. Cuénteme su situación y le explico qué opciones tiene, sin compromiso.
+        Contame qué te preocupa. Podemos empezar por ordenar tus dudas y entender tu situación.
       </p>
 
       <div class="contact-channels">
-        <a href="https://wa.me/5491169380777?text=Hola%20Dra.%20Ghetti%2C%20quer%C3%ADa%20hacerle%20una%20consulta."
-           class="channel" target="_blank" rel="noopener">
-          <div class="channel-icon channel-icon--green">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.12 1.527 5.855L.057 23.5l5.83-1.527A11.938 11.938 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.373l-.36-.214-3.724.977.994-3.63-.235-.373A9.818 9.818 0 1112 21.818z"/>
-            </svg>
-          </div>
-          <div>
-            <strong>WhatsApp</strong>
-            <span>+54 9 11 6938-0777</span>
-            <small>Respondo en el día</small>
-          </div>
-          <svg class="channel-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-
-        <a href="mailto:adriana@estudioghetti.com" class="channel">
-          <div class="channel-icon channel-icon--navy">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="4" width="20" height="16" rx="2"/>
-              <path d="M2 7l10 7 10-7"/>
-            </svg>
-          </div>
-          <div>
-            <strong>Email</strong>
-            <span>adriana@estudioghetti.com</span>
-            <small>Para consultas formales</small>
-          </div>
-          <svg class="channel-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-
-        <div class="channel channel--no-link">
-          <div class="channel-icon channel-icon--gold">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-          </div>
-          <div>
-            <strong>Zona de atención</strong>
-            <span>Pilar, Buenos Aires</span>
-            <small>Consultas también por videollamada</small>
-          </div>
-        </div>
-      </div>
-    </div>
-
+ <a class="btn btn-primary" href="https://wa.me/5491169380777" target="_blank" rel="noopener">Escribime por WhatsApp ↗</a>
+ <a class="text-link" href="mailto:adriana@estudioghetti.com">adriana@estudioghetti.com</a>
+ <p class="contact-location">Pilar, Buenos Aires<br />Consultas también por videollamada</p>
+ </div></div>
     <div class="contact-form-wrap">
       <form id="contact-form" class="contact-form" novalidate>
-        <h3 class="form-title">Envíe su consulta</h3>
-        <p class="form-subtitle">Le respondo en menos de 24 horas hábiles. <span class="required-note">Los campos con * son obligatorios.</span></p>
+        <h3 class="form-title">Dejame tu consulta</h3>
+        <p class="form-subtitle">Completá el formulario para que pueda contactarte. <span class="required-note">Los campos con * son obligatorios.</span></p>
 
         <div class="form-row">
           <label class="field">
             <span>Nombre completo *</span>
-            <input type="text" name="nombre" placeholder="Ej: María González" required />
+            <input type="text" autocomplete="name" name="nombre" placeholder="Ej: María González" required />
           </label>
           <label class="field">
             <span>Teléfono <em class="field-optional">(opcional)</em></span>
@@ -85,26 +39,20 @@
 
         <label class="field">
           <span>Email *</span>
-          <input type="email" name="email" placeholder="su@email.com" required />
+          <input type="email" autocomplete="email" name="email" placeholder="tu@email.com" required />
         </label>
 
         <label class="field">
           <span>Área de consulta <em class="field-optional">(opcional)</em></span>
           <select name="area">
-            <option value="">Seleccione una opción...</option>
-            <option value="jubilacion-docente">Jubilación Docente</option>
-            <option value="previsional">Derecho Previsional</option>
-            <option value="reajuste">Reajuste de haberes</option>
-            <option value="pension">Pensión por fallecimiento</option>
-            <option value="civil">Derecho Civil</option>
-            <option value="multas">Multas de tránsito</option>
-            <option value="otro">Otro</option>
+            <option value="">Elegí el motivo de tu consulta</option>
+ {consultationAreas.map(area => <option value={area.value}>{area.label}</option>)}
           </select>
         </label>
 
         <label class="field">
-          <span>Su consulta *</span>
-          <textarea name="mensaje" rows="5" placeholder="Cuénteme su situación brevemente..." required></textarea>
+          <span>Tu consulta *</span>
+          <textarea name="mensaje" rows="5" placeholder="Contame brevemente qué necesitás..." required></textarea>
         </label>
 
         <div id="form-error" class="form-error" hidden role="alert"></div>
@@ -114,18 +62,18 @@
         </button>
 
         <p class="form-note">
-          Sus datos son confidenciales y se utilizan únicamente para responder su consulta.
+          Tus datos se utilizan únicamente para responder tu consulta.
         </p>
       </form>
 
-      <div id="form-success" class="form-success" hidden>
+      <div id="form-success" class="form-success" role="status" tabindex="-1" hidden>
         <div class="success-check" aria-hidden="true">
           <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
         <h3>Mensaje enviado</h3>
-        <p>Recibimos tu consulta. Te respondemos a tu email en menos de 24 horas hábiles.</p>
+        <p>Recibí tu consulta. Voy a contactarte por email para conversar sobre los próximos pasos.</p>
         <button id="form-reset" type="button" class="btn btn-navy success-reset-btn">Enviar otra consulta</button>
       </div>
     </div>
@@ -158,73 +106,11 @@
     gap: 1rem;
   }
 
-  .channel {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.1rem 1.25rem;
-    transition: box-shadow 0.2s, transform 0.2s;
-    text-decoration: none;
-    color: var(--text);
-  }
-
-  a.channel:hover {
-    box-shadow: var(--shadow);
-    transform: translateY(-1px);
-  }
-
-  .channel > div:not(.channel-icon) {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    line-height: 1.3;
-  }
-
-  .channel strong {
-    font-size: 0.9rem;
-    color: var(--navy);
-  }
-
-  .channel span {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-  }
-
-  .channel small {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    opacity: 0.75;
-  }
-
-  .channel-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--white);
-  }
-
-  .channel-icon--green { background: #25D366; }
-  .channel-icon--navy { background: var(--navy); }
-  .channel-icon--gold { background: var(--gold); }
-
-  .channel-arrow {
-    color: var(--text-muted);
-    opacity: 0.4;
-    flex-shrink: 0;
-  }
-
   /* Form */
   .contact-form-wrap {
     background: var(--white);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 2.25rem;
     box-shadow: var(--shadow);
   }
@@ -259,7 +145,7 @@
     gap: 0.4rem;
   }
 
-  .field span {
+  .field > span {
     font-size: 0.82rem;
     font-weight: 600;
     color: var(--navy);
@@ -291,7 +177,7 @@
     font-family: var(--font-sans);
     font-size: 0.92rem;
     border: 1.5px solid var(--border);
-    border-radius: 7px;
+    border-radius: 0;
     padding: 0.7rem 0.9rem;
     color: var(--text);
     background: var(--bg);
@@ -309,7 +195,7 @@
 
   .field input::placeholder,
   .field textarea::placeholder {
-    color: #b0aab8;
+    color: #756c66;
   }
 
   /* Phone subfields */
@@ -317,7 +203,7 @@
     display: flex;
     align-items: stretch;
     border: 1.5px solid var(--border);
-    border-radius: 7px;
+    border-radius: 0;
     background: var(--bg);
     overflow: hidden;
     transition: border-color 0.15s, background 0.15s;
@@ -362,7 +248,7 @@
   }
 
   .phone-input::placeholder {
-    color: #b0aab8;
+    color: #756c66;
   }
 
   /* Inline error */
@@ -370,7 +256,7 @@
     background: #FEEFEF;
     border: 1px solid #F5C2C2;
     color: #B33939;
-    border-radius: 7px;
+    border-radius: 0;
     padding: 0.75rem 0.9rem;
     font-size: 0.85rem;
     line-height: 1.5;
@@ -479,9 +365,14 @@
       width: 56px;
     }
   }
+
+.contact{border-top:1px solid var(--arena)}.contact-channels{align-items:flex-start;gap:20px}.contact-location{font-size:13px;color:var(--text-muted)}
+.contact-form-wrap{background:transparent}.contact-grid>*,.form-row>*,.field{min-width:0}.field select{width:100%;min-height:48px}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{outline:2px solid var(--oliva);outline-offset:3px}
 </style>
 
 <script>
+ import { consultationAreas } from '../data/services';
   // La key se lee desde la variable de entorno PUBLIC_WEB3FORMS_KEY
   // (definida en .env localmente, y en el panel del host en producción).
   // Si no está seteada, el formulario muestra un error explicativo en lugar de enviar.
@@ -493,15 +384,14 @@
   const submitBtn = document.getElementById('form-submit') as HTMLButtonElement | null;
   const resetBtn = document.getElementById('form-reset') as HTMLButtonElement | null;
 
-  const areaLabels: Record<string, string> = {
-    'jubilacion-docente': 'Jubilación Docente',
-    'previsional': 'Derecho Previsional',
-    'reajuste': 'Reajuste de haberes',
-    'pension': 'Pensión por fallecimiento',
-    'civil': 'Derecho Civil',
-    'multas': 'Multas de tránsito',
-    'otro': 'Otro',
-  };
+  const areaLabels: Record<string, string> = Object.fromEntries(consultationAreas.map(area => [area.value, area.label]));
+ document.querySelectorAll<HTMLAnchorElement>('[data-consultation-area]').forEach(link => {
+  link.addEventListener('click', () => {
+   const select = form?.querySelector<HTMLSelectElement>('select[name="area"]');
+   const value = link.dataset.consultationArea;
+   if (select && value && areaLabels[value]) { select.value = value; select.dispatchEvent(new Event('change', { bubbles: true })); }
+  });
+ });
 
   function showError(msg: string) {
     if (!errorBox) return;
@@ -520,7 +410,7 @@
       }
 
       if (!WEB3FORMS_ACCESS_KEY) {
-        showError('El formulario todavía no está conectado al servicio de email. Mientras tanto, podés escribirnos a adriana@estudioghetti.com o por WhatsApp.');
+        showError('En este momento no se pudo enviar la consulta. Podés escribirme a adriana@estudioghetti.com o por WhatsApp.');
         return;
       }
 
@@ -562,6 +452,7 @@
         }
         form.hidden = true;
         success.hidden = false;
+        success.focus();
         // Track conversion in Umami if available.
         const umami = (window as unknown as { umami?: { track: (e: string, p?: Record<string, string>) => void } }).umami;
         if (umami) {
@@ -585,6 +476,7 @@
       errorBox.hidden = true;
       success.hidden = true;
       form.hidden = false;
+      form.querySelector<HTMLInputElement>('input[name="nombre"]')?.focus();
     });
   }
 </script>

@@ -4,7 +4,7 @@ description: "Cómo funciona el régimen de simultaneidad de cargos en la jubila
 question: "¿Cómo funciona la simultaneidad de cargos en la jubilación docente?"
 shortAnswer: "El segundo cargo no suma como sueldo: aporta un porcentaje adicional del 2,8% por cada año de servicios simultáneos, con un tope del 70%. Para que compute, los cargos deben haberse ejercido en forma consecutiva durante un período mínimo, sin interrupciones."
 tag: "Jubilación Docente"
-publishDate: 2026-05-01
+publishDate: 2026-01-01
 readingMinutes: 5
 status: pending-validation
 lang: es

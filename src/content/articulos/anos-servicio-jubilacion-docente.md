@@ -4,7 +4,7 @@ description: "Requisitos de antigüedad, edad mínima y cómputo de servicios pa
 question: "¿Cuántos años de servicio necesita un docente para jubilarse en Argentina?"
 shortAnswer: "El régimen nacional docente de la Ley 24.016 exige 25 años de servicios para mujeres y 30 años para varones, con al menos 10 años efectivos al frente del alumno. Las cajas provinciales pueden establecer requisitos distintos."
 tag: "Jubilación Docente"
-publishDate: 2026-04-22
+publishDate: 2023-12-22
 readingMinutes: 5
 status: pending-validation
 lang: es

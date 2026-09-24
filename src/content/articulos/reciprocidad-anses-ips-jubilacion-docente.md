@@ -4,7 +4,7 @@ description: "Cómo funciona el reconocimiento de servicios entre ANSES, IPS y o
 question: "¿Puedo sumar años de ANSES con años del IPS para jubilarme como docente?"
 shortAnswer: "Sí. El reconocimiento de servicios permite sumar años aportados en ANSES, otras provincias o el sector privado para llegar a la antigüedad requerida. La jubilación la otorga la caja donde tengas la mayor cantidad de años de aportes — la llamada caja otorgante."
 tag: "Jubilación Docente"
-publishDate: 2026-04-27
+publishDate: 2024-10-27
 readingMinutes: 5
 status: pending-validation
 lang: es
