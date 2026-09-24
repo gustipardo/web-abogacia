@@ -22,9 +22,9 @@
   .services-menu summary > span { transition: transform .25s ease; }
   .services-menu[open] summary > span { transform: rotate(180deg); }
   .services-menu[open] .services-dropdown, .nav.open {
-    animation: menu-enter .22s ease-out;
+    animation: menu-enter .4s ease-out;
   }
-  .questions details[open] > p { animation: answer-enter .25s ease-out; }
+  .questions details[open] > p { animation: answer-enter .4s ease-out; }
   @media (hover: hover) and (pointer: fine) {
     .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 14px rgb(81 23 37 / .1); }
     .btn:hover > span[aria-hidden="true"] { transform: translate(2px,-2px); }
@@ -35,11 +35,11 @@
   }
 }
 @keyframes menu-enter {
-  from { opacity: .5; transform: translateY(-5px); }
+  from { opacity: 0; transform: translateY(-8px); }
   to { opacity: 1; transform: none; }
 }
 @keyframes answer-enter {
-  from { opacity: .5; transform: translateY(-3px); }
+  from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: none; }
 }
 @media print {

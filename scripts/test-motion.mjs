@@ -10,15 +10,24 @@ try {
   page.on('pageerror', e => errors.push(e.message));
   await page.evaluateOnNewDocument(() => {
     window.motionCalls = 0;
+    window.heroMotion = [];
     const original = Element.prototype.animate;
     Element.prototype.animate = function(...args) {
       window.motionCalls++;
+      if(this.matches('.hero-grid h1, .hero-grid .actions')){
+        window.heroMotion.push({tag:this.tagName,from:args[0][0].opacity,duration:args[1].duration,delay:args[1].delay});
+      }
       return original.apply(this, args);
     };
   });
   await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'no-preference'}]);
   await page.goto(base, {waitUntil:'networkidle0'});
   assert.ok(await page.evaluate(() => window.motionCalls > 0), 'Entrance animation runs');
+  const heroMotion = await page.evaluate(() => window.heroMotion);
+  assert.equal(heroMotion.length, 2);
+  assert.ok(heroMotion.every(effect => effect.from === 0 && effect.duration >= 1000), 'Hero fades fully in at a visible pace');
+  assert.ok(heroMotion[1].delay > heroMotion[0].delay, 'Actions follow the heading');
+
   await page.evaluate(() => document.getElementById('servicios').scrollIntoView());
   await page.waitForFunction(() => document.getAnimations().some(a => a.playState === 'running'));
   await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}]);
@@ -38,6 +47,9 @@ try {
     assert.equal(await page.$eval('select[name="area"]',e=>e.value),'sucesiones');
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
   }
+  await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'no-preference'}]);
+  await page.goto(base + '/#contacto', {waitUntil:'networkidle0'});
+  assert.equal(await page.$eval('.contact-grid',e=>getComputedStyle(e.children[0]).opacity), '1');
   await page.setJavaScriptEnabled(false);
   await page.goto(base, {waitUntil:'networkidle0'});
   const visible = await page.$$eval('.hero-grid > *, .service, .contact-grid > *', els =>

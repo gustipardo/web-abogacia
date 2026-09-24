@@ -1,60 +1,104 @@
 <script>
-  // Progressive enhancement: content is visible even without JavaScript.
+  // Content is visible by default. Only a supported, running script prepares fades.
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const active = new Set<Animation>();
+  const animations = new Map<HTMLElement, Animation>();
   const seen = new WeakSet<Element>();
-  const selectors = [
-    '.hero-grid > *', '.section-head', '.services > .service',
-    '.feature-grid > *', '.multas-grid > *', '.civil-grid > *',
-    '.about-grid > *', '.articles-header', '.articles-grid > *',
-    '.questions-grid > *', '.contact-grid > *',
-    '.articulos-hero .container', '.tag-group-title', '.articulo-card',
-  ];
-  const elements = [...document.querySelectorAll<HTMLElement>(selectors.join(','))];
+  const hero = [...document.querySelectorAll<HTMLElement>('.hero-grid > div > *, .hero-grid > .portrait')];
+  const sections = [...document.querySelectorAll<HTMLElement>([
+    '.section-head', '.services > .service', '.feature-grid > *',
+    '.multas-grid > *', '.civil-grid > *', '.about-grid > *',
+    '.articles-header', '.articles-grid > *', '.questions-grid > *',
+    '.contact-grid > *', '.articulos-hero .container',
+    '.tag-group-title', '.articulo-card',
+  ].join(','))];
   let observer: IntersectionObserver | undefined;
 
-  function reveal(element: HTMLElement) {
-    if (seen.has(element)) return;
-    seen.add(element);
-    observer?.unobserve(element);
-    // Never animate content already scrolled past, focused, or targeted by an anchor.
-    const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
-    if (preference.matches || element.getBoundingClientRect().top < 0 ||
-        element.contains(document.activeElement) ||
-        (target && (element.contains(target) || target.contains(element)))) return;
-    const animation = element.animate(
-      [{ opacity: 0.35, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }],
-      { duration: 620, easing: 'cubic-bezier(.22,1,.36,1)' },
-    );
-    active.add(animation);
-    const clean = () => active.delete(animation);
-    animation.addEventListener('finish', clean, { once: true });
-    animation.addEventListener('cancel', clean, { once: true });
+  function anchorTarget() {
+    return location.hash ? document.getElementById(location.hash.slice(1)) : null;
+  }
+
+  function expose(target: Element | null) {
+    if (!target) return;
+    animations.forEach((animation, element) => {
+      if (element.contains(target) || target.contains(element)) {
+        seen.add(element);
+        observer?.unobserve(element);
+        animation.cancel();
+        animations.delete(element);
+      }
+    });
   }
 
   function cancelAll() {
-    active.forEach(animation => animation.cancel());
-    active.clear();
+    observer?.disconnect();
+    animations.forEach(animation => animation.cancel());
+    animations.clear();
+  }
+
+  function prepare(element: HTMLElement, delay: number, isHero = false) {
+    if (seen.has(element)) return;
+    const rect = element.getBoundingClientRect();
+    const target = anchorTarget();
+    if (rect.top < 0 || element.contains(document.activeElement) ||
+        (target && (element.contains(target) || target.contains(element)))) {
+      seen.add(element);
+      return;
+    }
+    const animation = element.animate([
+      { opacity: 0, transform: 'translateY(26px)' },
+      { opacity: 1, transform: 'translateY(0)' },
+    ], {
+      duration: isHero ? 1400 : 1100,
+      delay,
+      easing: 'cubic-bezier(.22,.61,.36,1)',
+      fill: 'both',
+    });
+    animations.set(element, animation);
+    // Remove the finished effect so hover states and ordinary layout remain native.
+    animation.addEventListener('finish', () => {
+      animations.delete(element);
+      animation.cancel();
+    }, { once: true });
+    if (isHero && rect.top < window.innerHeight) {
+      seen.add(element);
+    } else {
+      animation.pause();
+      animation.currentTime = 0;
+      observer?.observe(element);
+    }
   }
 
   function observe() {
-    observer?.disconnect();
     cancelAll();
     if (preference.matches || !('IntersectionObserver' in window) ||
         !('animate' in Element.prototype)) return;
     observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) reveal(entry.target as HTMLElement);
+        if (!entry.isIntersecting) return;
+        const element = entry.target as HTMLElement;
+        observer?.unobserve(element);
+        seen.add(element);
+        animations.get(element)?.play();
       });
-    }, { threshold: 0.06, rootMargin: '0px 0px -12px 0px' });
-    elements.forEach(element => { if (!seen.has(element)) observer?.observe(element); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+    try {
+      // First the heading, then the supporting text, actions and restrained portrait.
+      hero.forEach((element, index) => prepare(element, Math.min(index * 160, 640), true));
+      sections.forEach(element => {
+        const siblings = [...(element.parentElement?.children ?? [])];
+        prepare(element, Math.min(siblings.indexOf(element), 3) * 130);
+      });
+    } catch {
+      // A browser limitation must never leave text or controls hidden.
+      cancelAll();
+    }
   }
 
   preference.addEventListener('change', observe);
-  // Keyboard navigation and anchor jumps always take priority over animation.
-  document.addEventListener('focusin', cancelAll);
-  window.addEventListener('hashchange', cancelAll);
-  window.addEventListener('pagehide', () => { observer?.disconnect(); cancelAll(); });
+  document.addEventListener('focusin', event => expose(event.target as Element));
+  window.addEventListener('hashchange', () => expose(anchorTarget()));
+  window.addEventListener('beforeprint', cancelAll);
+  window.addEventListener('pagehide', cancelAll);
   window.addEventListener('pageshow', event => { if (event.persisted) observe(); });
   observe();
 </script>
