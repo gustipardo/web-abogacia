@@ -1,6 +1,8 @@
 ---
 import Analytics from '../components/Analytics.astro';
 import '../styles/global.css';
+import '../styles/motion.css';
+import Motion from '../components/Motion.astro';
 
 interface AlternateLanguage {
   lang: string;
@@ -74,5 +76,6 @@ const ogImageUrl = new URL(ogImage, siteUrl).href;
   <body>
     <a class="skip-link" href="#main">Saltar al contenido</a>
     <slot />
+    <Motion />
   </body>
 </html>

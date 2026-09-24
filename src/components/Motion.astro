@@ -1,0 +1,60 @@
+<script>
+  // Progressive enhancement: content is visible even without JavaScript.
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const active = new Set<Animation>();
+  const seen = new WeakSet<Element>();
+  const selectors = [
+    '.hero-grid > *', '.section-head', '.services > .service',
+    '.feature-grid > *', '.multas-grid > *', '.civil-grid > *',
+    '.about-grid > *', '.articles-header', '.articles-grid > *',
+    '.questions-grid > *', '.contact-grid > *',
+    '.articulos-hero .container', '.tag-group-title', '.articulo-card',
+  ];
+  const elements = [...document.querySelectorAll<HTMLElement>(selectors.join(','))];
+  let observer: IntersectionObserver | undefined;
+
+  function reveal(element: HTMLElement) {
+    if (seen.has(element)) return;
+    seen.add(element);
+    observer?.unobserve(element);
+    // Never animate content already scrolled past, focused, or targeted by an anchor.
+    const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
+    if (preference.matches || element.getBoundingClientRect().top < 0 ||
+        element.contains(document.activeElement) ||
+        (target && (element.contains(target) || target.contains(element)))) return;
+    const animation = element.animate(
+      [{ opacity: 0.35, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }],
+      { duration: 620, easing: 'cubic-bezier(.22,1,.36,1)' },
+    );
+    active.add(animation);
+    const clean = () => active.delete(animation);
+    animation.addEventListener('finish', clean, { once: true });
+    animation.addEventListener('cancel', clean, { once: true });
+  }
+
+  function cancelAll() {
+    active.forEach(animation => animation.cancel());
+    active.clear();
+  }
+
+  function observe() {
+    observer?.disconnect();
+    cancelAll();
+    if (preference.matches || !('IntersectionObserver' in window) ||
+        !('animate' in Element.prototype)) return;
+    observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) reveal(entry.target as HTMLElement);
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -12px 0px' });
+    elements.forEach(element => { if (!seen.has(element)) observer?.observe(element); });
+  }
+
+  preference.addEventListener('change', observe);
+  // Keyboard navigation and anchor jumps always take priority over animation.
+  document.addEventListener('focusin', cancelAll);
+  window.addEventListener('hashchange', cancelAll);
+  window.addEventListener('pagehide', () => { observer?.disconnect(); cancelAll(); });
+  window.addEventListener('pageshow', event => { if (event.persisted) observe(); });
+  observe();
+</script>

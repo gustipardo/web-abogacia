@@ -1,0 +1,47 @@
+/* Subtle movement only when the visitor has not requested reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .btn {
+    transition: background .25s ease, box-shadow .25s ease, transform .25s ease;
+  }
+  .btn > span[aria-hidden="true"] { transition: transform .25s ease; }
+  .text-link {
+    text-underline-offset: 6px;
+    transition: color .25s ease, border-color .25s ease;
+  }
+  .services .service { transition: background .3s ease; }
+  .services .service .arrow { transition: transform .3s ease; }
+  .nav > a:not(.btn) { position: relative; }
+  .nav > a:not(.btn)::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 7px;
+    height: 1px; background: currentColor; transform: scaleX(0);
+    transform-origin: left; transition: transform .25s ease;
+  }
+  .nav > a:not(.btn):hover::after,
+  .nav > a:not(.btn):focus-visible::after { transform: scaleX(1); }
+  .nav > a:not(.btn):hover { text-decoration: none; }
+  .services-menu summary > span { transition: transform .25s ease; }
+  .services-menu[open] summary > span { transform: rotate(180deg); }
+  .services-menu[open] .services-dropdown, .nav.open {
+    animation: menu-enter .22s ease-out;
+  }
+  .questions details[open] > p { animation: answer-enter .25s ease-out; }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 14px rgb(81 23 37 / .1); }
+    .btn:hover > span[aria-hidden="true"] { transform: translate(2px,-2px); }
+    .btn:active { transform: translateY(0); }
+    .services .service:hover { background: rgb(216 200 184 / .14); }
+    .services .service:hover .arrow { transform: translate(4px,-3px); }
+    .text-link:hover { color: var(--navy-light); border-color: var(--arena); }
+  }
+}
+@keyframes menu-enter {
+  from { opacity: .5; transform: translateY(-5px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes answer-enter {
+  from { opacity: .5; transform: translateY(-3px); }
+  to { opacity: 1; transform: none; }
+}
+@media print {
+  *,*::before,*::after { animation: none !important; transition: none !important; }
+}
