@@ -53,9 +53,9 @@
       { opacity: 0, transform: 'translateY(26px)' },
       { opacity: 1, transform: 'translateY(0)' },
     ], {
-      duration: reduced ? 900 : isHero ? 1400 : 1100,
-      delay: reduced ? Math.min(delay, 160) : delay,
-      easing: 'cubic-bezier(.22,.61,.36,1)',
+      duration: isHero ? 2400 : reduced ? 900 : 1100,
+      delay: reduced && !isHero ? Math.min(delay, 160) : delay,
+      easing: isHero ? 'cubic-bezier(.4,0,.2,1)' : 'cubic-bezier(.22,.61,.36,1)',
       fill: 'both',
     });
     animations.set(element, animation);
@@ -88,7 +88,7 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
     try {
       // First the heading, then the supporting text, actions and restrained portrait.
-      hero.forEach((element, index) => prepare(element, Math.min(index * 160, 640), true));
+      hero.forEach((element, index) => prepare(element, Math.min(index * 220, 880), true));
       sections.forEach(element => {
         const siblings = [...(element.parentElement?.children ?? [])];
         prepare(element, Math.min(siblings.indexOf(element), 3) * 130);
